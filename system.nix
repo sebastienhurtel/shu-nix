@@ -1,20 +1,4 @@
 { config, pkgs, ... }: {
-  imports = [ ./hardware-configuration.nix ];
-
-  boot = {
-    loader = {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-    };
-    initrd = {
-      luks.devices.luksroot = {
-        device = "/dev/disk/by-uuid/0fda6833-de3d-43e7-9861-ae1ba067a14d";
-        preLVM = true;
-      };
-      kernelModules = [ "amdgpu" ];
-    };
-  };
-
   networking.hostName = "vmarcus";
   time.timeZone = "Europe/Paris";
 
