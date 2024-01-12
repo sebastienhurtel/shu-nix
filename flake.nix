@@ -8,33 +8,28 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, home-manager, ... }:
+  outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let
       lib = nixpkgs.lib;
       system = "x86_64-linux";
-      #	pkgs = nixpkgs.legacyPackages.${system};
     in {
       nixosConfigurations = {
         vmarcus = lib.nixosSystem {
           inherit system;
+          specialArgs = {
+            inherit inputs;
+          };
           modules = [
-            nixos-hardware.nixosModules.lenovo-thinkpad-t14-amd-gen3
-            ./configuration.nix
+            ./hardware-vmarcus.nix
+            ./system.nix
             home-manager.nixosModules.home-manager
             {
               home-manager = {
                 useUserPackages = true;
-                users.sebastien = import ./home.nix;
               };
             }
           ];
         };
       };
-      #		homeConfigurations = {
-      #			sebastien = home-manager.lib.homeManagerConfiguration {
-      #				inherit pkgs;
-      #				modules = [ ./home.nix ];
-      #			};
-      #		};
     };
 }
