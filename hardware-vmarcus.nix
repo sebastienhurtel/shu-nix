@@ -2,9 +2,17 @@
 
 {
   imports = [
-    inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t14-amd-gen3
-    #    "${modulesPath}/profiles/qemu-guest.nix"
+    #inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t14-amd-gen3
+    "${modulesPath}/profiles/qemu-guest.nix"
   ];
+
+  i18n.defaultLocale = "en_US.UTF-8";
+  console = {
+    earlySetup = true;
+    font = "${pkgs.terminus_font}/share/consolefonts/ter-132n.psf.gz";
+    packages = with pkgs; [ terminus_font ];
+    keyMap = "us";
+  };
 
   networking.hostName = "vmarcus";
 

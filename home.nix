@@ -1,19 +1,17 @@
 { pkgs, ... }: {
-  imports = [ ./hyprland.nix ./shell.nix ./term.nix ];
+  imports =
+    [ ./hyprland.nix ./shell/shell.nix ./shell/term.nix ./tmux/tmux.nix ];
   manual.manpages.enable = false;
   home.username = "sebastien";
   home.homeDirectory = "/home/sebastien";
   home.packages = with pkgs; [
     ansible
-    alacritty
-    emacs
     bat
-    direnv
+    emacs
     eza
     fzf
     meslo-lgs-nf
     nil
-    nix-direnv
     nnn
     tmux
     xclip
