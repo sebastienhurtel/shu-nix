@@ -1,7 +1,8 @@
 { config, pkgs, ... }: {
-  networking.hostName = "vmarcus";
+
   time.timeZone = "Europe/Paris";
 
+  home-manager.useUserPackages = true;
   users.users.sebastien = {
     isNormalUser = true;
     home = "/home/sebastien";
@@ -66,15 +67,7 @@
     tarball-ttl = 300;
   };
 
-  home-manager.useUserPackages = true;
   zramSwap.enable = true;
-
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
-    extraPackages = with pkgs; [ vaapiVdpau libvdpau-va-gl ];
-  };
 
   system.stateVersion = "23.11";
 }

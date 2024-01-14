@@ -16,16 +16,15 @@
       nixosConfigurations = {
         vmarcus = lib.nixosSystem {
           inherit system;
-          specialArgs = {
-            inherit inputs;
-          };
+          specialArgs = { inherit inputs; };
           modules = [
-            ./hardware-vmarcus.nix
             ./system.nix
+            ./hardware-vmarcus.nix
             home-manager.nixosModules.home-manager
             {
               home-manager = {
                 useUserPackages = true;
+                users.sebastien = import ./home.nix;
               };
             }
           ];

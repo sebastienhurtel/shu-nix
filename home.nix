@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-  import = [ ./hyprland.nix ./shell.nix ./term.nix ];
+  imports = [ ./hyprland.nix ./shell.nix ./term.nix ];
   manual.manpages.enable = false;
   home.username = "sebastien";
   home.homeDirectory = "/home/sebastien";
