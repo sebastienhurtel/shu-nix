@@ -1,5 +1,5 @@
 {
-  description = "Shu";
+  description = "Shu's configurations";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
@@ -8,27 +8,39 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+  outputs = inputs:
+    with inputs;
     let
-      lib = nixpkgs.lib;
-      system = "x86_64-linux";
-    in {
-      nixosConfigurations = {
-        vmarcus = lib.nixosSystem {
-          inherit system;
-          specialArgs = { inherit inputs; };
-          modules = [
-            ./system.nix
-            ./hardware-vmarcus.nix
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useUserPackages = true;
-                users.sebastien = import ./home.nix;
-              };
-            }
-          ];
+      configurationDefaults = args: {
+        home-manager = {
+          useGlobalPkgs = true;
+          useUserPackages = true;
+          extraSpecialArgs = args;
         };
+      };
+
+      #TODO Check
+      argDefaults = {
+        inherit inputs self;
+        channels = { inherit nixpkgs nixpkgs-unstable; };
+      };
+
+      mkNixosConfiguration =
+        { system ? "x86_64-linux", hostname, username, args ? { }, modules, }:
+        let specialArgs = argDefaults // { inherit hostname username; } // args;
+        in nixpkgs.lib.nixosSystem {
+          inherit system specialArgs;
+          modules = [
+            (configurationDefaults specialArgs)
+            home-manager.nixosModules.home-manager
+          ] ++ modules;
+        };
+
+    in {
+      nixosConfigurations.vmarcus = mkNixosConfiguration {
+        hostname = "vmarcus";
+        username = "sebastien";
+        modules = [ ./system.nix ./hardware-vmarcus.nix ];
       };
     };
 }
