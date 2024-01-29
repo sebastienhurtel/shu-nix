@@ -4,7 +4,7 @@
   programs.tmux = {
     enable = true;
     shell = "\${pkgs.zsh}/bin/zsh";
-    term = "screen-256color";
+    terminal = "screen-256color";
     historyLimit = 10000;
     mouse = true;
     extraConfig = ''
