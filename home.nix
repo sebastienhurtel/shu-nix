@@ -1,21 +1,10 @@
-{ pkgs, ... }: {
+{ pkgs, username, ... }: {
   imports =
     [ ./hyprland.nix ./shell/shell.nix ./shell/term.nix ./tmux/tmux.nix ];
   manual.manpages.enable = false;
-  home.username = "sebastien";
-  home.homeDirectory = "/home/sebastien";
-  home.packages = with pkgs; [
-    ansible
-    bat
-    emacs
-    eza
-    fzf
-    meslo-lgs-nf
-    nil
-    nnn
-    tmux
-    xclip
-  ];
+  home.username = username;
+  home.homeDirectory = "/home/${username}";
+  home.packages = with pkgs; [ ansible bat emacs eza fzf nil nnn xclip ];
   # required to autoload fonts from packages installed via Home Manager
   fonts.fontconfig.enable = true;
 

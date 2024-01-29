@@ -1,4 +1,5 @@
-{ config, lib, pkgs, ... }: {
+{ userSettings, ... }: {
+
   programs.alacritty = {
     enable = true;
     settings = {
@@ -6,7 +7,7 @@
 
       font = {
         size = 10.5;
-        normal = { family = "MesloLGS NF"; };
+        normal = { family = userSettings.font; };
       };
 
       window = {

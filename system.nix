@@ -26,11 +26,7 @@
 
   # hyprland has to be enable as a nix module as well as home-manager
   # donf is enable to use GTK in home.nix
-  programs = {
-    zsh.enable = true;
-    hyprland.enable = true;
-    dconf.enable = true;
-  };
+  programs = { zsh.enable = true; };
 
   environment.systemPackages = with pkgs; [
     dig
@@ -51,19 +47,11 @@
     vim
   ];
 
-  services = {
-    openssh.enable = true;
-    pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-      jack.enable = true;
-    };
-  };
+  services.openssh.enable = true;
 
   sound.enable = true;
-  security.rtkit.enable = true;
+  #  security.rtkit.enable = true;
+
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
     auto-optimise-store = true;

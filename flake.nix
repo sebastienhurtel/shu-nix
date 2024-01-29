@@ -11,6 +11,14 @@
   outputs = inputs:
     with inputs;
     let
+      userSettings = {
+        theme =
+          "uwunicorn-yt"; # selcted theme from my themes directory (./themes/)
+        term = "alacritty"; # Default terminal command;
+        font = "MesloLGS NF"; # Selected font
+        fontPkg = pkgs.meslo-lgs-nf; # Font package
+      };
+
       configurationDefaults = args: {
         home-manager = {
           useGlobalPkgs = true;
@@ -21,7 +29,7 @@
 
       #TODO Check
       argDefaults = {
-        inherit inputs self;
+        inherit userSettings inputs self;
         channels = { inherit nixpkgs nixpkgs-unstable; };
       };
 
@@ -39,8 +47,9 @@
     in {
       nixosConfigurations.vmarcus = mkNixosConfiguration {
         hostname = "vmarcus";
-        username = "sebatien";
-        modules = [ ./system.nix ./hardware-vmarcus.nix ];
+        username = "sebastien";
+        modules =
+          [ ./system.nix ./workstation/system.nix ./hardware-vmarcus.nix ];
       };
     };
 }
