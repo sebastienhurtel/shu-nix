@@ -25,9 +25,12 @@
         channels = { inherit nixpkgs nixpkgs-unstable; };
       };
 
-      mkNixosConfiguration =
-        { system ? "x86_64-linux", hostname, username, args ? { }, modules, }:
-        let specialArgs = argDefaults // { inherit hostname username; } // args;
+      mkNixosConfiguration = { system ? "x86_64-linux", hostname, username, wm
+        , args ? { }, modules, }:
+        let
+          specialArgs = argDefaults // {
+            inherit hostname username wm nixos-hardware;
+          } // args;
         in nixpkgs.lib.nixosSystem {
           inherit system specialArgs;
           modules = [
@@ -40,7 +43,15 @@
       nixosConfigurations.vmarcus = mkNixosConfiguration {
         hostname = "vmarcus";
         username = "sebastien";
-        modules = [ ./system.nix ./hardware-vmarcus.nix ];
+        wm = "gnome";
+        modules = [ ./system.nix ./hardware/vmarcus.nix ];
+      };
+
+      nixosConfigurations.squarepusher = mkNixosConfiguration {
+        hostname = "squarepusher";
+        username = "sebastien";
+        wm = "gnome";
+        modules = [ ./system.nix ./hardware/squarepusher.nix ];
       };
     };
 }
