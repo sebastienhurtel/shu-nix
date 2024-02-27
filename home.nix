@@ -1,9 +1,8 @@
-{ pkgs, ... }: {
-  imports =
-    [ ./hyprland.nix ./shell/shell.nix ./shell/term.nix ./tmux/tmux.nix ];
+{ pkgs, username, ... }: {
+  imports = [ ./shell/shell.nix ./shell/term.nix ./tmux/tmux.nix ];
   manual.manpages.enable = false;
-  home.username = "sebastien";
-  home.homeDirectory = "/home/sebastien";
+  home.username = "${username}";
+  home.homeDirectory = "/home/${username}";
   home.packages = with pkgs; [
     ansible
     bat

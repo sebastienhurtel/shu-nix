@@ -1,7 +1,10 @@
-{ pkgs, username, hostname, ... }: {
+{ pkgs, username, hostname, modulesPath, wm, ... }: {
+
+  imports = [ ./wm/${wm}.nix ./wm/wayland.nix ];
+
+  home-manager.users.${username} = { imports = [ ./home.nix ]; };
 
   time.timeZone = "Europe/Paris";
-
   networking.hostName = "${hostname}";
 
   users.users.${username} = {
@@ -12,10 +15,8 @@
     ];
   };
 
-  home-manager.users.${username} = { imports = [ ./home.nix ]; };
-
   security.sudo.extraRules = [{
-    users = [ "sebastien" ];
+    users = [ "${username}" ];
     commands = [{
       command = "ALL";
       options = [ "NOPASSWD" ];
@@ -51,16 +52,7 @@
     vim
   ];
 
-  services = {
-    openssh.enable = true;
-    pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-      jack.enable = true;
-    };
-  };
+  services.openssh.enable = true;
 
   sound.enable = true;
   security.rtkit.enable = true;
