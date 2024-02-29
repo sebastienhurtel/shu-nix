@@ -10,7 +10,7 @@
       };
 
       window = {
-        decorations = false;
+        decorations = "None";
         opacity = 0.96;
         blur = true;
         dimensions = {
