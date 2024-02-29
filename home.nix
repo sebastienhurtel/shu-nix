@@ -6,14 +6,18 @@
   home.packages = with pkgs; [
     ansible
     bat
-    emacs
     eza
+    firefox
     fzf
+    google-chrome
     meslo-lgs-nf
     nil
     nnn
+    parsec-bin
+    plex-media-player
     tmux
     xclip
+    whatsapp-for-linux
   ];
   # required to autoload fonts from packages installed via Home Manager
   fonts.fontconfig.enable = true;

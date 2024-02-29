@@ -47,9 +47,11 @@
     neofetch
     nftables
     numactl
+    powertop
     ripgrep
     tmux
     vim
+    linuxKernel.packages.linux_zen.cpupower
   ];
 
   services.openssh.enable = true;
@@ -65,4 +67,6 @@
   zramSwap.enable = true;
 
   system.stateVersion = "23.11";
+
+  services.tlp.enable = true;
 }

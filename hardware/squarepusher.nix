@@ -13,7 +13,7 @@
     };
     initrd = {
       luks.devices.luksroot = {
-        device = "/dev/disk/by-uuid/0fda6833-de3d-43e7-9861-ae1ba067a14d";
+        device = "/dev/disk/by-uuid/46e63b6c-fcb1-49e9-b5e8-e865d1a300b0";
         preLVM = true;
       };
       kernelModules = [ "dm-snapshot" ];
