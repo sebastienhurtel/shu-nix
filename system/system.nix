@@ -2,7 +2,7 @@
 
   imports = [ ./wm/${wm}.nix ./wm/wayland.nix ];
 
-  home-manager.users.${username} = { imports = [ ./home.nix ]; };
+  home-manager.users.${username} = { imports = [ ../home.nix ]; };
 
   time.timeZone = "Europe/Paris";
   networking.hostName = "${hostname}";
@@ -55,6 +55,7 @@
   ];
 
   services.openssh.enable = true;
+  services.fwupd.enable = true;
 
   sound.enable = true;
   security.rtkit.enable = true;
@@ -69,4 +70,5 @@
   system.stateVersion = "23.11";
 
   services.tlp.enable = true;
+  services.flatpak.enable = true;
 }

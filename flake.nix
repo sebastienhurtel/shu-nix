@@ -45,14 +45,14 @@
         hostname = "vmarcus";
         username = "sebastien";
         wm = "gnome";
-        modules = [ ./system.nix ./hardware/vmarcus.nix ];
+        modules = [ ./system/system.nix ./hardware/vmarcus.nix ];
       };
 
       nixosConfigurations.squarepusher = mkNixosConfiguration {
         hostname = "squarepusher";
         username = "sebastien";
         wm = "gnome";
-        modules = [ ./system.nix ./hardware/squarepusher.nix ];
+        modules = [ ./system/system.nix ./hardware/squarepusher.nix ];
       };
     };
 }
