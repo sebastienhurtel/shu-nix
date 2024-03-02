@@ -1,5 +1,5 @@
 { pkgs, username, ... }: {
-  imports = [ ./shell/shell.nix ./shell/term.nix ./tmux/tmux.nix ];
+  imports = [ ./home/shell/shell.nix ./home/shell/term.nix ./home/tmux/tmux.nix ];
   manual.manpages.enable = false;
   home.username = "${username}";
   home.homeDirectory = "/home/${username}";
@@ -14,10 +14,8 @@
     nil
     nnn
     parsec-bin
-    plex-media-player
     tmux
     xclip
-    whatsapp-for-linux
   ];
   # required to autoload fonts from packages installed via Home Manager
   fonts.fontconfig.enable = true;
