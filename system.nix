@@ -1,8 +1,8 @@
 { pkgs, username, hostname, modulesPath, wm, ... }: {
 
-  imports = [ ./wm/${wm}.nix ./wm/wayland.nix ];
+  imports = [ ./system/wm/${wm}.nix ./system/wm/wayland.nix ];
 
-  home-manager.users.${username} = { imports = [ ../home.nix ]; };
+  home-manager.users.${username} = { imports = [ ./home.nix ]; };
 
   time.timeZone = "Europe/Paris";
   networking.hostName = "${hostname}";
