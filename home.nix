@@ -1,5 +1,5 @@
 { pkgs, username, ... }: {
-  imports = [ ./home/shell/shell.nix ./home/shell/term.nix ./home/tmux/tmux.nix ];
+  imports = [ ./home/shell/shell.nix ./home/shell/term.nix ./home/tmux/tmux.nix ./home/dconf/dconf.nix ];
   manual.manpages.enable = false;
   home.username = "${username}";
   home.homeDirectory = "/home/${username}";
