@@ -14,6 +14,7 @@
     nil
     nnn
     parsec-bin
+    pavucontrol
     tmux
     xclip
   ];
