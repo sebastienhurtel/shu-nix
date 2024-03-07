@@ -6,7 +6,7 @@
   programs.tmux = {
     enable = true;
     extraConfig = ''
-      source ~/.config/tmux/shu-tmux.conf
+      source -q ~/.config/tmux/shu-tmux.conf
     '';
   };
 }
