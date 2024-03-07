@@ -55,7 +55,6 @@
     linuxKernel.packages.linux_zen.cpupower
   ];
 
-  services.openssh.enable = true;
   services.fwupd.enable = true;
 
   sound.enable = true;
@@ -72,5 +71,8 @@
 
   services.tlp.enable = true;
   services.flatpak.enable = true;
-  networking.firewall.enable = false;
+  networking = {
+    firewall.enable = false;
+    nftables.enable = false;
+  };
 }
