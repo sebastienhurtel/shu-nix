@@ -7,6 +7,7 @@
     enable = true;
     extraConfig = ''
       source -q ~/.config/tmux/shu-tmux.conf
+      source -q ~/.config/tmux/tmux.conf.local
     '';
   };
 }
