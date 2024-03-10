@@ -69,8 +69,31 @@
 
   system.stateVersion = "23.11";
 
-  services.tlp.enable = true;
-  services.flatpak.enable = true;
+  services = {
+    tlp = {
+      enable = true;
+      settings = {
+       CPU_SCALING_GOVERNOR_ON_AC = "schedutil";
+       CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+
+       RADEON_POWER_PROFILE_ON_AC = "default";
+       RADEON_POWER_PROFILE_ON_BAT = "low";
+
+       RADEON_DPM_STATE_ON_AC = "performance";
+       RADEON_DPM_STATE_ON_BAT = "battery";
+       
+       RADEON_DPM_PERF_LEVEL_ON_AC = "auto";
+       RADEON_DPM_PERF_LEVEL_ON_BAT = "low";
+
+       #Optional helps save long term battery health
+       START_CHARGE_THRESH_BAT0 = 40; # 40 and bellow it starts to charge
+       STOP_CHARGE_THRESH_BAT0 = 60; # 80 and above it stops charging
+
+      };
+    };
+  flatpak.enable = true;
+  };
+
   networking = {
     firewall.enable = false;
     nftables.enable = false;
