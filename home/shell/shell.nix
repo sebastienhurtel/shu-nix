@@ -33,7 +33,6 @@
       custom = "$HOME/.config/zsh";
       plugins = [
         "ansible"
-        "dnf"
         "docker"
         "docker-compose"
         "fd"
