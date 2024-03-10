@@ -29,6 +29,7 @@
     };
     kernelModules = [ "kvm-amd" ];
     extraModulePackages = [ ];
+    kernelPackages = pkgs.linuxPackages_latest;
   };
 
   hardware.opengl = {
