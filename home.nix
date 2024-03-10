@@ -6,6 +6,7 @@
   home.packages = with pkgs; [
     ansible
     bat
+    emacs
     eza
     firefox
     fzf
