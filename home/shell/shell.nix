@@ -28,6 +28,10 @@
       source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
       test -f ~/.config/zsh/.p10k.zsh && source ~/.config/zsh/.p10k.zsh
     '';
+    envExtra = ''
+      # Add doom to path
+      export PATH="$HOME/.config/emacs/bin:$PATH"
+    '';
     oh-my-zsh = {
       enable = true;
       custom = "$HOME/.config/zsh";
