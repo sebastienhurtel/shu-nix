@@ -1,9 +1,8 @@
-{ config, lib, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   services.xserver.desktopManager.gnome.enable = true;
   services.power-profiles-daemon.enable = false;
-  environment.systemPackages = with pkgs; [ gnomeExtensions.pop-shell ];
 
   environment.gnome.excludePackages = (with pkgs; [
     gnome-tour
