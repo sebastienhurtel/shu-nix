@@ -1,4 +1,13 @@
-{ config, lib, pkgs, ... }: {
+{ pkgs, ... }: {
+
+  home.packages = with pkgs; [
+    gnome.dconf-editor
+    gnome.gnome-tweaks
+    gnomeExtensions.gsconnect
+    gnomeExtensions.pop-shell
+    gnomeExtensions.tray-icons-reloaded
+  ];
+
   dconf = {
     settings = {
       "org/gnome/desktop/wm/keybindings" = {
