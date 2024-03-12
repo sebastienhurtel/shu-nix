@@ -73,7 +73,7 @@
     tlp = {
       enable = true;
       settings = {
-       CPU_SCALING_GOVERNOR_ON_AC = "schedutil";
+       CPU_SCALING_GOVERNOR_ON_AC = "performance";
        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
 
        RADEON_POWER_PROFILE_ON_AC = "default";
@@ -86,8 +86,8 @@
        RADEON_DPM_PERF_LEVEL_ON_BAT = "low";
 
        #Optional helps save long term battery health
-       START_CHARGE_THRESH_BAT0 = 40; # 40 and bellow it starts to charge
-       STOP_CHARGE_THRESH_BAT0 = 60; # 80 and above it stops charging
+       START_CHARGE_THRESH_BAT0 = 55; # 40 and bellow it starts to charge
+       STOP_CHARGE_THRESH_BAT0 = 60; # 60 and above it stops charging
 
       };
     };
