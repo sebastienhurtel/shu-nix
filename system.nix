@@ -1,4 +1,4 @@
-{ pkgs, username, hostname, modulesPath, wm, ... }: {
+{ pkgs, username, hostname, wm, ... }: {
 
   imports = [ ./system/wm/${wm}.nix ./system/wm/wayland.nix ];
 
