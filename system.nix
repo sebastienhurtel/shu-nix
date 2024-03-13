@@ -59,10 +59,17 @@
 
   sound.enable = true;
   security.rtkit.enable = true;
-  nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
-    auto-optimise-store = true;
-    tarball-ttl = 300;
+  nix = {
+    settings = {
+      experimental-features = [ "nix-command" "flakes" ];
+      auto-optimise-store = true;
+      tarball-ttl = 300;
+    };
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 30d";
+    };
   };
 
   zramSwap.enable = true;
