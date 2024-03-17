@@ -1,7 +1,12 @@
-{ ... }: {
+{ username, ... }: {
   programs.alacritty = {
     enable = true;
     settings = {
+      shell = {
+        program = "/etc/profiles/per-user/${username}/bin/zsh";
+        args = [ "-l" "-c" "tmux attach || tmux"];
+      };
+
       draw_bold_text_with_bright_colors = true;
 
       font = {
