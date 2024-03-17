@@ -55,6 +55,8 @@
   ];
 
   services.fwupd.enable = true;
+  services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
+
 
   sound.enable = true;
   security.rtkit.enable = true;
