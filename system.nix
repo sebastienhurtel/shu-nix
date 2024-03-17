@@ -75,6 +75,11 @@
 
   system.stateVersion = "23.11";
 
+  networking = {
+    firewall.enable = false;
+    nftables.enable = false;
+  };
+
   services = {
     tlp = {
       enable = true;
@@ -100,8 +105,4 @@
   flatpak.enable = true;
   };
 
-  networking = {
-    firewall.enable = false;
-    nftables.enable = false;
-  };
 }
