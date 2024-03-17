@@ -1,14 +1,16 @@
 { pkgs, ... }: {
 
   home.packages = with pkgs; [
+    gnome.adwaita-icon-theme
     gnome.dconf-editor
     gnome.gnome-tweaks
     gnomeExtensions.gsconnect
     gnomeExtensions.pop-shell
-    gnomeExtensions.tray-icons-reloaded
+    gnomeExtensions.appindicator
   ];
 
   dconf = {
+    enable = true;
     settings = {
       "org/gnome/desktop/wm/keybindings" = {
         close = ["<Super>q"];
