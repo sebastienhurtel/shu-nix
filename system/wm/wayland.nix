@@ -15,7 +15,6 @@
     };
     dbus = {
       enable = true;
-      packages = [ pkgs.dconf ];
     };
 
     pipewire = {
