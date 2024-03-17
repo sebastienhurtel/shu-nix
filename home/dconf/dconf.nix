@@ -20,8 +20,8 @@
         minimize = ["disabled"];
         move-to-workspace-1 = ["disabled"];
         move-to-workspace-last = ["disabled"];
-        move-to-workspace-left = ["<Shift><Super>j"];
-        move-to-workspace-right = ["<Shift><Super>k"];
+        move-to-workspace-left = ["<Shift><Super>k"];
+        move-to-workspace-right = ["<Shift><Super>j"];
         switch-group = ["disabled"];
         switch-group-backward = ["disabled"];
         switch-to-workspace-1 = ["<Super>1"];
