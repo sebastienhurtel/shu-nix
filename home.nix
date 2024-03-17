@@ -5,12 +5,15 @@
   home.homeDirectory = "/home/${username}";
   home.packages = with pkgs; [
     ansible
+    audacity
     bat
     emacs
+    emacsPackages.sqlite3
     eza
     firefox
     fzf
     google-chrome
+    libqalculate
     meslo-lgs-nf
     nil
     nnn
