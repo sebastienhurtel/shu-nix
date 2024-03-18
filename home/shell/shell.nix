@@ -13,16 +13,28 @@
       toclip = "xclip -selection c";
       tmate = "env -u TMUX tmate";
       q = "noglob qalc";
+      clab = "containerlab";
     };
-    plugins = [{
-      name = "fzf-tab";
-      src = pkgs.fetchFromGitHub {
-        owner = "Aloxaf";
-        repo = "fzf-tab";
-        rev = "c2b4aa5ad2532cca91f23908ac7f00efb7ff09c9";
-        sha256 = "1b4pksrc573aklk71dn2zikiymsvq19bgvamrdffpf7azpq6kxl2";
-      };
-    }];
+    plugins = [
+      {
+        name = "fzf-tab";
+        src = pkgs.fetchFromGitHub {
+          owner = "Aloxaf";
+          repo = "fzf-tab";
+          rev = "bf3ef5588af6d3bf7cc60f2ad2c1c95bca216241";
+          sha256 = "0hv21mp6429ny60y7fyn4xbznk31ab4nkkdjf6kjbnf6bwphxxnk";
+        };
+      }
+      {
+        name = "clab";
+        src = pkgs.fetchFromGitHub {
+          owner = "sebastienhurtel";
+          repo = "clab-zsh-completion";
+          rev = "e28ace10b210bf0a054367faf5834151ca04e3c4";
+          sha256 = "0ilj010nv6vch56ckp28vyz9s4cr39fql04d73gzfqjjz2iz43im";
+        };
+      }
+    ];
     initExtra = ''
       # Powerlevel10k Zsh theme
       source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
@@ -37,6 +49,7 @@
       custom = "$HOME/.config/zsh";
       plugins = [
         "ansible"
+        "clab"
         "docker"
         "docker-compose"
         "fd"
