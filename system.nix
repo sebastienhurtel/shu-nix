@@ -58,7 +58,6 @@
   services.fwupd.enable = true;
   services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
 
-
   sound.enable = true;
   security.rtkit.enable = true;
   nix = {
@@ -87,25 +86,25 @@
     tlp = {
       enable = true;
       settings = {
-       CPU_SCALING_GOVERNOR_ON_AC = "performance";
-       CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+        CPU_SCALING_GOVERNOR_ON_AC = "performance";
+        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
 
-       RADEON_POWER_PROFILE_ON_AC = "default";
-       RADEON_POWER_PROFILE_ON_BAT = "low";
+        RADEON_POWER_PROFILE_ON_AC = "default";
+        RADEON_POWER_PROFILE_ON_BAT = "low";
 
-       RADEON_DPM_STATE_ON_AC = "performance";
-       RADEON_DPM_STATE_ON_BAT = "battery";
-       
-       RADEON_DPM_PERF_LEVEL_ON_AC = "auto";
-       RADEON_DPM_PERF_LEVEL_ON_BAT = "low";
+        RADEON_DPM_STATE_ON_AC = "performance";
+        RADEON_DPM_STATE_ON_BAT = "battery";
 
-       #Optional helps save long term battery health
-       START_CHARGE_THRESH_BAT0 = 50; # 40 and bellow it starts to charge
-       STOP_CHARGE_THRESH_BAT0 = 65; # 60 and above it stops charging
+        RADEON_DPM_PERF_LEVEL_ON_AC = "auto";
+        RADEON_DPM_PERF_LEVEL_ON_BAT = "low";
+
+        #Optional helps save long term battery health
+        START_CHARGE_THRESH_BAT0 = 50; # 40 and bellow it starts to charge
+        STOP_CHARGE_THRESH_BAT0 = 65; # 60 and above it stops charging
 
       };
     };
-  flatpak.enable = true;
+    flatpak.enable = true;
   };
 
 }

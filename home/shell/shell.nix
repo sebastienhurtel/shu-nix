@@ -1,7 +1,7 @@
 { pkgs, ... }: {
 
   home.file.".config/zsh/.p10k.zsh".source = ./p10k.zsh;
-  programs= {
+  programs = {
     direnv = {
       enable = true;
       enableZshIntegration = true;
@@ -72,9 +72,9 @@
           "vagrant"
           "virtualenv"
         ];
-      extraConfig = ''
-        zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
-      '';
+        extraConfig = ''
+          zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+        '';
       };
     };
   };
