@@ -48,6 +48,7 @@
     nftables
     numactl
     powertop
+    python3
     ripgrep
     tmux
     vim
