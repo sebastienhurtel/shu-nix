@@ -1,5 +1,5 @@
 { pkgs, username, ... }: {
-  imports = [ ./home/shell/shell.nix ./home/shell/term.nix ./home/tmux/tmux.nix ./home/dconf/dconf.nix ];
+  imports = [ ./home/shell/shell.nix ./home/shell/term.nix ./home/tmux/tmux.nix ./home/dconf/dconf.nix ./home/emacs/emacs.nix ];
   manual.manpages.enable = false;
   home.username = "${username}";
   home.homeDirectory = "/home/${username}";
@@ -7,8 +7,6 @@
     ansible
     audacity
     bat
-    emacs
-    emacsPackages.sqlite3
     eza
     firefox
     fzf
@@ -25,14 +23,8 @@
   # required to autoload fonts from packages installed via Home Manager
   fonts.fontconfig.enable = true;
 
-  programs = {
-    home-manager.enable = true;
-    direnv = {
-      enable = true;
-      enableZshIntegration = true;
-      nix-direnv.enable = true;
-    };
-  };
+  programs. home-manager.enable = true;
+
   # The state version is required and should stay at the version you
   # originally installed.
   home.stateVersion = "23.11";
