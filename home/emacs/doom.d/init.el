@@ -97,7 +97,7 @@
        ansible
        ;; (debugger         ; FIXME stepping through code, to help you add bugs
        ;;  +lsp)
-       ;;direnv
+       direnv
        (docker
         +lsp)
        ;;editorconfig    ; let someone else argue about tabs vs spaces
@@ -143,8 +143,8 @@
        ;;(haskell +dante)  ; a language that's lazier than I am
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ;
-       (java               ; the poster child for carpal tunnel syndrome
-        +lsp)
+       ;; (java               ; the poster child for carpal tunnel syndrome
+       ;;  +lsp)
        ;;javascript        ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
@@ -199,9 +199,9 @@
        ;;web               ; the tubes
 
        :email
-       (mu4e
-        +org
-        +gmail)
+       ;; (mu4e
+       ;;  +org
+       ;;  +gmail)
        ;;notmuch
        ;;(wanderlust +gmail)
 
