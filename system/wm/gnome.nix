@@ -1,8 +1,11 @@
 { pkgs, ... }:
 
 {
-  services.xserver.desktopManager.gnome.enable = true;
-  services.power-profiles-daemon.enable = false;
+  services = {
+    xserver.desktopManager.gnome.enable = true;
+    power-profiles-daemon.enable = false;
+    udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
+  };
 
   environment.gnome.excludePackages = (with pkgs; [
     gnome-tour
@@ -11,7 +14,6 @@
     cheese # webcam tool
     gnome-music
     gnome-terminal
-    gedit # text editor
     epiphany # web browser
     geary # email reader
     evince # document viewer

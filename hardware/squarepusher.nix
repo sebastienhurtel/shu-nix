@@ -3,7 +3,7 @@
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
-    "${nixos-hardware}/lenovo/thinkpad/z/z13"
+    nixos-hardware.nixosModules.lenovo-thinkpad-z13
   ];
 
   boot = {
