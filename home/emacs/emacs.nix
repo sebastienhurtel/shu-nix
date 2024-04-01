@@ -20,6 +20,7 @@ let
     pyenv
     wl-clipboard
     python311Packages.nose
+    dockerfile-language-server-nodejs
   ];
   unstable = with pkgs.unstable; [
     python312Packages.pytest

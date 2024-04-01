@@ -4,16 +4,20 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+
     nixos-hardware.url = "github:NixOS/nixos-hardware";
+
     home-manager.url = "github:nix-community/home-manager/release-23.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    nix-index-database.url = "github:Mic92/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs:
-    with inputs;
+  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, nixos-hardware
+    , home-manager, nix-index-database, ... }:
     let
-
-      nixpkgsWithOverlays = with inputs; rec {
+      nixpkgsWithOverlays = rec {
         config.allowUnfree = true;
         overlays = [
           (_final: prev: {
@@ -36,15 +40,17 @@
       };
 
       argDefaults = {
-        inherit inputs self;
-        channels = { inherit nixpkgs nixpkgs-unstable; };
+        inherit self inputs nix-index-database nixos-hardware;
+        channels = {
+          inherit nixpkgs nixpkgs-unstable;
+        };
       };
 
       mkNixosConfiguration = { system ? "x86_64-linux", hostname, username, wm
         , args ? { }, modules, }:
         let
           specialArgs = argDefaults // {
-            inherit hostname username wm nixos-hardware;
+            inherit hostname username wm;
           } // args;
         in nixpkgs.lib.nixosSystem {
           inherit system specialArgs;
