@@ -1,5 +1,51 @@
-{ pkgs, username, ... }: {
+{ pkgs, username, nix-index-database, ... }:
+let
+
+  unstable-packages = with pkgs.unstable; [
+    bat
+    bottom
+    coreutils
+    curl
+    dig
+    duf
+    du-dust
+    fd
+    findutils
+    fx
+    fzf
+    git
+    git-crypt
+    htop
+    jq
+    killall
+    libqalculate
+    procs
+    ripgrep
+    sd
+    tree
+    unzip
+    vim
+    wget
+    xclip
+    zip
+  ];
+
+  stable-packages = with pkgs; [
+    ansible
+    audacity
+    eza
+    firefox
+    google-chrome
+    meslo-lgs-nf
+    nil
+    nix-tree
+    nnn
+    parsec-bin
+    pavucontrol
+  ];
+in {
   imports = [
+    nix-index-database.hmModules.nix-index
     ./home/shell/shell.nix
     ./home/shell/term.nix
     ./home/tmux/tmux.nix
@@ -7,29 +53,24 @@
     ./home/emacs/emacs.nix
   ];
   manual.manpages.enable = false;
-  home.username = "${username}";
-  home.homeDirectory = "/home/${username}";
-  home.packages = with pkgs; [
-    ansible
-    audacity
-    bat
-    eza
-    firefox
-    fzf
-    google-chrome
-    libqalculate
-    meslo-lgs-nf
-    nil
-    nnn
-    parsec-bin
-    pavucontrol
-    tmux
-    xclip
-  ];
+
+  home = {
+    username = "${username}";
+    homeDirectory = "/home/${username}";
+    sessionVariables.SHELL = "/etc/profiles/per-user/${username}/bin/zsh";
+  };
+
+  home.packages = stable-packages ++ unstable-packages;
+
   # required to autoload fonts from packages installed via Home Manager
   fonts.fontconfig.enable = true;
 
-  programs.home-manager.enable = true;
+  programs = {
+    home-manager.enable = true;
+    nix-index.enable = true;
+    nix-index.enableZshIntegration = true;
+    nix-index-database.comma.enable = true;
+  };
 
   # The state version is required and should stay at the version you
   # originally installed.
