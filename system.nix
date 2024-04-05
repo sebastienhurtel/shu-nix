@@ -37,12 +37,8 @@
   environment = with pkgs; {
     shells = [ zsh ];
     systemPackages = [
-      dig
-      duf
-      fd
-      git
-      htop
-      mdadm
+      avahi
+      linuxKernel.packages.linux_zen.cpupower
       mesa
       mpv
       mtr
@@ -54,7 +50,6 @@
       python3
       ripgrep
       vim
-      linuxKernel.packages.linux_zen.cpupower
     ];
   };
 
@@ -83,7 +78,11 @@
     nftables.enable = false;
   };
 
-  services.fwupd.enable = true;
+  services = {
+    fwupd.enable = true;
+    resolved.enable = true;
+  };
+
   services = {
     tlp = {
       enable = true;
