@@ -13,7 +13,7 @@
 ;;
 ;;      Alternatively, press 'gd' (or 'C-c g d') on a module to browse its
 ;;      directory (for easy access to its source code).
-;; (setenv "LSP_USE_PLISTS" "1")
+ (setenv "LSP_USE_PLISTS" "1")
 
 (doom! :input
        ;;chinese
@@ -25,7 +25,7 @@
                            ; a nicer company UI. Emacs +26 only!
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       ;;(ivy                ; a search engine for love and life
+       ;;(ivy              ; a search engine for love and life
        ;; +childframe
        ;; +icons)
        (vertico
@@ -49,9 +49,9 @@
        (popup            ; tame sudden yet inevitable temporary windows
         +all             ; catch all popups that start with an asterix
         +defaults)       ; default popup rules
-       ;;ligatures         ; replace bits of code with pretty symbols
+       ;;ligatures       ; replace bits of code with pretty symbols
        ;;tabs            ; an tab bar for Emacs
-       (treemacs          ; a project drawer, like neotree but cooler
+       (treemacs         ; a project drawer, like neotree but cooler
         +lsp)
        unicode           ; extended unicode support for various languages
        vc-gutter         ; vcs diff in the fringe
@@ -75,7 +75,7 @@
        ;;word-wrap       ; soft wrapping with language-aware indent
 
        :emacs
-       dired             ; making dired pretty [functional]
+       (dired +icons)    ; making dired pretty [functional]
        electric          ; smarter, keyword-based electric-indent
        ibuffer           ; interactive buffer management
        vc                ; version-control and Emacs, sitting in a tree
@@ -100,7 +100,7 @@
        direnv
        (docker
         +lsp)
-       ;;editorconfig    ; let someone else argue about tabs vs spaces
+       editorconfig    ; let someone else argue about tabs vs spaces
        ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)   ; run code, run (also, repls)
        ;;gist            ; interacting with github gists
