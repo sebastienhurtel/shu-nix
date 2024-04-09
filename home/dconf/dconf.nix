@@ -4,6 +4,7 @@
     gnome.adwaita-icon-theme
     gnome.dconf-editor
     gnome.gnome-tweaks
+    gnome.adwaita-icon-theme
     gnomeExtensions.gsconnect
     gnomeExtensions.pop-shell
     gnomeExtensions.appindicator
@@ -33,6 +34,7 @@
         switch-to-workspace-right = [ "<Super>Page_Down" ];
         toggle-maximized = [ "<Super>Up" ];
       };
+      "org/gnome/desktop/interface".color-scheme = "prefer-dark";
     };
   };
 }
