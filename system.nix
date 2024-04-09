@@ -27,10 +27,10 @@
     }];
   }];
 
-  # hyprland has to be enable as a nix module as well as home-manager
-  # donf is enable to use GTK in home.nix
   programs = {
     zsh.enable = true;
+  # hyprland has to be enable as a nix module as well as home-manager
+  # donf is enable to use GTK in home.nix
     dconf.enable = true;
   };
 
