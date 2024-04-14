@@ -5,17 +5,12 @@
     gnome.gnome-keyring.enable = true;
     xserver = {
       enable = true;
-      layout = "us";
-      xkbVariant = "";
-      xkbOptions = "caps:escape";
       displayManager.gdm = {
         enable = true;
         wayland = true;
       };
     };
-    dbus = {
-      enable = true;
-    };
+    dbus.enable = true;
 
     pipewire = {
       enable = true;
