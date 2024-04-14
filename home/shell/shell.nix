@@ -59,7 +59,6 @@
           "docker"
           "docker-compose"
           "fd"
-          "fzf"
           "fzf-tab"
           "git"
           "git-extras"
