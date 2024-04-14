@@ -3,7 +3,7 @@
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
-    nixos-hardware.nixosModules.lenovo-thinkpad-z13
+    nixos-hardware.nixosModules.lenovo-thinkpad-z13-gen2
   ];
 
   boot = {
@@ -29,7 +29,7 @@
     };
     kernelModules = [ "kvm-amd" ];
     extraModulePackages = [ ];
-    kernelPackages = pkgs.linuxPackages_6_7;
+    kernelPackages = pkgs.linuxPackages_6_8;
   };
 
   hardware.opengl = {
