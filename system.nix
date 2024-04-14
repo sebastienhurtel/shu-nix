@@ -26,6 +26,7 @@
       options = [ "NOPASSWD" ];
     }];
   }];
+  security.rtkit.enable = true;
 
   programs = {
     zsh.enable = true;
@@ -35,9 +36,7 @@
   };
 
   environment = with pkgs; {
-    shells = [ zsh ];
     systemPackages = [
-      avahi
       linuxKernel.packages.linux_zen.cpupower
       mesa
       mpv
@@ -54,7 +53,6 @@
   };
 
   sound.enable = true;
-  security.rtkit.enable = true;
 
   nix = {
     settings = {
@@ -70,17 +68,29 @@
   };
 
   zramSwap.enable = true;
-
   system.stateVersion = "23.11";
 
   networking = {
-    firewall.enable = false;
-    nftables.enable = false;
+    firewall.enable = true;
+    nftables = {
+      enable = true;
+      ruleset = ''
+          table inet nixos-fw {
+            chain input {
+              ip saddr 192.168.1.0/24 ip daddr 192.168.1.0/24 accept comment "LAN"
+            }
+          }
+      '';
+    };
   };
 
   services = {
     fwupd.enable = true;
     resolved.enable = true;
+    avahi = {
+     enable = true;
+     openFirewall = true;
+    };
   };
 
   services = {
@@ -106,6 +116,7 @@
       };
     };
     flatpak.enable = true;
+    printing.enable = true;
   };
 
 }
