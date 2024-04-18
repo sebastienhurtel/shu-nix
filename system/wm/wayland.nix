@@ -5,6 +5,8 @@
     gnome.gnome-keyring.enable = true;
     xserver = {
       enable = true;
+      xkbVariant = "";
+      xkbOptions = "";
       displayManager.gdm = {
         enable = true;
         wayland = true;
