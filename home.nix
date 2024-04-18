@@ -39,6 +39,7 @@ let
     meslo-lgs-nf
     nil
     nix-tree
+    nvd
     nnn
     parsec-bin
     pavucontrol
