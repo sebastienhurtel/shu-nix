@@ -14,7 +14,7 @@ let
     graphviz
     isort
     libvterm
-    nixfmt
+    nixpkgs-fmt
     pipenv
     poetry
     pyenv
@@ -26,4 +26,5 @@ let
     python312Packages.pytest
     python312Packages.pyflakes
   ];
-in { home.packages = stable ++ unstable; }
+in
+{ home.packages = stable ++ unstable; }
