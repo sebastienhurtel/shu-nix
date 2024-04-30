@@ -160,6 +160,7 @@
        ;;markdown          ; writing docs for people to ignore
        ;;nim               ; python + lisp at the speed of c
        (nix                ; I hereby declare "nix geht mehr!"
+       +tree-sitter
        +lsp)
        ;;ocaml             ; an objective camel
        (org                ; organize your plain life in plain text
