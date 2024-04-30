@@ -4,6 +4,7 @@ let
   unstable-packages = with pkgs.unstable; [
     bat
     bottom
+    containerlab
     coreutils
     curl
     dig
