@@ -1,6 +1,8 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
+  environment.systemPackages = [ pkgs.libinput ];
+
   services = {
     gnome.gnome-keyring.enable = true;
     xserver = {
