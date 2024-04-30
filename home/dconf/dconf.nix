@@ -1,7 +1,7 @@
 { pkgs, ... }: {
-
   home.packages = with pkgs; [
     gnome.adwaita-icon-theme
+    papirus-icon-theme
     gnome.dconf-editor
     gnome.gnome-tweaks
     gnome.adwaita-icon-theme
