@@ -20,6 +20,7 @@ let
     jq
     killall
     libqalculate
+    nmap
     procs
     ripgrep
     sd
@@ -37,6 +38,7 @@ let
     eza
     firefox
     google-chrome
+    gnumake
     meslo-lgs-nf
     nil
     nix-tree
