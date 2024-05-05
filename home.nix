@@ -35,6 +35,7 @@ let
   stable-packages = with pkgs; [
     ansible
     audacity
+    darktable
     eza
     firefox
     google-chrome
