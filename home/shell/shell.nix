@@ -14,7 +14,7 @@
       syntaxHighlighting.enable = true;
       dotDir = ".config/zsh";
       shellAliases = {
-        l = "ls -larth";
+        l = "eza -larhgs=date";
         e = "emacsclient -n";
         toclip = "xclip -selection c";
         tmate = "env -u TMUX tmate";
