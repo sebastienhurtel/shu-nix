@@ -54,7 +54,7 @@
 
   environment = with pkgs; {
     systemPackages = [
-      linux-firmware
+      usbutils
       mesa
       ncdu
       neofetch
