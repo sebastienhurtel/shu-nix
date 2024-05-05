@@ -55,8 +55,8 @@ in {
     ./home/shell/shell.nix
     ./home/shell/term.nix
     ./home/tmux/tmux.nix
-    ./home/dconf/dconf.nix
     ./home/emacs/emacs.nix
+    ./home/dconf/dconf.nix
   ];
   manual.manpages.enable = false;
 

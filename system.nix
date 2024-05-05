@@ -1,11 +1,28 @@
 { pkgs, username, hostname, wm, ... }: {
 
-  imports = [ ./system/wm/${wm}.nix ./system/wm/wayland.nix ];
+  imports = [
+    ./system/wm/${wm}.nix
+    ./system/${hostname}.nix
+  ];
 
   home-manager.users.${username} = { imports = [ ./home.nix ]; };
 
   time.timeZone = "Europe/Paris";
-  networking.hostName = "${hostname}";
+
+  networking = {
+    hostName = "${hostname}";
+    firewall.enable = true;
+    nftables = {
+      enable = true;
+      ruleset = ''
+        table inet nixos-fw {
+          chain input {
+            ip saddr 192.168.1.0/24 ip daddr 192.168.1.0/24 accept comment "LAN"
+          }
+        }
+      '';
+    };
+  };
 
   users = with pkgs; {
     defaultUserShell = zsh;
@@ -30,29 +47,21 @@
 
   programs = {
     zsh.enable = true;
-  # hyprland has to be enable as a nix module as well as home-manager
-  # donf is enable to use GTK in home.nix
+    # donf is enable to use GTK in home.nix
     dconf.enable = true;
   };
 
   environment = with pkgs; {
     systemPackages = [
-      linuxKernel.packages.linux_zen.cpupower
-      mesa
-      mpv
       mtr
       ncdu
       neofetch
       nftables
       numactl
-      powertop
-      python3
       ripgrep
       vim
     ];
   };
-
-  sound.enable = true;
 
   nix = {
     settings = {
@@ -68,55 +77,13 @@
   };
 
   zramSwap.enable = true;
-  system.stateVersion = "23.11";
-
-  networking = {
-    firewall.enable = true;
-    nftables = {
-      enable = true;
-      ruleset = ''
-          table inet nixos-fw {
-            chain input {
-              ip saddr 192.168.1.0/24 ip daddr 192.168.1.0/24 accept comment "LAN"
-            }
-          }
-      '';
-    };
-  };
 
   services = {
     fwupd.enable = true;
     resolved.enable = true;
     avahi = {
-     enable = true;
-     openFirewall = true;
-    };
-  };
-
-  services = {
-    tlp = {
       enable = true;
-      settings = {
-        CPU_SCALING_GOVERNOR_ON_AC = "performance";
-        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-
-        RADEON_POWER_PROFILE_ON_AC = "default";
-        RADEON_POWER_PROFILE_ON_BAT = "low";
-
-        RADEON_DPM_STATE_ON_AC = "performance";
-        RADEON_DPM_STATE_ON_BAT = "battery";
-
-        RADEON_DPM_PERF_LEVEL_ON_AC = "auto";
-        RADEON_DPM_PERF_LEVEL_ON_BAT = "low";
-
-        #Optional helps save long term battery health
-        START_CHARGE_THRESH_BAT0 = 50; # 40 and bellow it starts to charge
-        STOP_CHARGE_THRESH_BAT0 = 65; # 60 and above it stops charging
-
-      };
+      openFirewall = true;
     };
-    flatpak.enable = true;
-    printing.enable = true;
   };
-
 }

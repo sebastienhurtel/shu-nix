@@ -1,9 +1,11 @@
 { pkgs, lib, config, ... }:
 
 {
+  imports = [ ./wayland.nix ];
+
   security.pam.services = {
     login.fprintAuth = false;
-  # similarly to how other distributions handle the fingerprinting login
+    # similarly to how other distributions handle the fingerprinting login
     gdm-fingerprint =
       lib.mkIf (config.services.fprintd.enable) {
         text = ''
@@ -23,7 +25,7 @@
           session    include                     login
           session    optional                    ${pkgs.gnome.gnome-keyring}/lib/security/pam_gnome_keyring.so auto_start
         '';
-    };
+      };
   };
   services = {
     xserver.desktopManager.gnome.enable = true;
