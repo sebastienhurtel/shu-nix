@@ -4,11 +4,9 @@
   environment = with pkgs; {
     systemPackages = [
       linuxKernel.packages.linux_zen.cpupower
-      mesa
-      mpv
-      mtr
       powertop
       python3
+      virt-manager
     ];
   };
 

@@ -14,8 +14,15 @@
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, nixos-hardware
-    , home-manager, nix-index-database, ... }:
+  outputs =
+    inputs@{ self
+    , nixpkgs
+    , nixpkgs-unstable
+    , nixos-hardware
+    , home-manager
+    , nix-index-database
+    , ...
+    }:
     let
       nixpkgsWithOverlays = rec {
         config.allowUnfree = true;
@@ -46,13 +53,21 @@
         };
       };
 
-      mkNixosConfiguration = { system ? "x86_64-linux", hostname, username, wm
-        , args ? { }, modules, }:
+      mkNixosConfiguration =
+        { system ? "x86_64-linux"
+        , hostname
+        , username
+        , wm
+        , args ? { }
+        , modules
+        ,
+        }:
         let
           specialArgs = argDefaults // {
             inherit hostname username wm;
           } // args;
-        in nixpkgs.lib.nixosSystem {
+        in
+        nixpkgs.lib.nixosSystem {
           inherit system specialArgs;
           modules = [
             (configurationDefaults specialArgs)
@@ -60,7 +75,8 @@
           ] ++ modules;
         };
 
-    in {
+    in
+    {
       nixosConfigurations.vmarcus = mkNixosConfiguration {
         hostname = "vmarcus";
         username = "sebastien";
@@ -73,6 +89,12 @@
         username = "sebastien";
         wm = "gnome";
         modules = [ ./system.nix ./hardware/squarepusher.nix ];
+      };
+
+      nixosConfigurations.deftones = mkNixosConfiguration {
+        hostname = "deftones";
+        username = "sebastien";
+        modules = [ ./system.nix ./hardware/deftones.nix ];
       };
     };
 }

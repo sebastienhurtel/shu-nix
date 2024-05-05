@@ -46,14 +46,16 @@
   security.rtkit.enable = true;
 
   programs = {
-    zsh.enable = true;
     # donf is enable to use GTK in home.nix
     dconf.enable = true;
+    mtr.enable = true;
+    zsh.enable = true;
   };
 
   environment = with pkgs; {
     systemPackages = [
-      mtr
+      linux-firmware
+      mesa
       ncdu
       neofetch
       nftables
