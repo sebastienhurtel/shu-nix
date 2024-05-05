@@ -53,8 +53,10 @@
           cyan = "#33c7de";
           white = "#ffffff";
         };
+      };
 
-        Key_bindings = [{
+      keyboard = {
+        bindings = [{
           key = "N";
           mods = "Control";
           action = "SpawnNewInstance";
