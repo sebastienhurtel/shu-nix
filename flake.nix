@@ -94,6 +94,7 @@
       nixosConfigurations.deftones = mkNixosConfiguration {
         hostname = "deftones";
         username = "sebastien";
+        wm = "gnome";
         modules = [ ./system.nix ./hardware/deftones.nix ];
       };
     };
