@@ -92,7 +92,11 @@
      };
     libvirtd = {
       enable = true;
-      qemu.ovmf.enable = true;
+      qemu = {
+        package = pkgs.qemu_kvm;
+        runAsRoot = true;
+        ovmf.enable = true;
+      };
     };
   };
 
