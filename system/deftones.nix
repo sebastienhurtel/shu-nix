@@ -36,9 +36,46 @@
         /data/windows 192.168.1.0/24(rw,all_squash,anonuid=1000,anongid=1000,sync,no_subtree_check,insecure)
       '';
     };
+
     openssh = {
       enable = true;
       settings.PasswordAuthentication = false;
+      openFirewall = true;
+    };
+
+    samba = {
+      enable = true;
+      securityType = "user";
+      openFirewall = true;
+      extraConfig = ''
+        workgroup = WORKGROUP
+        server string = smbnix
+        netbios name = smbnix
+        security = user
+        #use sendfile = yes
+        #max protocol = smb2
+        # note: localhost is the ipv6 localhost ::1
+        hosts allow = 192.168.1. 127.0.0.1 localhost
+        hosts deny = 0.0.0.0/0
+        guest account = nobody
+        map to guest = bad user
+      '';
+      shares = {
+        public = {
+          path = "/data/photos";
+          browseable = "yes";
+          "read only" = "no";
+          "guest ok" = "yes";
+          "create mask" = "0644";
+          "directory mask" = "0755";
+          "force user" = "username";
+          "force group" = "groupname";
+        };
+      };
+    };
+
+    samba-wsdd = {
+      enable = true;
       openFirewall = true;
     };
   };
@@ -89,7 +126,7 @@
       dockerCompat = true;
       dockerSocket.enable = true;
       defaultNetwork.settings.dns_enabled = true;
-     };
+    };
     libvirtd = {
       enable = true;
       qemu.ovmf.enable = true;
