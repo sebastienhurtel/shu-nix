@@ -4,8 +4,7 @@
   networking = {
     wireless.enable = false;
     networkmanager.enable = true;
-    interfaces.enp3s0.useDHCP = false;
-    interfaces.wlp4s0.useDHCP = false;
+    firewall.trustedInterfaces = [ "virbr0" ];
   };
 
   programs.gnupg.agent = {
