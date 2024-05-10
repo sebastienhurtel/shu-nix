@@ -78,8 +78,6 @@
     };
   };
 
-  zramSwap.enable = true;
-
   services = {
     fwupd.enable = true;
     resolved.enable = true;
