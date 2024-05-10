@@ -36,14 +36,10 @@
     };
   };
 
-  security.sudo.extraRules = [{
-    users = [ "${username}" ];
-    commands = [{
-      command = "ALL";
-      options = [ "NOPASSWD" ];
-    }];
-  }];
-  security.rtkit.enable = true;
+  security = {
+    sudo.wheelNeedsPassword = false;
+    rtkit.enable = true;
+  };
 
   programs = {
     # donf is enable to use GTK in home.nix
