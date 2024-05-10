@@ -22,6 +22,7 @@ let
     libqalculate
     nmap
     procs
+    python312Packages.ipython
     ripgrep
     sd
     tree
