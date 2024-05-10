@@ -70,4 +70,5 @@
     driSupport32Bit = true;
     extraPackages = with pkgs; [ vaapiVdpau libvdpau-va-gl ];
   };
+  system.stateVersion = "23.05";
 }
