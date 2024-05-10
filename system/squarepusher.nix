@@ -10,6 +10,12 @@
     ];
   };
 
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+  };
+  hardware.steam-hardware.enable = true;
+
   services = {
     tlp = {
       enable = true;
@@ -42,6 +48,7 @@
       pulse.enable = true;
     };
   };
+
   hardware.pulseaudio.enable = false;
 
   virtualisation.docker.enable = true;
