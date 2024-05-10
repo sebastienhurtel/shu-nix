@@ -1,7 +1,7 @@
-{ pkgs, username, hostname, wm, ... }: {
+{ pkgs, username, hostname, ... }: {
 
   imports = [
-    ./system/wm/${wm}.nix
+    ./system/wm
     ./system/${hostname}.nix
   ];
 
