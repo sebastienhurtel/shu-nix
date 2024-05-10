@@ -62,6 +62,7 @@
 
   nix = {
     settings = {
+      trusted-users = [username];
       experimental-features = [ "nix-command" "flakes" ];
       auto-optimise-store = true;
       tarball-ttl = 300;
@@ -69,7 +70,7 @@
     gc = {
       automatic = true;
       dates = "weekly";
-      options = "--delete-older-than 30d";
+      options = "--delete-older-than 7d";
     };
   };
 
