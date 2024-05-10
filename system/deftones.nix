@@ -15,7 +15,6 @@
   environment.systemPackages = with pkgs;
     [
       docker-compose
-      libguestfs
       mdadm
     ];
 
