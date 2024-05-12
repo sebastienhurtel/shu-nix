@@ -14,7 +14,6 @@ let
     findutils
     fx
     fzf
-    git
     git-crypt
     htop
     jq
@@ -58,6 +57,7 @@ in {
     ./home/tmux/tmux.nix
     ./home/emacs/emacs.nix
     ./home/dconf/dconf.nix
+    ./home/git/git.nix
   ];
   manual.manpages.enable = false;
 
