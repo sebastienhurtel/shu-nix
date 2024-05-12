@@ -44,5 +44,5 @@ let
   };
 in
 {
-  config = if lib.isString wm then windowManager else headless;
+  config = if wm != "none" then windowManager else headless;
 }

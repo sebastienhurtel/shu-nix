@@ -1,5 +1,5 @@
-{ wm, ... }:
+{ ... }:
 
 {
-  imports = [ ./${wm}.nix ./wayland.nix ];
+  imports = [ ./gnome.nix ./wayland.nix ];
 }

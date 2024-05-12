@@ -57,7 +57,7 @@
         { system ? "x86_64-linux"
         , hostname
         , username
-        , wm
+        , wm ? "none"
         , args ? { }
         , modules
         ,
@@ -94,7 +94,6 @@
       nixosConfigurations.deftones = mkNixosConfiguration {
         hostname = "deftones";
         username = "sebastien";
-        wm = "gnome";
         modules = [ ./system.nix ./hardware/deftones.nix ];
       };
     };
