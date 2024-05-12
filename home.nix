@@ -52,12 +52,7 @@ let
 in {
   imports = [
     nix-index-database.hmModules.nix-index
-    ./home/shell/shell.nix
-    ./home/shell/term.nix
-    ./home/tmux/tmux.nix
-    ./home/emacs/emacs.nix
-    ./home/dconf/dconf.nix
-    ./home/git/git.nix
+    ./home
   ];
   manual.manpages.enable = false;
 
