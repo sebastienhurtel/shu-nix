@@ -47,6 +47,7 @@ let
     nnn
     parsec-bin
     pavucontrol
+    python311Packages.git-filter-repo
   ];
 
 in {

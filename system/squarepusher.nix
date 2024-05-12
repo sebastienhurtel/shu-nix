@@ -55,6 +55,15 @@
     enable = true;
     enableOnBoot = true;
   };
-
   users.users.${username}.extraGroups = [ "docker" ];
+
+  networking.nftables = {
+      ruleset = ''
+        table inet nixos-fw {
+          chain input-allow {
+            ip saddr 192.168.1.0/24 ip daddr 192.168.1.0/24 accept comment "LAN"
+          }
+        }
+      '';
+    };
 }

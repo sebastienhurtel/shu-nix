@@ -12,16 +12,7 @@
   networking = {
     hostName = "${hostname}";
     firewall.enable = true;
-    nftables = {
-      enable = true;
-      ruleset = ''
-        table inet nixos-fw {
-          chain input {
-            ip saddr 192.168.1.0/24 ip daddr 192.168.1.0/24 accept comment "LAN"
-          }
-        }
-      '';
-    };
+    nftables.enable = true;
   };
 
   users = {
@@ -53,7 +44,6 @@
       mesa
       ncdu
       neofetch
-      nftables
       numactl
       ripgrep
       vim
