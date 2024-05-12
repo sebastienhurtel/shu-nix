@@ -7,6 +7,7 @@
       enableZshIntegration = true;
       nix-direnv.enable = true;
     };
+
     zsh = {
       enable = true;
       enableAutosuggestions = true;
@@ -14,7 +15,7 @@
       syntaxHighlighting.enable = true;
       dotDir = ".config/zsh";
       shellAliases = {
-        l = "eza -larhgs=date --git --icons";
+        l = "eza";
         e = "emacsclient -n";
         toclip = "xclip -selection c";
         tmate = "env -u TMUX tmate";
@@ -76,6 +77,21 @@
           zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
         '';
       };
+    };
+
+    eza = {
+      package = pkgs.unstable.eza;
+      enable = true;
+      icons = true;
+      git = true;
+      extraOptions = [
+        "--all"
+        "--git"
+        "--group"
+        "--long"
+        "--reverse"
+        "--sort=date"
+      ];
     };
   };
 }

@@ -36,7 +36,6 @@ let
     ansible
     audacity
     darktable
-    eza
     firefox
     google-chrome
     gnumake
