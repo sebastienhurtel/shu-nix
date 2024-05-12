@@ -1,4 +1,4 @@
-{ pkgs, config, lib, wm, ... }:
+{ pkgs, wm, ... }:
 let
   withGnome = {
     services = {
