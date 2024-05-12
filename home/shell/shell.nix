@@ -14,7 +14,7 @@
       syntaxHighlighting.enable = true;
       dotDir = ".config/zsh";
       shellAliases = {
-        l = "eza -larhgs=date";
+        l = "eza -larhgs=date --git --icons";
         e = "emacsclient -n";
         toclip = "xclip -selection c";
         tmate = "env -u TMUX tmate";
