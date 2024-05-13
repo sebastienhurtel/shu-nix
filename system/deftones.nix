@@ -79,6 +79,7 @@
     };
     wantedBy = [ "multi-user.target" ];
   };
+  networking.firewall.allowedTCPPorts = [ 32400 ];
 
   virtualisation = {
     docker.enable = false;
