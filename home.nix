@@ -59,7 +59,6 @@ in {
   home = {
     username = "${username}";
     homeDirectory = "/home/${username}";
-    sessionVariables.SHELL = "/etc/profiles/per-user/${username}/bin/zsh";
   };
 
   home.packages = stable-packages ++ unstable-packages;
