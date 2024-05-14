@@ -39,10 +39,11 @@ let
         };
     };
   };
+
   headless = {
     services.xserver.enable = false;
   };
 in
 {
-  config = if wm != "none" then windowManager else headless;
+  config = if lib.isString wm then windowManager else headless;
 }

@@ -57,10 +57,9 @@
         { system ? "x86_64-linux"
         , hostname
         , username
-        , wm ? "none"
+        , wm ? null
         , args ? { }
         , modules
-        ,
         }:
         let
           specialArgs = argDefaults // {
