@@ -1,7 +1,6 @@
 { wm, pkgs, lib, config, ... }:
 let
   windowManager = {
-    environment.systemPackages = [ pkgs.libinput ];
     services = {
       gnome.gnome-keyring.enable = true;
       xserver = {
@@ -12,6 +11,7 @@ let
           enable = true;
           wayland = true;
         };
+        libinput.enable = true;
       };
       dbus.enable = true;
     };
