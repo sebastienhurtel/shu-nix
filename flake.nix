@@ -12,6 +12,9 @@
 
     nix-index-database.url = "github:Mic92/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+
+    agenix.url = "github:ryantm/agenix";
+    agenix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs: with inputs;
@@ -39,7 +42,7 @@
       };
 
       argDefaults = {
-        inherit self inputs nix-index-database nixos-hardware;
+        inherit self inputs agenix nix-index-database nixos-hardware;
         channels = {
           inherit nixpkgs nixpkgs-unstable;
         };
@@ -63,6 +66,7 @@
           modules = [
             (configurationDefaults specialArgs)
             home-manager.nixosModules.home-manager
+            agenix.nixosModules.default
           ] ++ modules;
         };
 

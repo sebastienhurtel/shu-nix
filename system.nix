@@ -1,4 +1,4 @@
-{ pkgs, username, hostname, ... }: {
+{ pkgs, username, hostname, agenix, ... }: {
 
   imports = [
     ./system/wm
@@ -40,6 +40,7 @@
 
   environment = with pkgs; {
     systemPackages = [
+      agenix.packages.${system}.default
       usbutils
       mesa
       ncdu
