@@ -19,12 +19,12 @@ let
     poetry
     pyenv
     wl-clipboard
-    python311Packages.nose
+    python3Packages.nose
     dockerfile-language-server-nodejs
   ];
   unstable = with pkgs.unstable; [
-    python312Packages.pytest
-    python312Packages.pyflakes
+    python3Packages.pytest
+    python3Packages.pyflakes
   ];
 in
 { home.packages = stable ++ unstable; }
