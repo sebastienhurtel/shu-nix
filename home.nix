@@ -7,6 +7,7 @@ let
     containerlab
     coreutils
     curl
+    difftastic
     dig
     duf
     du-dust
