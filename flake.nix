@@ -35,9 +35,9 @@
       configurationDefaults = args: {
         nixpkgs = nixpkgsWithOverlays;
         home-manager = {
+          extraSpecialArgs = args;
           useGlobalPkgs = true;
           useUserPackages = true;
-          extraSpecialArgs = args;
         };
       };
 

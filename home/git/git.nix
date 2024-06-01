@@ -1,5 +1,9 @@
 { config, pkgs, lib, ... }: {
 
+  home.activation.removeOlgConfig = config.lib.dag.entryBefore ["checkFilesChanged"] ''
+    rm -f .config/git/config
+  '';
+
   home.activation."git-secrets" = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
    secretGH=$(cat "${config.age.secrets.emailGithub.path}")
    config="${config.home.homeDirectory}/.config/git/config"
