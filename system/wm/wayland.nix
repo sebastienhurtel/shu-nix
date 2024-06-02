@@ -3,15 +3,15 @@ let
   windowManager = {
     services = {
       gnome.gnome-keyring.enable = true;
+      libinput.enable = true;
       xserver = {
         enable = true;
-        xkbVariant = "";
-        xkbOptions = "";
+        xkb.variant = "";
+        xkb.options = "";
         displayManager.gdm = {
           enable = true;
           wayland = true;
         };
-        libinput.enable = true;
       };
       dbus.enable = true;
     };
