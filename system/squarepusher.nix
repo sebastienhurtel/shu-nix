@@ -11,10 +11,10 @@
   };
 
   programs.steam = {
-    enable = true;
+    enable = false;
     remotePlay.openFirewall = true;
   };
-  hardware.steam-hardware.enable = true;
+  hardware.steam-hardware.enable = false;
 
   services = {
     tlp = {
