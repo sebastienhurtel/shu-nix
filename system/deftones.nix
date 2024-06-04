@@ -61,25 +61,7 @@
     wantedBy = [ "multi-user.target" ];
   };
 
-  systemd.services.plex = {
-    enable = true;
-    description = "My Plex media server";
-    unitConfig = {
-      After = "podman.service network-online.target";
-      Requires = "podman.service network-online.target";
-    };
-    serviceConfig = {
-      Type = "oneshot";
-      WorkingDirectory = "/opt/pms-docker";
-      RemainAfterExit = "yes";
-      ExecStartPre = "${pkgs.docker-compose}/bin/docker-compose pull --quiet";
-      ExecStart = "${pkgs.docker-compose}/bin/docker-compose up -d";
-      ExecStop = "${pkgs.docker-compose}/bin/docker-compose down";
-      ExecReload = "${pkgs.docker-compose}/bin/docker-compose pull --quiet && ${pkgs.docker-compose}/bin/docker-compose up -d";
-    };
-    wantedBy = [ "multi-user.target" ];
-  };
-  networking.firewall.allowedTCPPorts = [ 32400 ];
+  services.shu-plex.enable = true;
 
   virtualisation = {
     docker.enable = false;

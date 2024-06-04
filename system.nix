@@ -3,6 +3,7 @@
   imports = [
     ./system/wm
     ./system/${hostname}.nix
+    ./services
   ];
 
   home-manager.users.${username} = { imports = [ ./home.nix ]; };
