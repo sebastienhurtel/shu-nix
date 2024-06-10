@@ -54,7 +54,7 @@
 
   nix = {
     settings = {
-      trusted-users = [username];
+      trusted-users = [ username ];
       experimental-features = [ "nix-command" "flakes" ];
       auto-optimise-store = true;
       tarball-ttl = 300;
@@ -67,6 +67,7 @@
   };
 
   services = {
+    shu-wm.enable = true;
     fwupd.enable = true;
     resolved.enable = true;
     avahi = {
