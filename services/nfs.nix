@@ -1,9 +1,9 @@
 { hostname, config, lib, self, ... }:
 let
-  cfg = config.services.shu-nfs;
+  cfg = config.services.shuNfs;
 in
 {
-  options.services.shu-nfs.enable = lib.mkEnableOption "Enable NFS server";
+  options.services.shuNfs.enable = lib.mkEnableOption "Enable NFS server";
 
   config = lib.mkIf cfg.enable {
     services = {

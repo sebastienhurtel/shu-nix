@@ -1,11 +1,11 @@
 { config, lib, self, ... }:
 let
-  cfg = config.services.shu-plex;
+  cfg = config.services.shuPlex;
   volumePath = "${config.home-manager.users.sebastien.home.homeDirectory}/git/pms-docker";
 in
 {
   options = {
-    services.shu-plex.enable = lib.mkEnableOption "Enable Plex running in container";
+    services.shuPlex.enable = lib.mkEnableOption "Enable Plex running in container";
   };
 
   config = lib.mkIf cfg.enable {

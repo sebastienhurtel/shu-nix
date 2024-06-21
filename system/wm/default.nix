@@ -1,18 +1,18 @@
 { pkgs, config, lib, wm, ... }:
 with lib;
 let
-  cfg = config.services.shu-wm;
+  cfg = config.services.shuWm;
   compositor = import ./wayland.nix { inherit config lib pkgs; };
   gnome = import ./gnome.nix { inherit pkgs; };
   hyprland = import ./hyprland.nix { inherit pkgs; };
 
-  shu-wm = {
+  shuWm = {
     gnome = recursiveUpdate compositor gnome;
     hyprland = recursiveUpdate compositor hyprland;
     headless.services.xserver.enable = false;
   };
 in
 {
-  options.services.shu-wm.enable = mkEnableOption "Enable window manager.";
-  config = mkIf cfg.enable shu-wm.${wm};
+  options.services.shuWm.enable = mkEnableOption "Enable window manager.";
+  config = mkIf cfg.enable shuWm.${wm};
 }
