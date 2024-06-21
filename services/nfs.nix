@@ -30,6 +30,7 @@ in
         config.services.nfs.server.statdPort
         config.services.nfs.server.lockdPort
         config.services.nfs.server.mountdPort
+        111
       ];
     };
   };
