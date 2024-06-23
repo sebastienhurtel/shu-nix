@@ -20,7 +20,7 @@
 
   services = {
     shuPlex.enable = true;
-    shuNfs.enable = true;
+    shuNFS.enable = true;
     openssh = {
       enable = true;
       settings.PasswordAuthentication = false;
