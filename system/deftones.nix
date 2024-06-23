@@ -21,6 +21,7 @@
   services = {
     shuPlex.enable = true;
     shuNFS.enable = true;
+    shuSamba.enable = true;
     openssh = {
       enable = true;
       settings.PasswordAuthentication = false;
