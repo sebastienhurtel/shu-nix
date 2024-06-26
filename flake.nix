@@ -75,7 +75,6 @@
             agenix.nixosModules.default
           ] ++ modules;
         };
-
     in
     {
       nixosConfigurations.vmarcus = mkNixosConfiguration {
