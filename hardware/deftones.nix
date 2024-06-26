@@ -71,37 +71,30 @@
   fileSystems."/data/documents" = {
     device = "/dev/raid_5/documents";
     fsType = "ext4";
-    options = [ "bind" ];
   };
   fileSystems."/data/downloads" = {
     device = "/dev/raid_5/downloads";
     fsType = "ext4";
-    options = [ "bind" ];
   };
   fileSystems."/data/movies" = {
     device = "/dev/raid_5/movies";
     fsType = "ext4";
-    options = [ "bind" ];
   };
   fileSystems."/data/music" = {
     device = "/dev/raid_5/music";
     fsType = "ext4";
-    options = [ "bind" ];
   };
   fileSystems."/data/photos" = {
     device = "/dev/raid_5/photos";
     fsType = "ext4";
-    options = [ "bind" ];
   };
   fileSystems."/data/series" = {
     device = "/dev/raid_5/series";
     fsType = "ext4";
-    options = [ "bind" ];
   };
   fileSystems."/data/windows" = {
     device = "/dev/raid_5/windows";
     fsType = "ext4";
-    options = [ "bind" ];
   };
 
   swapDevices =
