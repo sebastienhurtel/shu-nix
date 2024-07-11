@@ -2,6 +2,7 @@
   pkgs,
   username,
   hostname,
+  lib,
   ...
 }:
 
@@ -25,6 +26,8 @@
   services = {
     shuPlex.enable = true;
     shuNFS.enable = true;
+    shuUnbound.enable = true;
+    resolved.enable = lib.mkForce false;
     openssh = {
       enable = true;
       settings.PasswordAuthentication = false;
@@ -33,25 +36,6 @@
   };
 
   sound.enable = false;
-
-  systemd.services.myUnbound = {
-    enable = true;
-    description = "My personnal unbound docker container";
-    unitConfig = {
-      After = "podman.service network-online.target";
-      Requires = "podman.service network-online.target";
-    };
-    serviceConfig = {
-      Type = "oneshot";
-      WorkingDirectory = "/opt/my-unbound";
-      RemainAfterExit = "yes";
-      ExecStartPre = "${pkgs.docker-compose}/bin/docker-compose pull --quiet";
-      ExecStart = "${pkgs.docker-compose}/bin/docker-compose up -d";
-      ExecStop = "${pkgs.docker-compose}/bin/docker-compose down";
-      ExecReload = "${pkgs.docker-compose}/bin/docker-compose pull --quiet && ${pkgs.docker-compose}/bin/docker-compose up -d";
-    };
-    wantedBy = [ "multi-user.target" ];
-  };
 
   virtualisation = {
     docker.enable = false;
