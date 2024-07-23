@@ -2,22 +2,41 @@
   pkgs,
   config,
   lib,
-  wm,
+  username,
+  system,
+  inputs,
   ...
 }:
 let
   cfg = config.services.shuWm;
+  wm = cfg.wm;
   compositor = import ./wayland.nix { inherit config lib pkgs; };
   gnome = import ./gnome.nix { inherit pkgs; };
-  hyprland = import ./hyprland.nix { inherit pkgs; };
+  hyprland = import ./hyprland.nix {
+    inherit
+      pkgs
+      username
+      system
+      config
+      inputs
+      ;
+  };
+  stylix = import ./stylix.nix;
 
-  shuWm = {
-    gnome = lib.recursiveUpdate compositor gnome;
-    hyprland = lib.recursiveUpdate compositor hyprland;
+  WmSet = with lib; {
+    gnome = (recursiveUpdate compositor gnome);
+    hyprland = recursiveUpdate compositor hyprland;
     headless.services.xserver.enable = false;
   };
+
 in
 {
-  options.services.shuWm.enable = lib.mkEnableOption "Enable window manager.";
-  config = lib.mkIf cfg.enable shuWm.${wm};
+  options.services.shuWm = with lib; {
+    enable = mkEnableOption "Enable window manager.";
+    wm = mkOption {
+      type = types.str;
+      default = "gnome";
+    };
+  };
+  config = WmSet.${wm};
 }

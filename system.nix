@@ -1,11 +1,4 @@
-{
-  pkgs,
-  username,
-  hostname,
-  agenix,
-  ...
-}:
-{
+{ pkgs, username, hostname, agenix, wm, ... }: {
 
   imports = [
     ./system/wm
@@ -84,6 +77,7 @@
 
   services = {
     shuWm.enable = true;
+    shuWm.wm = "gnome";
     fwupd.enable = true;
     resolved.enable = true;
     avahi = {

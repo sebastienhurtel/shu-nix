@@ -21,6 +21,13 @@
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    stylix = {
+      url = "github:danth/stylix/master";
+      inputs.home-manager.follows = "home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
   outputs =
@@ -30,7 +37,7 @@
       nixpkgsWithOverlays = rec {
         config.allowUnfree = true;
         overlays = [
-          (_final: prev: {
+          (final: prev: {
             # this allows us to reference pkgs.unstable
             unstable = import nixpkgs-unstable {
               inherit (prev) system;
@@ -97,11 +104,8 @@
       nixosConfigurations.vmarcus = mkNixosConfiguration {
         hostname = "vmarcus";
         username = "sebastien";
-        wm = "gnome";
-        modules = [
-          ./system.nix
-          ./hardware/vmarcus.nix
-        ];
+        wm = "hyprland";
+        modules = [ ./system.nix ./hardware/vmarcus.nix ];
       };
 
       nixosConfigurations.squarepusher = mkNixosConfiguration {
