@@ -22,6 +22,7 @@ let
     libqalculate
     nmap
     procs
+    pyright
     python3Packages.ipython
     ripgrep
     sd
