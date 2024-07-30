@@ -1,4 +1,9 @@
-{ hostname, config, lib, self, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 let
   cfg = config.services.shuNFSClient;
 in
@@ -6,17 +11,17 @@ in
   options.services.shuNFSClient.enable = lib.mkEnableOption "Enable NFS server";
 
   config = lib.mkIf cfg.enable {
-    services.rpcbind.enable = true;
 
-    fileSystems."/mnt/data" = {
-      device = "192.168.1.250:/data";
-      fsType = "nfs";
+    environment = with pkgs; {
+      systemPackages = [ nfs-utils ];
     };
+
+    services.rpcbind.enable = true;
 
     systemd.mounts = [{
       type = "nfs";
       mountConfig = {
-        Options = "noatime,nfsvers=4.2";
+        Options = "noatime,nfsvers=4.2,x-systemd.automount,x-systemd.idle-timeout=600,noauto";
       };
       what = "192.168.1.250:/data";
       where = "/mnt/data";
