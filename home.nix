@@ -43,7 +43,6 @@ let
     google-chrome
     gnumake
     meslo-lgs-nf
-    nil
     nix-tree
     nvd
     nnn

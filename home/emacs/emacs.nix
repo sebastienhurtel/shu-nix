@@ -15,6 +15,7 @@ let
     isort
     libvterm
     nixpkgs-fmt
+    nixd
     pipenv
     poetry
     pyenv
