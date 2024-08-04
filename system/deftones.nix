@@ -1,4 +1,9 @@
-{ pkgs, username, hostname, ... }:
+{
+  pkgs,
+  username,
+  hostname,
+  ...
+}:
 
 {
   networking = {
@@ -12,11 +17,10 @@
     enableSSHSupport = true;
   };
 
-  environment.systemPackages = with pkgs;
-    [
-      docker-compose
-      mdadm
-    ];
+  environment.systemPackages = with pkgs; [
+    docker-compose
+    mdadm
+  ];
 
   services = {
     shuPlex.enable = true;
@@ -56,7 +60,7 @@
       dockerCompat = true;
       dockerSocket.enable = true;
       defaultNetwork.settings.dns_enabled = true;
-     };
+    };
     libvirtd = {
       enable = true;
       qemu = {

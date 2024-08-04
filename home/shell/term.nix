@@ -1,15 +1,22 @@
-{ username, ... }: {
+{ username, ... }:
+{
   programs.alacritty = {
     enable = true;
     settings = {
       shell = {
         program = "/etc/profiles/per-user/${username}/bin/zsh";
-        args = [ "-l" "-c" "tmux attach || tmux"];
+        args = [
+          "-l"
+          "-c"
+          "tmux attach || tmux"
+        ];
       };
 
       font = {
         size = 10.5;
-        normal = { family = "MesloLGS NF"; };
+        normal = {
+          family = "MesloLGS NF";
+        };
       };
 
       window = {
@@ -27,7 +34,7 @@
       };
 
       colors = {
-	draw_bold_text_with_bright_colors = true;
+        draw_bold_text_with_bright_colors = true;
         primary = {
           background = "#1a1c1c";
           foreground = "#f99d32";
@@ -55,11 +62,13 @@
       };
 
       keyboard = {
-        bindings = [{
-          key = "N";
-          mods = "Control";
-          action = "SpawnNewInstance";
-        }];
+        bindings = [
+          {
+            key = "N";
+            mods = "Control";
+            action = "SpawnNewInstance";
+          }
+        ];
       };
     };
   };

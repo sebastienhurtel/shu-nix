@@ -3,7 +3,10 @@ let
   squarepusher = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDKTSzIZr/KS0Ry2Yt3ytRcvl3qUiF7VxIbeafmu7qfc";
   deftones = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJyukD6dhooT96Vh70kNwMFgE+juZqtsfzCPAj0ol0r6";
   users = [ sebastien ];
-  systems = [ squarepusher deftones ];
+  systems = [
+    squarepusher
+    deftones
+  ];
 in
 {
   "emailPro.age".publicKeys = users;

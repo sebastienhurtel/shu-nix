@@ -14,7 +14,6 @@ let
     graphviz
     isort
     libvterm
-    nixfmt
     nixd
     pipenv
     poetry
@@ -29,4 +28,6 @@ let
     nixfmt-rfc-style
   ];
 in
-{ home.packages = stable ++ unstable; }
+{
+  home.packages = stable ++ unstable;
+}

@@ -23,7 +23,9 @@
     };
   };
 
-  outputs = inputs: with inputs;
+  outputs =
+    inputs:
+    with inputs;
     let
       nixpkgsWithOverlays = rec {
         config.allowUnfree = true;
@@ -48,24 +50,29 @@
       };
 
       argDefaults = {
-        inherit self inputs agenix nix-index-database nixos-hardware;
+        inherit
+          self
+          inputs
+          agenix
+          nix-index-database
+          nixos-hardware
+          ;
         channels = {
           inherit nixpkgs nixpkgs-unstable;
         };
       };
 
       mkNixosConfiguration =
-        { system ? "x86_64-linux"
-        , hostname
-        , username
-        , wm ? "headless"
-        , args ? { }
-        , modules
+        {
+          system ? "x86_64-linux",
+          hostname,
+          username,
+          wm ? "headless",
+          args ? { },
+          modules,
         }:
         let
-          specialArgs = argDefaults // {
-            inherit hostname username wm;
-          } // args;
+          specialArgs = argDefaults // { inherit hostname username wm; } // args;
         in
         nixpkgs.lib.nixosSystem {
           inherit system specialArgs;
@@ -81,20 +88,29 @@
         hostname = "vmarcus";
         username = "sebastien";
         wm = "gnome";
-        modules = [ ./system.nix ./hardware/vmarcus.nix ];
+        modules = [
+          ./system.nix
+          ./hardware/vmarcus.nix
+        ];
       };
 
       nixosConfigurations.squarepusher = mkNixosConfiguration {
         hostname = "squarepusher";
         username = "sebastien";
         wm = "gnome";
-        modules = [ ./system.nix ./hardware/squarepusher.nix ];
+        modules = [
+          ./system.nix
+          ./hardware/squarepusher.nix
+        ];
       };
 
       nixosConfigurations.deftones = mkNixosConfiguration {
         hostname = "deftones";
         username = "sebastien";
-        modules = [ ./system.nix ./hardware/deftones.nix ];
+        modules = [
+          ./system.nix
+          ./hardware/deftones.nix
+        ];
       };
     };
 }

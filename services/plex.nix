@@ -1,4 +1,9 @@
-{ config, lib, self, ... }:
+{
+  config,
+  lib,
+  self,
+  ...
+}:
 let
   cfg = config.services.shuPlex;
   volumePath = "${config.home-manager.users.sebastien.home.homeDirectory}/git/pms-docker";
