@@ -37,6 +37,16 @@
               inherit config;
             };
           })
+          (_final: prev: {
+            nixd = prev.nixd.overrideAttrs (old: {
+              src = prev.fetchFromGitHub {
+                owner = "sebastienhurtel";
+                repo = "nixd";
+                rev = "2120080b7241821a009a382852e0891ca011a1c4";
+                hash = "sha256-ndPbt3KLSbTc+AvWvtVkJXsvvjeaL2TEsMFu0hFmMHk=";
+              };
+            });
+          })
         ];
       };
 
