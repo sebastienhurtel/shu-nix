@@ -77,6 +77,18 @@
     docker = {
       enable = true;
       enableOnBoot = true;
+      daemon.settings = {
+        features = {
+          buildkit = true;
+        };
+        default-address-pools = [
+          {
+            base = "128.66.0.0/17";
+            size = 24;
+          }
+        ];
+        bip = "192.0.0.1/24";
+      };
     };
     libvirtd = {
       enable = true;
