@@ -1,20 +1,36 @@
 { pkgs, username, ... }:
 
 {
-  environment = with pkgs; {
-    systemPackages = [
+  environment = {
+    systemPackages = with pkgs; [
+      bridge-utils
       linuxKernel.packages.linux_zen.cpupower
+      openssl
+      passh
+      pinentry-gnome3
       powertop
       python3
+      strongswanNM
       virt-manager
     ];
   };
 
-  programs.steam = {
-    enable = false;
-    remotePlay.openFirewall = true;
+  programs = {
+    gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
+      pinentryPackage = pkgs.pinentry-gnome3;
+    };
+    steam = {
+      enable = false;
+      remotePlay.openFirewall = true;
+    };
   };
   hardware.steam-hardware.enable = false;
+
+  networking.networkmanager = {
+    plugins = [ pkgs.networkmanager_strongswan ];
+  };
 
   services = {
     tlp = {
