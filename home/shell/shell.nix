@@ -55,7 +55,7 @@
         source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
         test -f ~/.config/zsh/.p10k.zsh && source ~/.config/zsh/.p10k.zsh
         # Custom scripts
-        test-f ~/.config/zsh/vpn.sh && source ~/.config/zsh/vpn.sh
+        test -f ~/.config/zsh/vpn.sh && source ~/.config/zsh/vpn.sh
       '';
       envExtra = ''
         # Add doom to path
