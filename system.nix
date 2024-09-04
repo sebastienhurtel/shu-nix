@@ -76,8 +76,10 @@
   };
 
   services = {
-    shuWm.enable = true;
-    shuWm.wm = "gnome";
+    shuWm = {
+      enable = if wm == "headless" then false else true;
+      manager = wm;
+    };
     fwupd.enable = true;
     resolved.enable = true;
     avahi = {

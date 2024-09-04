@@ -1,335 +1,45 @@
-{ username, pkgs, config, inputs, system, ... }:
 {
-  config = {
-    imports = [ ./stylix.nix ];
-    programs.hyprland.enable = true;
-  };
-  home-manager.users.${username} = {
-    wayland.windowManager.hyprland =
-      let
-        hyprland = pkgs.hyprland;
-        hyprlandEventHandlers = pkgs.writeShellScript "hyprlandEventHandlers" ''
-          update_active_workspace() {
-            ${
-            if config.programs.eww.enable
-            then "eww update currentworkspace=$WORKSPACENAME"
-            else ":"
-          }
-          }
-          event_workspace() {
-            update_active_workspace
-          }
-
-          event_focusedmon() {
-            update_active_workspace
-            # MONNAME WORKSPACENAME
-          }
-
-          event_activewindow() {
-            : # WINDOWCLASS WINDOWTITLE
-          }
-
-          event_activewindowv2() {
-            : # WINDOWADDRESS
-          }
-
-          event_fullscreen() {
-            : # ENTER (0 if leaving fullscreen, 1 if entering)
-          }
-
-          event_monitorremoved() {
-            : # MONITORNAME
-          }
-
-          event_monitoradded() {
-            : # MONITORNAME
-          }
-
-          event_createworkspace() {
-            : # WORKSPACENAME
-          }
-
-          event_destroyworkspace() {
-            : # WORKSPACENAME
-          }
-
-          event_moveworkspace() {
-            : # WORKSPACENAME MONNAME
-          }
-
-          event_activelayout() {
-            : # KEYBOARDNAME LAYOUTNAME
-          }
-
-          event_openwindow() {
-            : # WINDOWADDRESS WORKSPACENAME WINDOWCLASS WINDOWTITLE
-          }
-
-          event_closewindow() {
-            : # WINDOWADDRESS
-          }
-
-          event_movewindow() {
-            : # WINDOWADDRESS WORKSPACENAME
-          }
-
-          event_windowtitle() {
-            : # WINDOWADDRESS
-          }
-
-          event_openlayer() {
-            : # NAMESPACE
-          }
-
-          event_closelayer() {
-            : # NAMESPACE
-          }
-
-          event_submap() {
-            # SUBMAPNAME
-            ${
-            if config.programs.eww.enable
-            then "eww update submap=$SUBMAPNAME"
-            else ":"
-          }
-          }
-        '';
-        hyprlandHandleEvents = pkgs.writeShellScript "hyprlandHandleEvents" ''
-          ${pkgs.socat}/bin/socat -u UNIX-CONNECT:$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock \
-            EXEC:"${inputs.hyprland-contrib.packages.${system}.shellevents}/bin/shellevents ${hyprlandEventHandlers}",nofork
-        '';
-      in
-      {
-        wayland.windowManager.hyprland = {
-          package = hyprland;
-          settings = {
-            bind = (
-              # Workspace keybind
-              # $mod + {1..10} to workspace {1..10}
-              # $mod + shift + {1..10} to move to workspace {1..10}
-              builtins.concatLists (builtins.genList
-                (x:
+  username,
+  pkgs,
+  config,
+  lib,
+  ...
+}:
+let
+  cfg = config.services.shuHyprland;
+in
+{
+  options.services.shuHyprland.enable = lib.mkEnableOption "Enable shuHyprland";
+  config = lib.mkIf cfg.enable {
+    home-manager.users.${username} = {
+      wayland.windowManager.hyprland = {
+        enable = true;
+        package = pkgs.hyprland;
+        settings = {
+          "$mod" = "SUPER";
+          bind =
+            [
+              "$mod, F, exec, firefox"
+              ", Print, exec, grimblast copy area"
+            ]
+            ++ (
+              # workspaces
+              # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
+              builtins.concatLists (
+                builtins.genList (
+                  i:
                   let
-                    ws = let c = (x + 1) / 10; in builtins.toString (x + 1 - (c * 10));
+                    ws = i + 1;
                   in
                   [
-                    "SUPER, ${ws}, workspace, ${toString (x + 1)}"
-                    "SUPER SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}"
-                  ])
-                10)
+                    "$mod, code:1${toString i}, workspace, ${toString ws}"
+                    "$mod SHIFT, code:1${toString i}, movetoworkspace, ${toString ws}"
+                  ]
+                ) 9
+              )
             );
-          };
-          extraConfig =
-            ''
-              $touchpad_enable = true
-              device {
-                name = elan-touchpad
-                enabled = $touchpad_enable
-              }
-              cursor {
-                inactive_timeout = 30
-                persistent_warps = yes
-                warp_on_change_workspace = yes
-              }
-              general {
-                resize_on_border = yes
-              }
-              misc {
-                disable_hyprland_logo = true
-                disable_splash_rendering = true
-              }
-              $mod = SUPER
-              input {
-                  kb_layout = pt
-                  touchpad {
-                      natural_scroll = yes
-                      disable_while_typing = false
-                  }
-              }
-              decoration {
-                  rounding = 10
-                  blur {
-                      enabled = true
-                      size = 1
-                      passes = 5
-                  }
-              }
-              gestures {
-                  workspace_swipe = yes
-                  workspace_swipe_min_speed_to_force = 10
-                  workspace_swipe_cancel_ratio = 0.3
-              }
-              animations {
-                enabled = true
-                bezier = exponential, .84,.02,.31,.95
-                bezier = workspacesBezier, .44,.59,0,1.27
-                bezier = easeout, 0,0,.58,1
-                bezier = easein, .42,0,1,1
-                animation = global, 1, 6, exponential
-                animation = layers, 1, 4, easeout, popin 80%
-
-                animation = windowsIn, 1, 4, easeout, popin 80%
-                animation = windowsOut, 1, 4, easein, popin 80%
-
-                animation = fadeIn, 1, 2, easeout
-                animation = fadeOut, 1, 2, easein
-
-                animation = windowsMove, 1, 4, exponential
-                animation = workspaces, 1, 4, workspacesBezier, slidefade
-              }
-              windowrulev2=opacity ${builtins.toString config.stylix.opacity.applications},class:(vesktop|nautilus|firefox|Spotify|Code)$
-              windowrulev2=opaque,title:(.*)( - YouTube — Mozilla Firefox)$
-              windowrulev2=noanim,title:(woomer)$
-              # Disable animation for screenshots
-              layerrule = noanim, selection
-              layerrule = ignorezero, bar
-            ''
-            + (
-              if config.programs.pyprland.enable
-              then ''
-                $pavucontrol = class:^(pavucontrol)$
-                windowrulev2 = float,$pavucontrol
-                windowrulev2 = size 86% 40%,$pavucontrol
-                windowrulev2 = move 6% 50%,$pavucontrol
-                windowrulev2 = workspace special silent,$pavucontrol
-                windowrulev2 = opacity 0.80,$pavucontrol
-
-                $cpupower-gui = class:^(cpupower-gui)$
-                windowrulev2 = float,$cpupower-gui
-                windowrulev2 = size 40% 86%,$cpupower-gui
-                windowrulev2 = move 50% 6%,$cpupower-gui
-                windowrulev2 = workspace special silent,$cpupower-gui
-                windowrulev2 = opacity 0.80,$cpupower-gui
-
-                $scratchpadsize = size 80% 85%
-                $scratchpad = class:^(scratchpad)$
-                windowrulev2 = float,$scratchpad
-                windowrulev2 = $scratchpadsize,$scratchpad
-                windowrulev2 = workspace special silent,$scratchpad
-                windowrulev2 = center,$scratchpad
-
-                bind=$mod, SPACE, exec, ${config.programs.pyprland.package}/bin/pypr toggle kitty && hyprctl dispatch bringactivetotop
-                bind=$mod, V, exec, ${config.programs.pyprland.package}/bin/pypr toggle pavucontrol && hyprctl dispatch bringactivetotop
-                bind=$mod, P, exec, ${config.programs.pyprland.package}/bin/pypr toggle cpupower-gui && hyprctl dispatch bringactivetotop
-              ''
-              else ""
-            )
-            + ''
-
-
-
-        layerrule=blur,(bar)
-        layerrule=blur,(rofi)
-        ${
-          if config.programs.eww.enable
-          then "exec-once=${config.programs.eww.package}/bin/eww open bar"
-          else ""
-        }
-        ${
-          if (config.programs.vesktop.vencord.settings.plugins."WebRichPresence (arRPC)".enabled or false)
-          then "exec-once=${pkgs.arrpc}/bin/arrpc"
-          else ""
-        }
-        exec-once=${hyprlandHandleEvents}
-        exec-once=${pkgs.dex}/bin/dex -a
-        binde=, XF86AudioLowerVolume, exec, ${pkgs.pamixer}/bin/pamixer --decrease 5
-        binde=, XF86AudioRaiseVolume, exec, ${pkgs.pamixer}/bin/pamixer --increase 5
-        binde=, XF86MonBrightnessUp, exec, ${pkgs.brightnessctl}/bin/brightnessctl s +5%
-        binde=, XF86MonBrightnessDown, exec, ${pkgs.brightnessctl}/bin/brightnessctl s 5%-
-        ${
-          if config.programs.eww.enable
-          then "bind=$mod, S, exec, ${config.programs.eww.package}/bin/eww open shutdown"
-          else ""
-        }
-        ${
-          if config.programs.eww.enable
-          then "bind=$mod, S, submap, shutdown-menu"
-          else ""
-        }
-        bind=, XF86Sleep, exec, ${pkgs.systemd}/bin/systemctl suspend
-        bind=, XF86AudioMute, exec, ${pkgs.pamixer}/bin/pamixer -t
-        bind=, XF86AudioStop, exec, ${pkgs.playerctl}/bin/playerctl stop
-        bind=, XF86AudioPlay, exec, ${pkgs.playerctl}/bin/playerctl play-pause
-        bind=, XF86AudioPrev, exec, ${pkgs.playerctl}/bin/playerctl previous
-        bind=, XF86AudioNext, exec, ${pkgs.playerctl}/bin/playerctl next
-
-        bind=CTRL ALT, left, workspace, e-1
-        bind=CTRL ALT, right, workspace, e+1
-        bind=CTRL ALT SHIFT, left, movetoworkspace, e-1
-        bind=CTRL ALT SHIFT, right, movetoworkspace, e+1
-        bind=SHIFT, Print,exec,${pkgs.grim}/bin/grim -c - | ${pkgs.swappy}/bin/swappy -f -
-        bind=,Print,exec,${pkgs.grim}/bin/grim -c -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.swappy}/bin/swappy -f -
-        bind=$mod, W,exec,${inputs.woomer.packages.${system}.default}/bin/woomer
-        ${
-          if config.programs.rofi.enable
-          then "bind=$mod, D, exec, ${pkgs.rofi-wayland}/bin/rofi -show drun -show-icons"
-          else ""
-        }
-        ${
-          if config.programs.kitty.enable
-          then "bind=$mod, T, exec, ${pkgs.kitty}/bin/kitty"
-          else ""
-        }
-        bind=$mod, F, fullscreen
-        bind=$mod, R, submap, rearrange
-        bind=$mod SHIFT, F, pseudo
-        # Close app
-        bind=$mod, C, killactive
-
-        # Move focus keybinds
-        bind=$mod, left, movefocus, l
-        bind=$mod, right, movefocus, r
-        bind=$mod, up, movefocus, u
-        bind=$mod, down, movefocus, d
-        bind=$mod, U, focusurgentorlast
-
-        # Mouse bindings
-        bindm=$mod,mouse:272,movewindow
-        bindm=$mod,mouse:273,resizewindow
-        ${
-          if config.programs.eww.enable
-          then "submap=shutdown-menu"
-          else ""
-        }
-        ${
-          if config.programs.eww.enable
-          then "    bind=, Escape, exec, ${config.programs.eww.package}/bin/eww close shutdown"
-          else ""
-        }
-        ${
-          if config.programs.eww.enable
-          then "    bind=, Escape,submap,reset"
-          else ""
-        }
-        ${if config.programs.ags.enable then "exec=${config.programs.ags.package}/bin/ags" else ""}
-        # Rearrange mode keybinds
-        submap=rearrange
-            $rearrangeMod=SHIFT
-            bind=, a, movefocus, l
-            bind=, d, movefocus, r
-            bind=, w, movefocus, u
-            bind=, s, movefocus, d
-
-            binde=, right, resizeactive, -10 0
-            binde=, left, resizeactive, 10 0
-            binde=, down, resizeactive, 0 -10
-            binde=, up, resizeactive, 0 10
-
-            bind=, Tab, cyclenext
-            bind=$rearrangeMod, Tab, swapnext
-
-            bind=$rearrangeMod, right,movewindow, r
-            bind=$rearrangeMod, left, movewindow, l
-            bind=$rearrangeMod, down, movewindow, d
-            bind=$rearrangeMod, up,   movewindow, u
-            bind=, f,      togglefloating
-            bind=, c,      centerwindow
-            # Exit rearrange mode
-            bind=, Escape, submap         , reset
-        submap=reset
-
-      '';
         };
       };
+    };
   };
 }

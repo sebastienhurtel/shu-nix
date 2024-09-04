@@ -22,12 +22,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    stylix = {
-      url = "github:danth/stylix/master";
-      inputs.home-manager.follows = "home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
   };
 
   outputs =
@@ -95,8 +90,8 @@
           inherit system specialArgs;
           modules = [
             (configurationDefaults specialArgs)
-            home-manager.nixosModules.home-manager
             agenix.nixosModules.default
+            home-manager.nixosModules.home-manager
           ] ++ modules;
         };
     in
