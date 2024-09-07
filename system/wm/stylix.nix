@@ -1,5 +1,11 @@
-{ username, ... }: {
-  home-manager.users.${username} = {
-    stylix.targets.xyz.enable = false;
+{
+  pkgs,
+  ...
+}:
+{
+  stylix = {
+    enable = true;
+    image = ../../wallpaper.png;
+    fonts.packages = [ pkgs.meslo-lgs-nf ];
   };
 }

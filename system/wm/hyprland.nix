@@ -17,6 +17,7 @@ in
         package = pkgs.hyprland;
         settings = {
           "$mod" = "SUPER";
+          "disable_logs" = "false";
           bind =
             [
               "$mod, F, exec, firefox"

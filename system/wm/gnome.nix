@@ -8,7 +8,7 @@ in
     services = {
       xserver.desktopManager.gnome.enable = true;
       power-profiles-daemon.enable = false;
-      udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
+      udev.packages = [ pkgs.gnome.gnome-settings-daemon ];
     };
 
     environment.gnome.excludePackages =

@@ -22,6 +22,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    stylix = {
+      url = "github:danth/stylix?rev=d042af478ce87e188139480922a3085218194106";
+      inputs.home-manager.follows = "home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
   };
 
@@ -92,6 +98,7 @@
             (configurationDefaults specialArgs)
             agenix.nixosModules.default
             home-manager.nixosModules.home-manager
+            stylix.nixosModules.stylix
           ] ++ modules;
         };
     in
