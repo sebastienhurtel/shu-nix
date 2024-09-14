@@ -1,11 +1,13 @@
 {
-  pkgs,
   ...
 }:
 {
   stylix = {
     enable = true;
     image = ../../wallpaper.png;
-    fonts.packages = [ pkgs.meslo-lgs-nf ];
+    gtk.enable = true;
+    gnome.enable = true;
+    alacritty.enable = false;
+    polarity = "dark";
   };
 }
