@@ -98,7 +98,7 @@
             (configurationDefaults specialArgs)
             agenix.nixosModules.default
             home-manager.nixosModules.home-manager
-            stylix.homeManagerModules.stylix
+            stylix.nixosModules.stylix
           ] ++ modules;
         };
     in
