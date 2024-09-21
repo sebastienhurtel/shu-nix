@@ -113,7 +113,7 @@
       nixosConfigurations.squarepusher = mkNixosConfiguration {
         hostname = "squarepusher";
         username = "sebastien";
-        wm = "gnome";
+        wm = "hyprland";
         modules = [
           ./system.nix
           ./hardware/squarepusher.nix
