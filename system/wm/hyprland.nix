@@ -13,6 +13,7 @@ in
     home-manager.users.${username} = {
       wayland.windowManager.hyprland.settings = {
         "$mod" = "SUPER";
+        "exec-once" = "alacritty";
         bind =
           [
           ]
