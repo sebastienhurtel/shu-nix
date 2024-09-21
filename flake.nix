@@ -74,6 +74,7 @@
           agenix
           nix-index-database
           nixos-hardware
+          stylix
           ;
         channels = {
           inherit nixpkgs nixpkgs-unstable;
@@ -98,7 +99,6 @@
             (configurationDefaults specialArgs)
             agenix.nixosModules.default
             home-manager.nixosModules.home-manager
-            stylix.nixosModules.stylix
           ] ++ modules;
         };
     in

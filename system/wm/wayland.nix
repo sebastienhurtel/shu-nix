@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.services.shuWayland;
+  cfg = config.shu.Wayland;
 in
 {
-  options.services.shuWayland.enable = lib.mkEnableOption "Enable shuWayland";
+  options.shu.Wayland.enable = lib.mkEnableOption "Enable shuWayland";
   config = lib.mkIf cfg.enable {
     services = {
       gnome.gnome-keyring.enable = true;

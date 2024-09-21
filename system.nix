@@ -75,11 +75,11 @@
     };
   };
 
-  services = {
-    shuWm = {
+  shu.Wm = {
       enable = if wm == "headless" then false else true;
       manager = wm;
-    };
+  };
+  services = {
     fwupd.enable = true;
     resolved.enable = true;
     avahi = {

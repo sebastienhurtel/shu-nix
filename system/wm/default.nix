@@ -4,11 +4,11 @@
   ...
 }:
 let
-  cfg = config.services.shuWm;
+  cfg = config.shu.Wm;
 in
 {
   imports = [ ./gnome.nix ./wayland.nix ./hyprland.nix ./stylix.nix ];
-  options.services.shuWm = with lib; {
+  options.shu.Wm = with lib; {
     enable = mkEnableOption "Enable window manager.";
     manager = mkOption {
       type = types.str;
@@ -16,8 +16,8 @@ in
     };
   };
   config = lib.mkIf cfg.enable {
-    services.shuWayland.enable = true;
-    services.shuGnome.enable = if cfg.manager == "gnome" then true else false;
-    services.shuHyprland.enable = if cfg.manager == "hyprland" then true else false;
+    shu.Wayland.enable = true;
+    shu.Gnome.enable = if cfg.manager == "gnome" then true else false;
+    shu.Hyprland.enable = if cfg.manager == "hyprland" then true else false;
   };
 }

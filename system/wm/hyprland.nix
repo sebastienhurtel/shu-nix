@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.services.shuHyprland;
+  cfg = config.shu.Hyprland;
 in
 {
-  options.services.shuHyprland.enable = lib.mkEnableOption "Enable shuHyprland";
+  options.shu.Hyprland.enable = lib.mkEnableOption "Enable shuHyprland";
   config = lib.mkIf cfg.enable {
     home-manager.users.${username} = {
       wayland.windowManager.hyprland.settings = {
