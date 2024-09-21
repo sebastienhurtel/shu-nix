@@ -10,6 +10,7 @@ in
 {
   options.shu.Hyprland.enable = lib.mkEnableOption "Enable shuHyprland";
   config = lib.mkIf cfg.enable {
+    xdg.portal.enable = true;
     home-manager.users.${username} = {
       wayland.windowManager.hyprland.settings = {
         "$mod" = "SUPER";
