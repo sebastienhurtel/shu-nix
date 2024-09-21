@@ -53,6 +53,7 @@
       "nvidia"
     ];
     extraModulePackages = [ ];
+    kernelPackages = pkgs.linuxPackages_6_11;
   };
 
   hardware.pulseaudio.enable = false;
