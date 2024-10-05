@@ -103,12 +103,12 @@
         };
     in
     {
-      nixosConfigurations.vmarcus = mkNixosConfiguration {
-        hostname = "vmarcus";
-        username = "sebastien";
-        wm = "hyprland";
-        modules = [ ./system.nix ./hardware/vmarcus.nix ];
-      };
+     nixosConfigurations.vmarcus = mkNixosConfiguration {
+       hostname = "vmarcus";
+       username = "sebastien";
+       wm = "hyprland";
+       modules = [ ./system.nix ./hardware/vmarcus.nix ];
+     };
 
       nixosConfigurations.squarepusher = mkNixosConfiguration {
         hostname = "squarepusher";

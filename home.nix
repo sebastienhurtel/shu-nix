@@ -58,8 +58,8 @@ let
     darktable
     firefox
     google-chrome
-    pavucontrol
     parsec-bin
+    pavucontrol
   ];
 
   home-packages =
