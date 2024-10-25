@@ -9,6 +9,7 @@ in
       xserver.desktopManager.gnome.enable = true;
       power-profiles-daemon.enable = false;
       udev.packages = [ pkgs.gnome.gnome-settings-daemon ];
+      gnome.gnome-keyring.enable = true;
     };
 
     environment.gnome.excludePackages =

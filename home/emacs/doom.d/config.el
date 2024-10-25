@@ -1,9 +1,9 @@
 (setq user-full-name "Sébastien Hurtel"
       user-mail-address "sebastienhurtel@gmail.com")
 (setq doom-font (font-spec :family "MesloLGS NF" :size 14))
-
 (setq doom-theme 'doom-one)
 (setq display-line-numbers-type t)
+
 ;; Org-mode related
 (setq org-directory "~/Documents/shu/org/") ; default org-directory
 (setq org-roam-directory "~/Documents/shu/org/notes")
@@ -82,10 +82,12 @@
                (--any? (f-ancestor-of? it buffer-file-name)
                        shu:git-auto-commit-mode-for-orgmode-directories))
       (git-auto-commit-mode 1))))
+
 ;; Add ob-ein
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((ein . t)))
+
 ;; Confluence exporter
 (load! "org-mode/+ox-confluence.el")
 
@@ -140,7 +142,7 @@
          " AND NOT maildir:"
          "/shu/All")))
 ;; Window transparency
-(set-frame-parameter (selected-frame) 'alpha '(98 . 90))
+;; (set-frame-parameter (selected-frame) 'alpha '(98 . 90))
 ;; BM Bookmark
 (map! (:leader
        (:desc "Toggle mark"      :nv "b m" #'bm-toggle
@@ -159,6 +161,7 @@
 ;; Treemacs configuration
 (setq treemacs-width 30)
 (setq doom-themes-treemacs-theme "doom-colors")
+
 ;; Magit forge
 ;;setq auth-sources '("~/.emacs.d/.local/etc/authinfo.gpg")
 

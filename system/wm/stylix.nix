@@ -25,6 +25,7 @@ in
           alacritty.enable = false;
           tmux.enable = false;
           emacs.enable = false;
+          waybar.enable = false;
         };
 
         fonts = {

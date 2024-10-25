@@ -7,7 +7,7 @@ let
   cfg = config.shu.Wm;
 in
 {
-  imports = [ ./gnome.nix ./wayland.nix ./hyprland.nix ./stylix.nix ];
+  imports = [ ./gnome.nix ./wayland.nix ./hyprland ./stylix.nix ];
   options.shu.Wm = with lib; {
     enable = mkEnableOption "Enable window manager.";
     manager = mkOption {

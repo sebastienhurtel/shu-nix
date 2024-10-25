@@ -60,8 +60,8 @@
       with pkgs;
       [
         agenix.packages.${system}.default
+        cmake
         fastfetch
-        gnupg
         mesa
         ncdu
         numactl
@@ -71,7 +71,7 @@
         vim
       ]
       ++ [
-        pkgs.unstable.qwerty-fr
+        unstable.qwerty-fr
       ];
   };
 

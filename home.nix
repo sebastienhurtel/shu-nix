@@ -27,6 +27,7 @@ let
     jq
     killall
     libqalculate
+    libreoffice
     nmap
     procs
     pyright
