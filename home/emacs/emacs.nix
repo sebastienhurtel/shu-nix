@@ -15,7 +15,6 @@ let
     graphviz
     isort
     libvterm
-    nixd
     nodePackages_latest.bash-language-server
     pipenv
     poetry
@@ -27,6 +26,7 @@ let
     python3Packages.pytest
     python3Packages.pyflakes
     nixfmt-rfc-style
+    nixd
   ];
 in
 {
