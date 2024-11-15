@@ -82,6 +82,7 @@
     fsType = "ext4";
   };
 
+  services.hardware.bolt.enable = true;
 
   swapDevices = [ ];
   zramSwap.enable = true;
