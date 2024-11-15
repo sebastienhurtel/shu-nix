@@ -32,6 +32,7 @@
     plugins = [ pkgs.networkmanager_strongswan ];
   };
 
+
   services = {
     tlp = {
       enable = true;
@@ -70,6 +71,7 @@
       jack.enable = true;
       pulse.enable = true;
     };
+    shuNFSClient.enable = true;
   };
 
   hardware.pulseaudio.enable = false;
