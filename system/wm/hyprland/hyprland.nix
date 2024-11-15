@@ -138,7 +138,10 @@ in
           "$mod" = "SUPER";
           exec-once = exec-once;
           bind = bind;
-          monitor = "eDP-1, 1920x1200@60, 0x0, 1";
+          monitor = [
+            "eDP-1, 1920x1200@60, 0x0, 1"
+            "DP-10, 2560x1440@144, auto-left, 1"
+          ];
           input = {
             kb_layout = "us_qwerty-fr";
           };
@@ -204,7 +207,7 @@ in
             shadow_render_power = 3;
           };
           animations = {
-            enabled = false;
+            enabled = true;
             bezier = [
               "myBezier, 0.05, 0.9, 0.1, 1.05"
             ];
