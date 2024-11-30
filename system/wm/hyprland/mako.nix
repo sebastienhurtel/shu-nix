@@ -17,7 +17,7 @@ in
         anchor = "top-center";
         borderRadius = 3;
         borderSize = 2;
-        defaultTimeout = 20000;
+        defaultTimeout = 45;
         groupBy = "summary";
         iconPath = "${pkgs.papirus-icon-theme}/share/icons/Papirus-Dark";
         layer = "overlay";
