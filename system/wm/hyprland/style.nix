@@ -43,7 +43,7 @@ in
 {
   rofi = with custom; {
     configuration = {
-      modi = "drun";
+      modi = "drun,run";
       show-icons = true;
       drun-display-format = "{name}";
       font = "${lib.lists.last fonts} 14";
@@ -54,10 +54,8 @@ in
       selected = mkLiteral "#${selected_background}";
       urgent = mkLiteral "#${urgent}";
       active = mkLiteral "#${background_1}";
-
       text-selected = mkLiteral "#${on_background}";
       text = mkLiteral "#${text}";
-
       shade-shadow = mkLiteral "white / 6%";
       shade-bg = mkLiteral "white / 12%";
       shade-border = mkLiteral "white / 24%";
@@ -74,20 +72,17 @@ in
       location = mkLiteral "center";
       padding = mkLiteral "0px";
       transparency = "real";
-      width = mkLiteral "100%";
+      width = mkLiteral "55%";
     };
 
     "element normal.normal" = {
       background-color = mkLiteral "transparent";
-    };
-    "element alternate.normal" = {
-      background-color = mkLiteral "transparent";
-      text-color = mkLiteral "@text";
+      text-color = mkLiteral "#${off_background}";
     };
 
     "element selected.normal" = {
       background-color = mkLiteral "@shade-bg";
-      text-color = mkLiteral "white";
+      text-color = mkLiteral "@text-selected";
       border = mkLiteral "1px solid";
       border-color = mkLiteral "@selected";
     };
@@ -102,19 +97,29 @@ in
     };
 
     listview = {
-      border = mkLiteral "0px";
+      background-color = mkLiteral "transparent";
+      columns = mkLiteral "2";
+      cycle = "true";
+      dynamic = "true";
+      fixed-columns = "true";
+      fixed-height = "true";
+      layout = mkLiteral "vertical";
+      lines = mkLiteral "6";
+      reverse = "false";
+      scrollbar = "false";
+      spacing = mkLiteral "16px";
     };
 
     scrollbar = {
       margin = mkLiteral "0px 4px";
       handle-width = mkLiteral "8px";
       handle-color = mkLiteral "white";
-      background-color = mkLiteral ''@shade-shadow'';
+      background-color = mkLiteral "@shade-shadow";
       border-radius = mkLiteral "4px";
     };
 
     message = {
-      background-color = mkLiteral ''@shade-bg'';
+      background-color = mkLiteral "@shade-bg";
       border = mkLiteral "1px solid";
       border-color = mkLiteral "transparent";
       border-radius = mkLiteral "12px";
@@ -138,81 +143,53 @@ in
     };
 
     mainbox = {
+      orientation = mkLiteral "horizontal";
+      children = mkLiteral ''[ "img", "listbox"]'';
       background-color = mkLiteral "transparent";
-      children = mkLiteral ''[ "inputbar", "textbox-help", "message", "listview" ]'';
-      margin = mkLiteral "0px";
+      spacing = mkLiteral "24px";
+    };
+
+    listbox = {
+      spacing = mkLiteral "20px";
+      background-color = mkLiteral "transparent";
       orientation = mkLiteral "vertical";
-      padding = mkLiteral "64px";
-      spacing = mkLiteral "16px";
+      children = mkLiteral ''["inputbar", "message", "listview"]'';
+    };
+
+    img = {
+      padding = mkLiteral "64px 128px";
+      border-radius = mkLiteral "24px";
+      background-image = mkLiteral ''url("${wallpaper}", height)'';
     };
 
     inputbar = {
-      children = mkLiteral ''[ "dummy", "entry", "dummy" ]'';
-      border-radius = mkLiteral "24px";
-
+      background-color = mkLiteral "@shade-bg";
+      border-radius = mkLiteral "12px";
+      children = mkLiteral ''[ "textbox-icon", "entry" ]'';
+      margin = mkLiteral "0px";
+      padding = mkLiteral "14px";
       spacing = mkLiteral "0px";
-      padding = mkLiteral "128px 64px";
-      orientation = mkLiteral "horizontal";
-      background-image = mkLiteral ''url("${wallpaper}", width)'';
+      text-color = mkLiteral "@text";
     };
 
     dummy = {
       background-color = mkLiteral "transparent";
     };
 
-    textbox-help = {
-      expand = false;
-      content = '' [ctrl del]  delete \n[alt del]   wipe'';
-
-      border-radius = mkLiteral "12px";
-      background-color = mkLiteral ''@shade-bg'';
-      text-color = mkLiteral "white";
-
-      margin = mkLiteral "0px";
-      padding = mkLiteral "6px";
-    };
-
     textbox-icon = {
-      expand = true;
       background-color = mkLiteral "transparent";
+      expand = false;
+      str = " ";
       text-color = mkLiteral "inherit";
-      margin = mkLiteral "0px 0px 0px 25px";
-      content = "  ";
     };
 
     entry = {
-      cursor = mkLiteral "inherit";
-      placeholder = "search";
-      placeholder-color = mkLiteral "inherit";
-
-      border-radius = mkLiteral "12px";
-      background-color = mkLiteral "black / 48%";
-      text-color = mkLiteral "@text";
-
-      padding = mkLiteral "16px";
-      margin = mkLiteral "0px";
-    };
-
-    listview = {
-      cursor = "default";
-      columns = mkLiteral "2";
-      cycle = true;
-      dynamic = true;
-      scrollbar = true;
-      layout = mkLiteral "vertical";
-      reverse = false;
-      fixed-height = true;
-      fixed-columns = true;
-
+      expand = false;
       background-color = mkLiteral "transparent";
-      text-color = mkLiteral "@foreground";
-
-      spacing = mkLiteral "12px";
-      margin = mkLiteral "0px";
-      padding = mkLiteral "0px";
-
-      orientation = mkLiteral "vertical";
-      children = mkLiteral ''[ "message", "listview" ]'';
+      cursor = mkLiteral "text";
+      placeholder = "Search... ";
+      placeholder-color = mkLiteral "inherit";
+      text-color = mkLiteral "@text";
     };
 
     element = {
@@ -232,13 +209,6 @@ in
       size = mkLiteral "36px";
       cursor = mkLiteral "inherit";
     };
-
-    # "@media(max-aspect-ratio = 1.8)" = {
-    #   element = {
-    #     orientation = mkLiteral "vertical";
-    #   };
-    # };
-
   };
 
   waybar = with custom; ''
