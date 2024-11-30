@@ -3,13 +3,15 @@
   programs.alacritty = {
     enable = true;
     settings = {
-      shell = {
-        program = "/etc/profiles/per-user/${username}/bin/zsh";
-        args = [
-          "-l"
-          "-c"
-          "tmux attach || tmux"
-        ];
+      terminal = {
+        shell = {
+          program = "/etc/profiles/per-user/${username}/bin/zsh";
+          args = [
+            "-l"
+            "-c"
+            "tmux attach || tmux"
+          ];
+        };
       };
 
       font = {
