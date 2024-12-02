@@ -1,4 +1,4 @@
-{ pkgs, self, config, username, ... }:
+{ pkgs, username, ... }:
 {
 
   home.file.".config/zsh/.p10k.zsh".source = ./p10k.zsh;
@@ -36,8 +36,8 @@
           src = pkgs.fetchFromGitHub {
             owner = "Aloxaf";
             repo = "fzf-tab";
-            rev = "bf3ef5588af6d3bf7cc60f2ad2c1c95bca216241";
-            sha256 = "0hv21mp6429ny60y7fyn4xbznk31ab4nkkdjf6kjbnf6bwphxxnk";
+            rev = "6aced3f35def61c5edf9d790e945e8bb4fe7b305";
+            sha256 = "1brljd9744wg8p9v3q39kdys33jb03d27pd0apbg1cz0a2r1wqqi";
           };
         }
         {
@@ -69,7 +69,6 @@
           "clab"
           "docker"
           "docker-compose"
-          "fd"
           "fzf"
           "fzf-tab"
           "git"
@@ -77,7 +76,6 @@
           "jsontools"
           "pipenv"
           "python"
-          "ripgrep"
           "sudo"
           "tmux"
           "vagrant"
