@@ -20,7 +20,7 @@ in
             enable_fingerprint = true;
             fingerprint_ready_message = "fingerprint reader is ready";
             fingerprint_present_message = "reading... ";
-            pam_module = "/etc/pam.d/gdm-fingerprint";
+            pam_module = "/etc/pam.d/login";
           };
 
           background = {
