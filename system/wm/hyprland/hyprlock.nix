@@ -19,7 +19,7 @@ in
             ignore_empty_input = true;
             enable_fingerprint = true;
             fingerprint_ready_message = "fingerprint reader is ready";
-            fingerprint_presetn_message = "reading... ";
+            fingerprint_present_message = "reading... ";
             pam_module = "/etc/pam.d/gdm-fingerprint";
           };
 
@@ -52,7 +52,6 @@ in
             {
               monitor = "";
               text = ''cmd[update:1000] echo "<b><big> $(date +"%M") </big></b>"'';
-              inner_color = "rgb(010204)";
               font_size = 112;
               font_family = "Geist Mono 10";
               shadow_passes = 3;
@@ -69,7 +68,7 @@ in
               color = "rgb(010204)";
               font_size = 22;
               font_family = "JetBrainsMono Nerd Font 10";
-              position = "0, 30";
+              position = "0, 0";
               halign = "center";
               valign = "center";
             }
@@ -81,7 +80,7 @@ in
               color = "rgb(010204)";
               font_size = 18;
               font_family = "JetBrainsMono Nerd Font 10";
-              position = "0, 6";
+              position = "0, -40";
               halign = "center";
               valign = "center";
             }
