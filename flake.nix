@@ -81,7 +81,7 @@
           modules,
         }:
         let
-          specialArgs = argDefaults // { inherit hostname username wm; } // args;
+          specialArgs = argDefaults // args // { inherit hostname username wm; };
         in
         nixpkgs.lib.nixosSystem {
           inherit system specialArgs;
