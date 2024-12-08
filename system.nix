@@ -9,9 +9,8 @@
 {
 
   imports = [
-    ./system/wm
-    ./system/${hostname}.nix
-    ./services
+    ./modules
+    ./hosts/${hostname}
   ];
 
   home-manager = {

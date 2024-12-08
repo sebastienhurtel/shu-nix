@@ -35,8 +35,6 @@
   };
 
   networking.firewall.allowedTCPPorts = [ 22 ];
-  sound.enable = false;
-  sound.mediaKeys.enable = true;
   hardware = {
     pulseaudio = {
       enable = false;
