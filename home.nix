@@ -16,8 +16,8 @@ let
     curl
     difftastic
     dig
-    duf
     du-dust
+    duf
     fd
     findutils
     fx
@@ -40,6 +40,7 @@ let
     vlc
     wget
     xclip
+    yt-dlp
     zip
   ];
 
