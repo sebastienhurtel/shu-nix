@@ -69,8 +69,6 @@ let
       ", XF86AudioPlay, exec, playerctl play-pause"
       ", XF86AudioNext, exec, playerctl next"
       ", XF86AudioPrev, exec, playerctl previous"
-      ", switch:on:Lid Switch, exec, hyprctl keyword monitor 'eDP-1, disable'"
-      ", switch:off:Lid Switch, exec, hyprctl keyword monitor 'eDP-1, 1920x1200@60, 0x0, 1'"
     ];
 
     workspaces = (
