@@ -154,6 +154,9 @@ in
           monitor = [
             "eDP-1, 1920x1200@60, 0x0, 1"
             ", prefered, auto-left, 1"
+            #prevent hyprlock from crashing
+            # https://github.com/hyprwm/hyprlock/issues/434
+            "FALLBACK, 1920x1080@60, auto, 1"
           ];
           input = {
             kb_layout = "us_qwerty-fr";
