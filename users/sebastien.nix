@@ -11,5 +11,6 @@
     shell.enable = true;
     term.enable = true;
     tmux.enable = true;
+    kanshi.enable = true;
   };
 }

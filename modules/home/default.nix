@@ -8,5 +8,6 @@
     ./emacs/emacs.nix
     ./dconf/dconf.nix
     ./git/git.nix
+    ./kanshi/kanshi.nix
   ];
 }
