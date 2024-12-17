@@ -66,6 +66,8 @@ let
       ", XF86AudioPlay, exec, playerctl play-pause"
       ", XF86AudioNext, exec, playerctl next"
       ", XF86AudioPrev, exec, playerctl previous"
+      ", switch:off:Lid Switch, exec, kanshictl switch docked-lid-open"
+      ", switch:on:Lid Switch, exec, kanshictl switch docked-lid-closed"
     ];
 
     workspaces = (
