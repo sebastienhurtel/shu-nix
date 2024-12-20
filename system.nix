@@ -1,8 +1,8 @@
 {
+  agenix,
+  hostname,
   pkgs,
   username,
-  hostname,
-  agenix,
   wm,
   ...
 }:
