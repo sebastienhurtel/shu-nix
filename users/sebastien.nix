@@ -1,16 +1,20 @@
 {
   config,
+  wm,
   ...
 }:
 {
   age.identityPaths = [ "${config.home.homeDirectory}/.ssh/id_ecdsa_age" ];
   shu = {
-    dconf.enable = true;
-    emacs.enable = true;
+    dconf.enable = if wm == "headless" then false else true;
+    emacs.enable = if wm == "headless" then false else true;
     git.enable = true;
+    kanshi.enable = if wm == "headless" then false else true;
     shell.enable = true;
     term.enable = true;
     tmux.enable = true;
-    kanshi.enable = true;
+  };
+  programs = {
+    nnn.enable = true;
   };
 }

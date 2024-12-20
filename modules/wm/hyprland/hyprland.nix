@@ -6,7 +6,7 @@
   ...
 }:
 let
-  cfg = config.shu.hYprland;
+  cfg = config.shu.hyprland;
 
   generalStartScript = pkgs.writeShellScriptBin "start" ''
     systemctl --user enable --now hypridle.service

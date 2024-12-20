@@ -26,6 +26,7 @@ let
     poetry
     pyenv
     wl-clipboard
+    pyright
   ];
   unstable = with pkgs.unstable; [
     python3Packages.pytest
