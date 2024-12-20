@@ -8,10 +8,10 @@
 }:
 
 let
-  cfg = config.shu.Stylix;
+  cfg = config.shu.stylix;
 in
 {
-  options.shu.Stylix.enable = lib.mkEnableOption "Enable shuStylix";
+  options.shu.stylix.enable = lib.mkEnableOption "Enable shuStylix";
   config = lib.mkIf cfg.enable {
     home-manager.users.${username} = {
       imports = [ stylix.homeManagerModules.stylix ];
