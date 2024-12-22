@@ -38,7 +38,6 @@ let
     vim
     vlc
     wget
-    xclip
     yt-dlp
     zip
   ];
@@ -61,6 +60,7 @@ let
     parsec-bin
     pavucontrol
     libreoffice
+    xclip
   ];
 
   home-packages =
@@ -82,9 +82,8 @@ in
   home = {
     username = "${username}";
     homeDirectory = "/home/${username}";
+    packages = home-packages;
   };
-
-  home.packages = home-packages;
 
   # required to autoload fonts from packages installed via Home Manager
   fonts.fontconfig.enable = true;
