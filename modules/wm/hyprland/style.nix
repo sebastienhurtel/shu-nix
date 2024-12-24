@@ -247,11 +247,12 @@ in
     }
 
     #workspaces button {
-        padding: 1px 1px;
+        padding: 0px 11px 0px 7px;
         margin: 4px 3px;
         border-radius: 15px;
         border: 0px;
         color: @textcolor;
+        background: @backgroundlight;
         transition: all 0.3s ease-in-out;
     }
 
@@ -335,7 +336,7 @@ in
     }
 
     #pulseaudio.muted {
-        background-color: @backgrounddark;
+        background-color: @backgroundlight;
         color: @textcolor;
     }
 
