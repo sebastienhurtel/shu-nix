@@ -10,7 +10,7 @@ let
     black
     dockerfile-language-server-nodejs
     dockfmt
-    emacs
+    emacs29-pgtk
     emacsPackages.sqlite3
     emacsPackages.vterm
     gomodifytags
