@@ -48,8 +48,8 @@ in
       };
 
       cursor = {
-        name = "Bibata-Modern-Ice";
-        package = pkgs.bibata-cursors;
+        name = "numix-cursor-dark";
+        package = pkgs.numix-cursor-theme;
       };
     };
   };
