@@ -39,5 +39,10 @@ in
   options.shu.emacs.enable = lib.mkEnableOption "Enable Shu emacs";
   config = lib.mkIf cfg.enable {
     home.packages = stable ++ unstable;
+    services.emacs = {
+      enable = true;
+      socketActivation.enable = true;
+      startWithUserSession = "graphical";
+    };
   };
 }

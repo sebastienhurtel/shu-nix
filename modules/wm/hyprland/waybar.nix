@@ -12,8 +12,18 @@ in
   options.shu.Waybar.enable = lib.mkEnableOption "Enable Shu Waybar";
   config = lib.mkIf cfg.enable {
     home-manager.users.${username} = {
+      systemd.user.services.waybar = {
+        Unit = {
+          PartOf = lib.mkForce [ "graphical-session.target" ];
+          After = lib.mkForce [ "graphical-session.target" ];
+        };
+        Service = {
+          Slice = [ "app-graphical.slice" ];
+        };
+      };
       programs.waybar = {
         enable = true;
+        systemd.enable = true;
         settings = {
           mainBar = {
             layer = "top";
@@ -27,7 +37,7 @@ in
             ];
 
             "custom/appmenu" = {
-              "format" = "";
+              "format" = " ";
               "on-click" = "rofi -show drun -replace";
               "tooltip" = false;
             };
@@ -43,19 +53,26 @@ in
                 "class<firefox>" = "";
                 "class<firefox> title<.*github.*>" = "";
                 "class<.*chrome.*>" = "󰊯";
-                "class<Alacritty>" = "";
+                "class<(.*)[aA]lacritty(.*)>" = "";
                 "code" = "󰨞";
                 "class<Emacs>" = "";
                 "class<(.*)Nautilus>" = "";
               };
               "all-output" = true;
               "format-icons" = {
-                "default"= "";
+                "default" = "";
                 "empty" = "";
               };
               "persistent-workspaces" = {
-                "*" = [ 1 2 3 4 ];
+                "*" = [
+                  1
+                  2
+                  3
+                  4
+                ];
               };
+              "on-scroll-up" = "hyprctl dispatch workspace m-1";
+              "on-scroll-down" = "hyprctl dispatch workspace m+1";
             };
 
             modules-center = [
@@ -66,6 +83,22 @@ in
               "format" = "{:%H:%M %A}";
               "on-click" = "ags -t calendar";
               "tooltip" = false;
+              "format-alt" = "{:%A, %B %d, %Y (%R)}  ";
+              "tooltip-format" = "n<span size='9pt'>{calendar}</span>";
+              "calendar" = {
+                "mode" = "year";
+                "mode-mon-col" = 3;
+                "weeks-pos" = "right";
+                "on-scroll" = 1;
+                "on-click-right" = "mode";
+                "format" = {
+                  "months" = "<span color='#ffead3'><b>{}</b></span>";
+                  "days" = "<span color='#ecc6d9'><b>{}</b></span>";
+                  "weeks" = "<span color='#99ffdd'><b>W{}</b></span>";
+                  "weekdays" = "<span color='#ffcc66'><b>{}</b></span>";
+                  "today" = "<span color='#ff6699'><b><u>{}</u></b></span>";
+                };
+              };
             };
 
             modules-right = [
@@ -101,11 +134,11 @@ in
               "format" = "{ifname}";
               "format-wifi" = "{icon}";
               "format-icons" = [
-                "󰤯"
-                "󰤟"
-                "󰤢"
-                "󰤥"
-                "󰤨"
+                "󰤯 "
+                "󰤟 "
+                "󰤢 "
+                "󰤥 "
+                "󰤨 "
               ];
               "format-ethernet" = "  {ipaddr}";
               "format-disconnected" = "Not connected";
@@ -118,7 +151,6 @@ in
             };
 
             pulseaudio = {
-              # "scroll-step" = 1; // %, can be a float
               "format" = "{icon} {volume}%";
               "format-bluetooth" = "{volume}%  {icon} {format_source}";
               "format-bluetooth-muted" = "  {icon} {format_source}";
@@ -133,9 +165,12 @@ in
                 "portable" = "";
                 "car" = "";
                 "default" = [
-                  "󰝟"
-                  "󰕿"
+                  "󰝟 "
+                  "󰕿 "
+                  "󰕿 "
                   "󰖀 "
+                  "󰖀 "
+                  "󰕾 "
                   "󰕾 "
                 ];
               };
