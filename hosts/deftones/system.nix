@@ -13,7 +13,7 @@
   };
 
   programs.gnupg.agent = {
-    enable = true;
+    enable = false;
     enableSSHSupport = false;
   };
 
@@ -27,6 +27,7 @@
     shuNFS.enable = true;
     shuUnbound.enable = true;
     resolved.enable = lib.mkForce false;
+    gnome.gnome-keyring.enable = true;
     openssh = {
       enable = true;
       settings.PasswordAuthentication = false;
