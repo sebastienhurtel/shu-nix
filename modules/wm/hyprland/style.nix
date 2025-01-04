@@ -275,9 +275,9 @@ in
     tooltip {
         border-radius: 10px;
         background-color: @backgroundlight;
-        opacity:0.8;
-        padding:20px;
-        margin:0px;
+        opacity: 0.8;
+        padding: 20px;
+        margin: 0px;
     }
 
     tooltip label {
@@ -293,11 +293,11 @@ in
     }
 
     #custom-appmenu {
-        background-color: #${yellow};
+        background-color: @backgroundlight;
         font-size: ${font_size};
-        color: @alternate_text;
+        color: @textcolor;
         border-radius: 15px;
-        padding: 0px 10px 0px 10px;
+        padding: 0px 10px 0px 8px;
         margin: 10px 15px 10px 10px;
     }
 
