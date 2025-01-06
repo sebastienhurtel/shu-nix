@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 let
@@ -10,27 +9,10 @@ in
 {
   options.shu.git.enable = lib.mkEnableOption "Enable Shu git";
   config = lib.mkIf cfg.enable {
-    home.activation.removeOlgConfig = lib.hm.dag.entryBefore [ "checkFilesChanged" ] ''
-      rm -f "${config.home.homeDirectory}"/.config/git/config*
-    '';
-
-    home.activation."git-secrets" = lib.hm.dag.entryAfter [ "reloadSystemd" ] ''
-      secretGH=$(cat "${config.age.secrets.emailGithub.path}")
-      config="${config.home.homeDirectory}/.config/git/config"
-      ${pkgs.gnused}/bin/sed -i "s/@emailGithub@/$secretGH/" "$config"
-      secretPro=$(cat "${config.age.secrets.emailPro.path}")
-      configPro="${config.home.homeDirectory}/.config/git/config-free"
-      ${pkgs.gnused}/bin/sed -i "s/@emailPro@/$secretPro/" "$configPro"
-    '';
-
-    age.secrets.emailGithub.file = ../../../secrets/emailGithub.age;
-    age.secrets.emailPro.file = ../../../secrets/emailPro.age;
-
-    home.file.".config/git/config-free".text = ''
-      [user]
-              name = shurtel
-              email = "@emailPro@"
-    '';
+    age.secrets.emailPro = {
+      file = ../../../secrets/emailPro.age;
+      path = "${config.home.homeDirectory}/.config/git/config-free";
+    };
 
     programs.git = {
       enable = true;
@@ -42,7 +24,7 @@ in
           navigate = true;
         };
       };
-      userEmail = "@emailGithub@";
+      userEmail = "sebastienhurtel+github@gmail.com";
       userName = "shu";
       extraConfig = {
         push = {
