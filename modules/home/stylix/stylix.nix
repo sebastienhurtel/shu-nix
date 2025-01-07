@@ -1,56 +1,21 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
-
 let
-  cfg = config.shu.stylix;
+  cfg = config.shu.home.stylix;
 in
 {
-  options.shu.stylix.enable = lib.mkEnableOption "Enable shuStylix";
+  # Stylix is imported at system level, home-manager options are automagically detected
+  options.shu.home.stylix.enable = lib.mkEnableOption "Enable shu home stylix";
   config = lib.mkIf cfg.enable {
-    stylix = {
-      enable = true;
-      image = ../../../wallpaper.png;
-      polarity = "dark";
-      opacity.applications = 0.9;
-      base16Scheme = "${pkgs.base16-schemes}/share/themes/google-dark.yaml";
-      targets = {
-        alacritty.enable = false;
-        tmux.enable = false;
-        emacs.enable = false;
-        waybar.enable = false;
-        rofi.enable = false;
-      };
-
-      fonts = {
-        monospace = {
-          package = pkgs.meslo-lgs-nf;
-          name = "MesloLGS NF";
-        };
-        sansSerif = {
-          package = pkgs.dejavu_fonts;
-          name = "Cantarell";
-        };
-        serif = {
-          package = pkgs.dejavu_fonts;
-          name = "DejaVu Serif";
-        };
-
-        sizes = {
-          applications = 12;
-          terminal = 10;
-          desktop = 10;
-          popups = 10;
-        };
-      };
-
-      cursor = {
-        name = "numix-cursor-dark";
-        package = pkgs.numix-cursor-theme;
-      };
+    stylix.targets = {
+      alacritty.enable = false;
+      tmux.enable = false;
+      emacs.enable = false;
+      waybar.enable = false;
+      rofi.enable = false;
     };
   };
 }

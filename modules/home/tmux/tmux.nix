@@ -4,10 +4,10 @@
   ...
 }:
 let
-  cfg = config.shu.tmux;
+  cfg = config.shu.home.tmux;
 in
 {
-  options.shu.tmux.enable = lib.mkEnableOption "Enable Shu tmux";
+  options.shu.home.tmux.enable = lib.mkEnableOption "Enable shu home tmux";
   config = lib.mkIf cfg.enable {
     home.file.".config/tmux/shu-tmux.conf".source = ./shu-tmux.conf;
     home.file.".config/tmux/tmux.conf.local".source = ./tmux.conf.local;

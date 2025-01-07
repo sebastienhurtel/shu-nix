@@ -6,10 +6,10 @@
   ...
 }:
 let
-  cfg = config.shu.shell;
+  cfg = config.shu.home.shell;
 in
 {
-  options.shu.shell.enable = lib.mkEnableOption "Enable Shu shell";
+  options.shu.home.shell.enable = lib.mkEnableOption "Enable shu home shell";
   config = lib.mkIf cfg.enable {
     home.file.".config/zsh/.p10k.zsh".source = ./p10k.zsh;
 

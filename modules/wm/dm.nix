@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  username,
   ...
 }:
 let
@@ -20,8 +19,6 @@ let
   };
 
   hyprlandConfig = pkgs.writeText "greetd-hyprland-config" ''
-    preload = /home/${username}/.dotfiles/wallpaper.png
-    wallpaper =, /home/${username}/.dotfiles/wallpaper.png
     exec = ${pkgs.zsh} -c "${pkgs.greetd.regreet}/bin/regreet; ${pkgs.hyprland}/bin/hyprctl dispatch exit"
     misc {
         disable_hyprland_logo = true

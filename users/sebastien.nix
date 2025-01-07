@@ -5,7 +5,7 @@
 }:
 {
   age.identityPaths = [ "${config.home.homeDirectory}/.ssh/id_ecdsa_age" ];
-  shu = {
+  shu.home = {
     dconf.enable = if wm == "headless" then false else true;
     emacs.enable = if wm == "headless" then false else true;
     git.enable = true;
