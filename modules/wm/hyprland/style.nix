@@ -309,7 +309,7 @@ in
     }
 
     #clock {
-        background-color: #${green};
+        background-color: @backgroundlight;
         font-size: 16px;
         color: @textcolor;
         border-radius: 15px;

@@ -2,6 +2,7 @@
   username,
   config,
   lib,
+  pkgs,
   ...
 }:
 let
@@ -52,11 +53,13 @@ in
                 "title<(.*)YouTube(.*)>" = "";
                 "class<firefox>" = "";
                 "class<firefox> title<.*github.*>" = "";
-                "class<.*chrome.*>" = "󰊯";
+                "class<Google-chrome>" = "󰊯";
+                "class<Google-chrome> title<.*github.*>" = "";
                 "class<(.*)[aA]lacritty(.*)>" = "";
                 "code" = "󰨞";
                 "class<Emacs>" = "";
                 "class<(.*)Nautilus>" = "";
+                "class<steam>" = "󰓓";
               };
               "all-output" = true;
               "format-icons" = {
@@ -77,12 +80,34 @@ in
 
             modules-center = [
               "clock"
+              "custom/notification"
             ];
 
-            clock = {
-              "format" = "{:%H:%M %A}";
-              "on-click" = "ags -t calendar";
+            "custom/notification" = {
               "tooltip" = false;
+              "format" = "{icon}";
+              "format-icons" = {
+                "notification" = "<span foreground='red'><sup></sup></span>";
+                "none" = "";
+                "dnd-notification" = "<span foreground='red'><sup></sup></span>";
+                "dnd-none" = "";
+                "inhibited-notification" = "<span foreground='red'><sup></sup></span>";
+                "inhibited-none" = "";
+                "dnd-inhibited-notification" = "<span foreground='red'><sup></sup></span>";
+                "dnd-inhibited-none" = "";
+              };
+              "return-type" = "json";
+              "exec-if" = "which swaync-client";
+              "exec" = "swaync-client -swb";
+              "on-click" = "swaync-client -t -sw";
+              "on-click-right" = "swaync-client -d -sw";
+              "escape" = true;
+            };
+
+            clock = {
+              "format" = "{:%a %d %b  %H:%M}";
+              "on-click" = "ags -t calendar";
+              "tooltip" = true;
               "format-alt" = "{:%A, %B %d, %Y (%R)}  ";
               "tooltip-format" = "n<span size='9pt'>{calendar}</span>";
               "calendar" = {
@@ -181,7 +206,7 @@ in
               "format-disabled" = "";
               "format-off" = "";
               "interval" = 30;
-              "on-click" = "blueman-manager";
+              "on-click" = "${pkgs.overskride}/bin/overskride";
               "format-no-controller" = "";
             };
 
