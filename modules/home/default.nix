@@ -12,5 +12,6 @@
     ./stylix/stylix.nix
     ./swaync/swaync.nix
     ./tmux/tmux.nix
+    ./syncthing/syncthing.nix
   ];
 }
