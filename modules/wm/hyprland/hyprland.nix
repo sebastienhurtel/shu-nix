@@ -38,8 +38,8 @@ let
   windowrulev2 = [
     "float, title:(rofi)"
     "float, class:(nm-connection-editor)"
-    "float, class:((.*)blueman-manager(.*))"
-    "size 30% 20%, class:((.*)blueman-manager(.*))"
+    "float, class:((.*)Overskride(.*))"
+    "size 45% 35%, class:((.*)Overskride(.*))"
     "float, class:(pavucontrol)"
     "size 40% 30%, class:(pavucontrol)"
     "workspace 1, class:^(Emacs)$"
@@ -154,7 +154,6 @@ in
         };
       };
       home.packages = with pkgs; [
-        blueman
         brightnessctl
         fira
         font-awesome
@@ -166,6 +165,7 @@ in
         nerdfonts
         networkmanager_strongswan
         networkmanagerapplet
+        overskride
         papirus-icon-theme
         playerctl
         seahorse
@@ -234,7 +234,7 @@ in
             rounding = 5;
             active_opacity = 0.99;
             inactive_opacity = 0.9;
-            # fullscreen_opacity = 1.0;
+            fullscreen_opacity = 1.0;
 
             blur = {
               enabled = true;
@@ -248,6 +248,7 @@ in
               xray = true;
             };
           };
+
           animations = {
             enabled = true;
             bezier = [
