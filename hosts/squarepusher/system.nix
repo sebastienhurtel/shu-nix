@@ -76,7 +76,31 @@
     };
     shuNFSClient.enable = true;
     gnome.gnome-keyring.enable = true;
+    syncthing = {
+      enable = true;
+      openDefaultPorts = true;
+      user = "${username}";
+      dataDir = "/home/${username}";
+      systemService = true;
+      settings = {
+        devices.deftones = {
+          addresses = [
+            "tcp://100.64.0.4:22000"
+          ];
+          id = "VHHCLVW-W3VTEAY-X4OXNAF-EEZJ6C2-O57ZPEC-2NU73WV-2WSERQV-BZBRJAY";
+        };
+        folders = {
+          Documents = {
+            type = "sendonly";
+            path = "/home/${username}/Documents";
+            devices = [ "deftones" ];
+          };
+        };
+      };
+    };
   };
+
+  systemd.services.syncthing.environment.STNODEFAULTFOLDER = "true";
 
   hardware.pulseaudio.enable = false;
 

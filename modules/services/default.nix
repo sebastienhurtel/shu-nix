@@ -7,5 +7,6 @@
     ./nfs-client.nix
     ./unbound.nix
     ./headscale.nix
+    ./syncthing.nix
   ];
 }

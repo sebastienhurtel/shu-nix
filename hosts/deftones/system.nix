@@ -33,7 +33,30 @@
       settings.PasswordAuthentication = false;
       openFirewall = true;
     };
+    syncthing = {
+      enable = true;
+      openDefaultPorts = true;
+      guiAddress = "100.64.0.4:8384";
+      settings = {
+        devices.squarepusher = {
+          autoAcceptFolders = true;
+          addresses = [
+            "tcp://100.64.0.3:22000"
+          ];
+          id = "34TQTWK-YQZSJRF-4DCRH65-ULWYVRD-PWJRBV2-OAGBPO5-6H3WZY7-IGNSNQX";
+        };
+        folders = {
+          Documents = {
+            type = "receiveonly";
+            path = "/data/documents/squarepusher";
+            devices = [ "squarepusher" ];
+          };
+        };
+      };
+    };
   };
+  networking.firewall.allowedTCPPorts = [ 8384 ];
+  systemd.services.syncthing.environment.STNODEFAULTFOLDER = "true";
 
   users.users.${username} = {
     openssh.authorizedKeys.keys = [
