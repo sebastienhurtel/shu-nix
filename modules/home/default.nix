@@ -2,14 +2,15 @@
 
 {
   imports = [
+    ./dconf/dconf.nix
+    ./emacs/emacs.nix
+    ./git/git.nix
+    ./kanshi/kanshi.nix
+    ./mako/mako.nix
     ./shell/shell.nix
     ./shell/term.nix
-    ./tmux/tmux.nix
-    ./emacs/emacs.nix
-    ./dconf/dconf.nix
-    ./git/git.nix
     ./stylix/stylix.nix
-    ./mako/mako.nix
     ./swaync/swaync.nix
+    ./tmux/tmux.nix
   ];
 }
