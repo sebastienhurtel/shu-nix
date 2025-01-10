@@ -75,6 +75,7 @@ let
       "$mod, page_up, workspace, -1"
       "$mod, page_down, workspace, +1"
 
+      "$mod, N, exec, ${pkgs.swaynotificationcenter}/bin/swaync-client -t -sw"
       ", XF86MonBrightnessDown, exec, ${pkgs.brightnessctl}/bin/brightnessctl s 10%-"
       ", XF86MonBrightnessUp, exec, ${pkgs.brightnessctl}/bin/brightnessctl s +10%"
     ] ++ bind.workspaces;
