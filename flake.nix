@@ -29,6 +29,11 @@
     };
 
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -89,6 +94,7 @@
             (configurationDefaults specialArgs)
             agenix.nixosModules.default
             home-manager.nixosModules.home-manager
+            disko.nixosModules.disko
           ] ++ modules;
         };
     in
@@ -113,6 +119,14 @@
 
       nixosConfigurations.deftones = mkNixosConfiguration {
         hostname = "deftones";
+        username = "sebastien";
+        modules = [
+          ./system.nix
+        ];
+      };
+
+      nixosConfigurations.aphex = mkNixosConfiguration {
+        hostname = "aphex";
         username = "sebastien";
         modules = [
           ./system.nix
