@@ -8,20 +8,29 @@ in
   networking = {
     wireless.enable = false;
     networkmanager.enable = true;
+    usePredictableInterfaceNames = false;
+    useDHCP = false;
   };
 
+  security.acme.defaults.dnsResolver = "1.1.1.1:53";
+  boot.kernel.sysctl = {
+    "net.ipv6.conf.eth0.accept_ra" = 0;
+  };
   # disable X
   programs.ssh.setXAuthLocation = false;
   security.pam.services.su.forwardXAuth = lib.mkForce false;
   fonts.fontconfig.enable = false;
 
   services = {
-    gnome.gnome-keyring.enable = true;
     openssh = {
       enable = true;
       settings.PasswordAuthentication = false;
       openFirewall = true;
     };
+    shu.headscale = {
+      enable = true;
+    };
+    avahi.enable = lib.mkForce false;
   };
   users.users = {
     root = {
