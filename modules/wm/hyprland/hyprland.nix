@@ -9,12 +9,9 @@ let
   cfg = config.shu.Hyprland;
 
   generalStartScript = pkgs.writeShellScriptBin "start" ''
-    systemctl --user import-environment PATH &
     systemctl --user enable --now hypridle.service
     systemctl --user enable --now waybar.service
     systemctl --user enable --now hyprpaper.service
-    systemctl --user restart xdg-desktop-portal.service &
-    sleep 2
   '';
 
   windowrulev2 = [
@@ -103,7 +100,7 @@ in
 {
   options.shu.Hyprland.enable = lib.mkEnableOption "Enable shuHyprland";
   config = lib.mkIf cfg.enable {
-    programs.hyprland ={
+    programs.hyprland = {
       enable = true;
       withUWSM = true;
     };
@@ -123,9 +120,11 @@ in
     security.pam.services.gdm.enableGnomeKeyring = true;
 
     home-manager.users.${username} = {
-      services.udiskie.enable = true;
-      services.gnome-keyring = {
-        enable = true;
+      services = {
+        udiskie.enable = true;
+        gnome-keyring = {
+          enable = true;
+        };
       };
       home.packages = with pkgs; [
         blueman
@@ -148,7 +147,6 @@ in
       };
       wayland.windowManager.hyprland = {
         enable = true;
-        systemd.enable = false;
         settings = {
           "$mod" = "SUPER";
           exec-once = exec-once;
