@@ -72,7 +72,7 @@ let
       "$mod, Q, killactive,"
       "$mod, F, togglefloating,"
       "$mod, G, togglegroup,"
-      "$mod, up, fullscreen,"
+      "$mod, up, fullscreen, 1"
       "$mod, bracketleft, changegroupactive, b"
       "$mod, bracketright, changegroupactive, f"
       "$mod, O, layoutmsg, rollprev"
