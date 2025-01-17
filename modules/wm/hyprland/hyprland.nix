@@ -124,9 +124,7 @@ in
     home-manager.users.${username} = {
       services = {
         udiskie.enable = true;
-        gnome-keyring = {
-          enable = true;
-        };
+        gnome-keyring.enable = true;
       };
       home.packages = with pkgs; [
         blueman
