@@ -1,6 +1,13 @@
-{ lib, config, username, ... }:
+{
+  lib,
+  config,
+  username,
+  ...
+}:
 let
+  inherit (config.home-manager.users.${username}.lib.formats.rasi) mkLiteral;
   scheme = config.home-manager.users.${username}.lib.stylix.colors;
+  wallpaper = config.home-manager.users.${username}.stylix.image;
   custom = {
     fonts = [
       ''"Fira Sans Semibold"''
@@ -10,14 +17,17 @@ let
       "Helvetica"
       "Arial"
       "sans-serif"
+      "JetBrainsMono Nerd Font"
     ];
     font_family = lib.concatStringsSep ", " custom.fonts;
     font_size = "16px";
     font_weight = "bold";
-    text_color = scheme.base05;
-    alternate_text_color = scheme.base01;
+    text = scheme.base05;
+    alternate_text = scheme.base01;
     background_0 = scheme.base00;
     background_1 = scheme.base01;
+    selected_background = scheme.base02;
+    urgent = scheme.base09;
     border_color = scheme.base0D;
     on_background = scheme.base0D;
     off_background = scheme.base0E;
@@ -31,15 +41,215 @@ let
   };
 in
 {
-  style = with custom; ''
+  rofi = with custom; {
+    configuration = {
+      modi = "drun";
+      show-icons = true;
+      drun-display-format = "{name}";
+      font = "${lib.lists.last fonts} 14";
+    };
+    "*" = {
+      foreground = mkLiteral "#${background_0}";
+      background-alt = mkLiteral "#${background_1}";
+      selected = mkLiteral "#${selected_background}";
+      urgent = mkLiteral "#${urgent}";
+      active = mkLiteral "#${background_1}";
+
+      text-selected = mkLiteral "#${on_background}";
+      text = mkLiteral "#${text}";
+
+      shade-shadow = mkLiteral "white / 6%";
+      shade-bg = mkLiteral "white / 12%";
+      shade-border = mkLiteral "white / 24%";
+    };
+
+    window = {
+      anchor = mkLiteral "center";
+      background-color = mkLiteral "black / 12%";
+      border = mkLiteral "1px";
+      border-color = mkLiteral "@selected";
+      border-radius = mkLiteral "30px";
+      cursor = "default";
+      fullscreen = false;
+      location = mkLiteral "center";
+      padding = mkLiteral "0px";
+      transparency = "real";
+      width = mkLiteral "100%";
+    };
+
+    "element normal.normal" = {
+      background-color = mkLiteral "transparent";
+    };
+    "element alternate.normal" = {
+      background-color = mkLiteral "transparent";
+      text-color = mkLiteral "@text";
+    };
+
+    "element selected.normal" = {
+      background-color = mkLiteral "@shade-bg";
+      text-color = mkLiteral "white";
+      border = mkLiteral "1px solid";
+      border-color = mkLiteral "@selected";
+    };
+
+    element-text = {
+      background-color = mkLiteral "transparent";
+      text-color = mkLiteral "inherit";
+      highlight = mkLiteral "inherit";
+      cursor = mkLiteral "inherit";
+      vertical-align = mkLiteral "0.5";
+      horizontal-align = mkLiteral "0.5";
+    };
+
+    listview = {
+      border = mkLiteral "0px";
+    };
+
+    scrollbar = {
+      margin = mkLiteral "0px 4px";
+      handle-width = mkLiteral "8px";
+      handle-color = mkLiteral "white";
+      background-color = mkLiteral ''@shade-shadow'';
+      border-radius = mkLiteral "4px";
+    };
+
+    message = {
+      background-color = mkLiteral ''@shade-bg'';
+      border = mkLiteral "1px solid";
+      border-color = mkLiteral "transparent";
+      border-radius = mkLiteral "12px";
+      padding = mkLiteral "24px";
+    };
+
+    error-message = {
+      padding = mkLiteral "100px";
+      border = mkLiteral "0px solid";
+      border-radius = mkLiteral "0px";
+      background-color = mkLiteral ''black / 10%'';
+      text-color = mkLiteral "@text";
+    };
+
+    textbox = {
+      background-color = mkLiteral "transparent";
+      text-color = mkLiteral "@text";
+      vertical-align = mkLiteral "0.5";
+      horizontal-align = mkLiteral "0.5";
+      highlight = mkLiteral "none";
+    };
+
+    mainbox = {
+      background-color = mkLiteral "transparent";
+      children = mkLiteral ''[ "inputbar", "textbox-help", "message", "listview" ]'';
+      margin = mkLiteral "0px";
+      orientation = mkLiteral "vertical";
+      padding = mkLiteral "64px";
+      spacing = mkLiteral "16px";
+    };
+
+    inputbar = {
+      children = mkLiteral ''[ "dummy", "entry", "dummy" ]'';
+      border-radius = mkLiteral "24px";
+
+      spacing = mkLiteral "0px";
+      padding = mkLiteral "128px 64px";
+      orientation = mkLiteral "horizontal";
+      background-image = mkLiteral ''url("${wallpaper}", width)'';
+    };
+
+    dummy = {
+      background-color = mkLiteral "transparent";
+    };
+
+    textbox-help = {
+      expand = false;
+      content = '' [ctrl del]  delete \n[alt del]   wipe'';
+
+      border-radius = mkLiteral "12px";
+      background-color = mkLiteral ''@shade-bg'';
+      text-color = mkLiteral "white";
+
+      margin = mkLiteral "0px";
+      padding = mkLiteral "6px";
+    };
+
+    textbox-icon = {
+      expand = true;
+      background-color = mkLiteral "transparent";
+      text-color = mkLiteral "inherit";
+      margin = mkLiteral "0px 0px 0px 25px";
+      content = "  ";
+    };
+
+    entry = {
+      cursor = mkLiteral "inherit";
+      placeholder = "search";
+      placeholder-color = mkLiteral "inherit";
+
+      border-radius = mkLiteral "12px";
+      background-color = mkLiteral "black / 48%";
+      text-color = mkLiteral "@text";
+
+      padding = mkLiteral "16px";
+      margin = mkLiteral "0px";
+    };
+
+    listview = {
+      cursor = "default";
+      columns = mkLiteral "2";
+      cycle = true;
+      dynamic = true;
+      scrollbar = true;
+      layout = mkLiteral "vertical";
+      reverse = false;
+      fixed-height = true;
+      fixed-columns = true;
+
+      background-color = mkLiteral "transparent";
+      text-color = mkLiteral "@foreground";
+
+      spacing = mkLiteral "12px";
+      margin = mkLiteral "0px";
+      padding = mkLiteral "0px";
+
+      orientation = mkLiteral "vertical";
+      children = mkLiteral ''[ "message", "listview" ]'';
+    };
+
+    element = {
+      cursor = mkLiteral "pointer";
+      border-radius = mkLiteral "10px";
+      background-color = mkLiteral "transparent";
+      text-color = mkLiteral "@foreground";
+
+      spacing = mkLiteral "0px";
+      margin = mkLiteral "0px";
+      padding = mkLiteral "6px";
+    };
+
+    element-icon = {
+      background-color = mkLiteral "transparent";
+      text-color = mkLiteral "inherit";
+      size = mkLiteral "36px";
+      cursor = mkLiteral "inherit";
+    };
+
+    # "@media(max-aspect-ratio = 1.8)" = {
+    #   element = {
+    #     orientation = mkLiteral "vertical";
+    #   };
+    # };
+
+  };
+
+  waybar = with custom; ''
     @define-color backgroundlight #${background_1};
     @define-color backgrounddark #${background_0};
     @define-color workspacesbackground1 #${on_background};
     @define-color workspacesbackground2 #${off_background};
     @define-color bordercolor #${border_color};
-    @define-color textcolor #${text_color};
-    @define-color alternate_text_color #${alternate_text_color};
-    @define-color iconcolor #${text_color};
+    @define-color textcolor #${text};
+    @define-color alternate_text #${alternate_text};
+    @define-color iconcolor #${text};
 
     * {
         all: unset;
@@ -51,7 +261,6 @@ in
     window#waybar {
         background-color: rgba(0,0,0,0.2);
         border-bottom: 0px solid #ffffff;
-        /* color: #FFFFFF; */
         transition-property: background-color;
         transition-duration: .5s;
     }
@@ -114,8 +323,8 @@ in
 
     #custom-appmenu {
         background-color: #${yellow};
-        font-size: 22px;
-        color: @alternate_text_color;
+        font-size: ${font_size};
+        color: @alternate_text;
         border-radius: 15px;
         padding: 0px 10px 0px 10px;
         margin: 10px 15px 10px 10px;
@@ -129,7 +338,7 @@ in
     }
 
     #clock {
-        background-color: #${red};
+        background-color: #${green};
         font-size: 16px;
         color: @textcolor;
         border-radius: 15px;
