@@ -28,6 +28,7 @@ let
     tree
     unzip
     vim
+    vlc
     wget
     xclip
     zip
