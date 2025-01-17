@@ -1,4 +1,4 @@
-{ pkgs, username, nix-index-database, ... }:
+{ pkgs, username, nix-index-database, agenix, ... }:
 let
 
   unstable-packages = with pkgs.unstable; [
@@ -52,6 +52,7 @@ let
 in {
   imports = [
     nix-index-database.hmModules.nix-index
+    agenix.homeManagerModules.default
     ./home
   ];
   manual.manpages.enable = false;
