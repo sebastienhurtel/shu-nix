@@ -162,9 +162,6 @@
 (setq treemacs-width 30)
 (setq doom-themes-treemacs-theme "doom-colors")
 
-;; Magit forge
-;;setq auth-sources '("~/.emacs.d/.local/etc/authinfo.gpg")
-
 ;; Modeline
 (setq doom-modeline-vcs-max-length 25)
 (setq doom-modeline-major-mode-icon t)
