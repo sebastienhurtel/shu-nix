@@ -17,23 +17,39 @@ let
     EMACS_WINDOW_NAME="emacs"
     ALACRITTY_WINDOW_TOP="alacritty_top"
     ALACRITTY_WINDOW_BOTTOM="alacritty_bottom"
-    sleep 5
+    sleep 3
     ${pkgs.alacritty}/bin/alacritty --class "$ALACRITTY_WINDOW_TOP" -e zsh -c "tmux new-session -A -s 0"
-    sleep 2
     ${pkgs.alacritty}/bin/alacritty --class "$ALACRITTY_WINDOW_BOTTOM" -e zsh -c "tmux new-session -A -s 1"
-    sleep 2
     ${pkgs.emacs29-pgtk}/bin/emacsclient -n
-    sleep 2
-    ${pkgs.hyprland}/bin/hyprctl keyword windowrule "workspace unset, $EMACS_WINDOW_NAME"
-    ${pkgs.hyprland}/bin/hyprctl keyword windowrule "workspace unset, $ALACRITTY_WINDOW_TOP"
-    ${pkgs.hyprland}/bin/hyprctl keyword windowrule "workspace unset, $ALACRITTY_WINDOW_BOTTOM"
-    ${pkgs.hyprland}/bin/hyprctl dispatch focuswindow "$EMACS_WINDOW_NAME"
-    ${pkgs.hyprland}/bin/hyprctl dispatch movewindow to 0 0
-    ${pkgs.hyprland}/bin/hyprctl dispatch focuswindow "$ALACRITTY_WINDOW_TOP"
-    ${pkgs.hyprland}/bin/hyprctl dispatch movewindow to 60% 0
-    ${pkgs.hyprland}/bin/hyprctl dispatch focuswindow "$ALACRITTY_WINDOW_BOTTOM"
-    ${pkgs.hyprland}/bin/hyprctl dispatch movewindow to 60% 50%
+    ${pkgs.hyprland}/bin/hyprctl --batch '\
+        keyword windowrule "workspace unset, $EMACS_WINDOW_NAME";\
+        keyword windowrule "workspace unset, $ALACRITTY_WINDOW_TOP";\
+        keyword windowrule "workspace unset, $ALACRITTY_WINDOW_BOTTOM";\
+        dispatch focuswindow "$EMACS_WINDOW_NAME";\
+        dispatch movewindow to 0 0;\
+        dispatch focuswindow "$ALACRITTY_WINDOW_TOP";\
+        dispatch movewindow to 60% 0;\
+        dispatch focuswindow "$ALACRITTY_WINDOW_BOTTOM";\
+        dispatch movewindow to 60% 50%'
   '';
+
+  toggleAnimationsScript = pkgs.writeShellScriptBin "toggleAnimations" ''
+    HYPRGAMEMODE=$(${pkgs.hyprland}/bin/hyprctl getoption animations:enabled | awk 'NR==1{print $2}')
+    if [ "$HYPRGAMEMODE" = 1 ] ; then
+        ${pkgs.hyprland}/bin/hyprctl --batch "\
+            keyword animations:enabled 0;\
+            keyword decoration:shadow:enabled 0;\
+            keyword decoration:blur:enabled 0;\
+            keyword general:gaps_in 0;\
+            keyword general:gaps_out 0;\
+            keyword general:border_size 1;\
+            keyword decoration:rounding 0"
+        exit
+    fi
+    ${pkgs.hyprland}/bin/hyprctl reload
+  '';
+
+  toggleAnimations = lib.getExe toggleAnimationsScript;
 
   windowrulev2 = [
     "float, title:(rofi)"
@@ -59,25 +75,22 @@ let
       "$mod, up, fullscreen,"
       "$mod, bracketleft, changegroupactive, b"
       "$mod, bracketright, changegroupactive, f"
-
       "$mod, O, layoutmsg, rollprev"
       "$mod SHIFT, O, layoutmsg, rollnext"
-
       "$mod, h, movefocus, l"
       "$mod, l, movefocus, r"
       "$mod, k, movefocus, u"
       "$mod, j, movefocus, d"
-
       "$mod SHIFT, h, movewindow, l"
       "$mod SHIFT, l, movewindow, r"
       "$mod SHIFT, k, movewindow, u"
       "$mod SHIFT, j, movewindow, d"
       "$mod, page_up, workspace, -1"
       "$mod, page_down, workspace, +1"
-
       "$mod, N, exec, ${pkgs.swaynotificationcenter}/bin/swaync-client -t -sw"
-      ", XF86MonBrightnessDown, exec, ${pkgs.brightnessctl}/bin/brightnessctl s 10%-"
-      ", XF86MonBrightnessUp, exec, ${pkgs.brightnessctl}/bin/brightnessctl s +10%"
+      ", Print, exec, ${pkgs.grimblast}/bin/grimblast --notify copysave area /home/${username}/Pictures/Screenshots/$(${pkgs.coreutils}/bin/coreutils --coreutils-prog=date --iso-8601=seconds).png"
+      "SHIFT, Print, exec, ${pkgs.grimblast}/bin/grimblast --notify copysave output /home/${username}/Pictures/Screenshots/$(${pkgs.coreutils}/bin/coreutils --coreutils-prog=date --iso-8601=seconds).png"
+      "$mod, A, exec, ${toggleAnimations}"
     ] ++ bind.workspaces;
 
     bindl = [
@@ -91,6 +104,8 @@ let
       ", XF86PowerOff, exec, systemctl suspend"
       ", switch:off:Lid Switch, exec, ${pkgs.kanshi}/bin/kanshictl switch docked-lid-open"
       ", switch:on:Lid Switch, exec, ${pkgs.kanshi}/bin/kanshictl switch docked-lid-closed"
+      ", XF86MonBrightnessDown, exec, ${pkgs.brightnessctl}/bin/brightnessctl s 10%-"
+      ", XF86MonBrightnessUp, exec, ${pkgs.brightnessctl}/bin/brightnessctl s +10%"
     ];
 
     workspaces = (
@@ -158,6 +173,7 @@ in
         fira
         font-awesome
         geist-font
+        grimblast
         hyprcursor
         hyprpolkitagent
         jetbrains-mono
@@ -210,7 +226,7 @@ in
 
           gestures = {
             workspace_swipe = true;
-            workspace_swipe_invert = false;
+            workspace_swipe_invert = true;
           };
 
           misc = {

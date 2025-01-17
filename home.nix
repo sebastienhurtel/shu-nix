@@ -51,16 +51,17 @@ let
     python3Packages.git-filter-repo
   ];
 
-  ui-packages = with pkgs; [
-    audacity
-    darktable
-    firefox
-    google-chrome
-    parsec-bin
-    pavucontrol
-    libreoffice
-    xclip
-  ];
+  ui-packages =
+    with pkgs;
+    [
+      audacity
+      darktable
+      firefox
+      google-chrome
+      pavucontrol
+      libreoffice
+      xclip
+    ];
 
   home-packages =
     if wm == "headless" then

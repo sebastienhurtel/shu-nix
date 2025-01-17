@@ -108,12 +108,11 @@ in
               "format" = "{:%a %d %b  %H:%M}";
               "on-click" = "ags -t calendar";
               "tooltip" = true;
-              "format-alt" = "{:%A, %B %d, %Y (%R)}  ";
-              "tooltip-format" = "n<span size='9pt'>{calendar}</span>";
+              "tooltip-format" = "<span size='20pt'>{calendar}</span>";
               "calendar" = {
-                "mode" = "year";
-                "mode-mon-col" = 3;
-                "weeks-pos" = "right";
+                "mode" = "month";
+                "mode-mon-col" = 4;
+                "weeks-pos" = "left";
                 "on-scroll" = 1;
                 "on-click-right" = "mode";
                 "format" = {
