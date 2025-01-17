@@ -1,14 +1,13 @@
-{ pkgs, wm, ... }:
-let
-  withGnome = {
-    services = {
-      xserver.desktopManager.gnome.enable = true;
-      power-profiles-daemon.enable = false;
-      udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
-    };
+{ pkgs }:
+{
+  services = {
+    xserver.desktopManager.gnome.enable = true;
+    power-profiles-daemon.enable = false;
+    udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
+  };
 
-    environment.gnome.excludePackages = 
-      (with pkgs; [ gnome-tour power-profiles-daemon ]) ++ (with pkgs.gnome; [
+  environment.gnome.excludePackages =
+    (with pkgs; [ gnome-tour power-profiles-daemon ]) ++ (with pkgs.gnome; [
       cheese # webcam tool
       gnome-music
       gnome-terminal
@@ -27,9 +26,4 @@ let
       gnome-maps
       gnome-weather
     ]);
-  };
-  gnomeLess = { services.xserver.desktopManager.gnome.enable = false; };
-in
-{
-  config = if wm == "gnome" then withGnome else gnomeLess;
 }
