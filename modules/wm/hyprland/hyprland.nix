@@ -54,7 +54,6 @@ let
       "$mod, E, exec, rofi -show drun -replace"
       "$mod, ESCAPE, exec, hyprlock"
       "$mod, Q, killactive,"
-      "$mod SHIFT, M, exit,"
       "$mod, F, togglefloating,"
       "$mod, G, togglegroup,"
       "$mod, up, fullscreen,"
@@ -89,8 +88,8 @@ let
       ", XF86AudioNext, exec, playerctl next"
       ", XF86AudioPrev, exec, playerctl previous"
       ", XF86PowerOff, exec, systemctl suspend"
-      ", switch:off:Lid Switch, exec, uwsm app -- ${pkgs.kanshi}/bin/kanshictl switch docked-lid-open"
-      ", switch:on:Lid Switch, exec, uwsm app -- ${pkgs.kanshi}/bin/kanshictl switch docked-lid-closed"
+      ", switch:off:Lid Switch, exec, ${pkgs.kanshi}/bin/kanshictl switch docked-lid-open"
+      ", switch:on:Lid Switch, exec, ${pkgs.kanshi}/bin/kanshictl switch docked-lid-closed"
     ];
 
     workspaces = (

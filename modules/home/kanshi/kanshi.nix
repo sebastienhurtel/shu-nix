@@ -4,10 +4,10 @@
   ...
 }:
 let
-  cfg = config.shu.kanshi;
+  cfg = config.shu.home.kanshi;
 in
 {
-  options.shu.kanshi.enable = lib.mkEnableOption "Enable shu kanshi";
+  options.shu.home.kanshi.enable = lib.mkEnableOption "Enable shu home kanshi";
   config = lib.mkIf cfg.enable {
     services.kanshi = {
       enable = true;
