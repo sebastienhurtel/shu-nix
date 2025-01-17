@@ -106,9 +106,9 @@ in
             };
 
             clock = {
-              "format" = "{:%a %d %b  %H:%M}";
+              "format" = "{:%A %d %B  󰃰  %H:%M}";
               "on-click" = "ags -t calendar";
-              "tooltip" = true;
+              "tooltip" = false;
               "tooltip-format" = "<span size='20pt'>{calendar}</span>";
               "calendar" = {
                 "mode" = "month";
