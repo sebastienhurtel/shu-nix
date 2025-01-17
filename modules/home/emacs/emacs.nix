@@ -1,5 +1,11 @@
-{ pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
+  cfg = config.shu.git;
   stable = with pkgs; [
     black
     dockerfile-language-server-nodejs
@@ -29,5 +35,8 @@ let
   ];
 in
 {
-  home.packages = stable ++ unstable;
+  options.shu.emacs.enable = lib.mkEnableOption "Enable Shu emacs";
+  config = lib.mkIf cfg.enable {
+    home.packages = stable ++ unstable;
+  };
 }

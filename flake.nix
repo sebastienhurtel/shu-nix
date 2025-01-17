@@ -99,7 +99,6 @@
         wm = "hyprland";
         modules = [
           ./system.nix
-          ./hardware/vmarcus.nix
         ];
       };
 
@@ -109,7 +108,6 @@
         wm = "hyprland";
         modules = [
           ./system.nix
-          ./hardware/squarepusher.nix
         ];
       };
 
@@ -118,7 +116,6 @@
         username = "sebastien";
         modules = [
           ./system.nix
-          ./hardware/deftones.nix
         ];
       };
     };

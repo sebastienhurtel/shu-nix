@@ -55,7 +55,7 @@ let
     python3Packages.git-filter-repo
   ];
 
-  graphical-packages = with pkgs; [
+  ui-packages = with pkgs; [
     audacity
     darktable
     firefox
@@ -65,16 +65,17 @@ let
   ];
 
   home-packages =
-    if wm != "headless" then
-      stable-packages ++ unstable-packages ++ graphical-packages
+    if wm == "headless" then
+      stable-packages ++ unstable-packages
     else
-      stable-packages ++ unstable-packages;
+      stable-packages ++ unstable-packages ++ ui-packages;
 in
 {
   imports = [
     nix-index-database.hmModules.nix-index
     agenix.homeManagerModules.default
-    ./home
+    ./modules/home
+    ./users/${username}.nix
   ];
   manual.manpages.enable = false;
 

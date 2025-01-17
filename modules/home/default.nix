@@ -7,7 +7,6 @@
     ./tmux/tmux.nix
     ./emacs/emacs.nix
     ./dconf/dconf.nix
-    ./age/age.nix
     ./git/git.nix
   ];
 }
