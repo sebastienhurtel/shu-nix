@@ -3,6 +3,7 @@
   username,
   nix-index-database,
   agenix,
+  wm,
   ...
 }:
 let
@@ -43,21 +44,29 @@ let
 
   stable-packages = with pkgs; [
     ansible
-    audacity
-    darktable
-    firefox
-    google-chrome
     gnumake
     meslo-lgs-nf
     nix-tree
     nvd
     nnn
     pass
-    parsec-bin
-    pavucontrol
     python3Packages.git-filter-repo
   ];
 
+  graphical-packages = with pkgs; [
+    audacity
+    darktable
+    firefox
+    google-chrome
+    pavucontrol
+    parsec-bin
+  ];
+
+  home-packages =
+    if wm != "headless" then
+      stable-packages ++ unstable-packages ++ graphical-packages
+    else
+      stable-packages ++ unstable-packages;
 in
 {
   imports = [
@@ -72,7 +81,7 @@ in
     homeDirectory = "/home/${username}";
   };
 
-  home.packages = stable-packages ++ unstable-packages;
+  home.packages = home-packages;
 
   # required to autoload fonts from packages installed via Home Manager
   fonts.fontconfig.enable = true;
