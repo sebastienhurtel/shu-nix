@@ -21,7 +21,7 @@ let
     libqalculate
     nmap
     procs
-    python312Packages.ipython
+    python3Packages.ipython
     ripgrep
     sd
     tree
@@ -46,7 +46,7 @@ let
     nnn
     parsec-bin
     pavucontrol
-    python311Packages.git-filter-repo
+    python3Packages.git-filter-repo
   ];
 
 in {
