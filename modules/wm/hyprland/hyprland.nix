@@ -178,7 +178,6 @@ in
         font-awesome
         geist-font
         grimblast
-        hyprcursor
         hyprpolkitagent
         jetbrains-mono
         nautilus
