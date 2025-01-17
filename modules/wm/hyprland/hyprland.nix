@@ -148,7 +148,7 @@ in
       withUWSM = true;
     };
     shu = {
-      Gtk.enable = false;
+      gtk.enable = true;
       Hypridle.enable = true;
       Hyprlock.enable = true;
       Rofi.enable = true;

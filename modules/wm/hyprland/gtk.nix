@@ -5,19 +5,19 @@
   ...
 }:
 let
-  cfg = config.shu.Gtk;
+  cfg = config.shu.gtk;
 in
 {
-  options.shu.Gtk.enable = lib.mkEnableOption "Enable Shu Gtk";
+  options.shu.gtk.enable = lib.mkEnableOption "Enable shu gtk";
   config = lib.mkIf cfg.enable {
     home-manager.users.${username} = {
       gtk = {
         enable = true;
-        gtk3.extraConfigs = {
-          
+        gtk3.extraConfig = {
+          gtk-key-theme = "Emacs";
         };
-        gtk4.extraConfigs = {
-          
+        gtk4.extraConfig = {
+          gtk-key-theme = "Emacs";
         };
       };
     };
