@@ -1,4 +1,4 @@
-{ username, ... }:
+{ username, pkgs, ... }:
 {
   users.groups.admin = { };
   users.users.${username} = {
@@ -35,4 +35,20 @@
   };
 
   networking.firewall.allowedTCPPorts = [ 22 ];
+  sound.enable = false;
+  sound.mediaKeys.enable = true;
+  hardware = {
+    pulseaudio = {
+      enable = false;
+      extraModules = [ pkgs.pulseaudio-modules-bt ];
+    };
+    bluetooth = { enable = true; };
+  };
+  # Enable audio through pipewire
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
 }
