@@ -40,10 +40,10 @@
           (_final: prev: {
             nixd = prev.nixd.overrideAttrs (old: {
               src = prev.fetchFromGitHub {
-                owner = "sebastienhurtel";
+                owner = "nix-community";
                 repo = "nixd";
-                rev = "2120080b7241821a009a382852e0891ca011a1c4";
-                hash = "sha256-ndPbt3KLSbTc+AvWvtVkJXsvvjeaL2TEsMFu0hFmMHk=";
+                rev = "c9d8970a646dbaa82981d050d905637a29bbdd21";
+                hash = "sha256-tBvNlNvI3xRjmfUuzwgwWFrk+SO50wlrmAGRuG3Yzi4=";
               };
             });
           })
