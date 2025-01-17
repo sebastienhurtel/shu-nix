@@ -60,7 +60,7 @@ let
     "size 40% 30%, class:(pwvucontrol)"
     "workspace 1, class:^(Emacs)$"
     "workspace 1, initialTitle:^(Alacritty)$"
-    "workspace 2, class:^(Google-chrome)$"
+    "workspace 2, class:^(google-chrome)$"
     "workspace 3, class:^(firefox)$"
     "workspace 4, class:^(steam)$"
   ];
