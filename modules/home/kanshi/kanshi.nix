@@ -41,7 +41,7 @@ in
           };
         }
       ];
-      systemdTarget = "hyprland-session.service";
+      systemdTarget = "hyprland-session.target";
     };
   };
 }
