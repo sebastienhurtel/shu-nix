@@ -15,7 +15,7 @@
     config="${config.home.homeDirectory}/.config/git/config"
     ${pkgs.gnused}/bin/sed -i "s/@emailGithub@/$secretGH/" "$config"
     secretPro=$(cat "${config.age.secrets.emailPro.path}")
-    configPro="${config.home.homeDirectory}/.config/git/config"
+    configPro="${config.home.homeDirectory}/.config/git/config-free"
     ${pkgs.gnused}/bin/sed -i "s/@emailPro@/$secretPro/" "$configPro"
   '';
 
@@ -24,8 +24,8 @@
 
   home.file.".config/git/config-free".text = ''
     [user]
-        name = shurtel
-        email = "@emailPro@"
+            name = shurtel
+            email = "@emailPro@"
   '';
 
   programs.git = {
