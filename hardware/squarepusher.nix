@@ -75,6 +75,8 @@
     fsType = "ext4";
   };
 
+  services.shuNFSClient.enable = true;
+
   swapDevices = [ ];
   zramSwap.enable = true;
 
