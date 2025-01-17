@@ -7,7 +7,6 @@
       linuxKernel.packages.linux_zen.cpupower
       openssl
       passh
-      pinentry-gnome3
       powertop
       python3
       strongswanNM
@@ -16,11 +15,7 @@
   };
 
   programs = {
-    gnupg.agent = {
-      enable = true;
-      enableSSHSupport = false;
-      pinentryPackage = pkgs.pinentry-gnome3;
-    };
+    gnupg.agent.enable = false;
     steam = {
       enable = true;
       remotePlay.openFirewall = true;
@@ -75,6 +70,7 @@
       wireplumber.enable = true;
     };
     shuNFSClient.enable = true;
+    gnome.gnome-keyring.enable = true;
   };
 
   hardware.pulseaudio.enable = false;
