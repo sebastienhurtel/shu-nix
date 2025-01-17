@@ -8,7 +8,6 @@
     ./emacs/emacs.nix
     ./dconf/dconf.nix
     ./git/git.nix
-    ./kanshi/kanshi.nix
     ./stylix/stylix.nix
     ./mako/mako.nix
     ./swaync/swaync.nix
