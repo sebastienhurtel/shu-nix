@@ -27,10 +27,8 @@ let
     jq
     killall
     libqalculate
-    libreoffice
     nmap
     procs
-    pyright
     python3Packages.ipython
     ripgrep
     sd
@@ -50,7 +48,6 @@ let
     meslo-lgs-nf
     nix-tree
     nvd
-    nnn
     pass
     python3Packages.git-filter-repo
   ];
@@ -62,6 +59,7 @@ let
     google-chrome
     parsec-bin
     pavucontrol
+    libreoffice
   ];
 
   home-packages =

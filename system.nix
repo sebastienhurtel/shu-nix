@@ -91,7 +91,7 @@
     };
   };
 
-  shu.Wm = {
+  shu.wm = {
     enable = if wm == "headless" then false else true;
     manager = wm;
   };

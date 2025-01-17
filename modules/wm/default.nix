@@ -4,11 +4,11 @@
   ...
 }:
 let
-  cfg = config.shu.Wm;
+  cfg = config.shu.wm;
 in
 {
   imports = [ ./gnome.nix ./wayland.nix ./hyprland ./stylix.nix ];
-  options.shu.Wm = with lib; {
+  options.shu.wm = with lib; {
     enable = mkEnableOption "Enable window manager.";
     manager = mkOption {
       type = types.str;
