@@ -50,7 +50,7 @@
   };
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/e7a36316-be66-4bfc-8c51-5d55c302ca7b";
+    device = "/dev/mapper/vgnixos-root";
     fsType = "ext4";
   };
 
@@ -60,23 +60,23 @@
   };
 
   fileSystems."/nix/store" = {
-    device = "/dev/disk/by-uuid/c67747c8-f5da-48fd-8764-03e93c046c21";
+    device = "/dev/mapper/vgnixos-store";
     fsType = "ext4";
     options = [ "noatime" ];
   };
 
   fileSystems."/home" = {
-    device = "/dev/disk/by-uuid/5b87ec1b-50c9-4389-bcec-d8ff1f43b398";
+    device = "/dev/mapper/vgnixos-home";
     fsType = "ext4";
   };
 
   fileSystems."/tmp" = {
-    device = "/dev/disk/by-uuid/db2bf8a1-9809-4330-bbd5-e5322b141811";
+    device = "/dev/mapper/vgnixos-tmp";
     fsType = "ext4";
   };
 
   fileSystems."/var" = {
-    device = "/dev/disk/by-uuid/798f8a21-aeaa-434e-8969-7c699d726794";
+    device = "/dev/mapper/vgnixos-var";
     fsType = "ext4";
   };
 
@@ -85,12 +85,7 @@
   swapDevices = [ ];
   zramSwap.enable = true;
 
-  # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
-  # (the default) this is the recommended approach. When using systemd-networkd it's
-  # still possible to use this option, but it's recommended to use it in conjunction
-  # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.wlp1s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
