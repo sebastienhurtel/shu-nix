@@ -5,7 +5,7 @@
 }:
 let
   cfg = config.services.shu-plex;
-  volumePath = "$HOME/git/pms-docker";
+  volumePath = "${config.home-manager.users.sebastien.home.homeDirectory}/git/pms-docker";
 in
 {
   options = {
@@ -34,7 +34,6 @@ in
       backend = "podman";
       containers."plex" = {
         autoStart = true;
-        # https://fleet.linuxserver.io/image?name=linuxserver/plex
         image = "lscr.io/linuxserver/plex:1.40.2@sha256:e934dade4d3dd253836e0232e10eb1fce91047de3f988cbefe138fe23ac729df";
         environment = {
           TZ = " Europe/Paris ";
@@ -54,7 +53,7 @@ in
         ];
         extraOptions = [
           "--network=host"
-          "--cpuset-cpu='12-15'"
+          "--cpuset-cpus=12-15"
         ];
       };
     };
