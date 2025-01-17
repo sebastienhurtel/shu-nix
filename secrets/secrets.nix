@@ -6,6 +6,6 @@ let
   systems = [ squarepusher deftones ];
 in
 {
-  "email-fm.age".publicKeys = users ++ systems;
-  "email-github.age".publicKeys = users ++ systems;
+  "emailPro.age".publicKeys = users ++ systems;
+  "emailGithub.age".publicKeys = users ++ systems;
 }
