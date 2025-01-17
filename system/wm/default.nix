@@ -17,6 +17,7 @@ in
   };
   config = lib.mkIf cfg.enable {
     shu.Wayland.enable = true;
+    shu.Stylix.enable = true;
     shu.Gnome.enable = if cfg.manager == "gnome" then true else false;
     shu.Hyprland.enable = if cfg.manager == "hyprland" then true else false;
   };

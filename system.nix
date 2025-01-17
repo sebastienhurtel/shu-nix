@@ -1,4 +1,12 @@
-{ pkgs, username, hostname, agenix, wm, ... }: {
+{
+  pkgs,
+  username,
+  hostname,
+  agenix,
+  wm,
+  ...
+}:
+{
 
   imports = [
     ./system/wm
@@ -76,8 +84,8 @@
   };
 
   shu.Wm = {
-      enable = if wm == "headless" then false else true;
-      manager = wm;
+    enable = if wm == "headless" then false else true;
+    manager = wm;
   };
   services = {
     fwupd.enable = true;
