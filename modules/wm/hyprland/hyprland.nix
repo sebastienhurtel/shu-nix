@@ -132,7 +132,6 @@ in
       Gtk.enable = false;
       Hypridle.enable = true;
       Hyprlock.enable = true;
-      Mako.enable = true;
       Rofi.enable = true;
       Waybar.enable = true;
     };
