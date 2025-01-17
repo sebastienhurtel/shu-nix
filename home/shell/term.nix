@@ -21,7 +21,6 @@
 
       window = {
         decorations = "None";
-        opacity = 0.96;
         blur = true;
         dimensions = {
           columns = 110;
