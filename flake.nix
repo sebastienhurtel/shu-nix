@@ -54,6 +54,11 @@
         };
       };
 
+      devices = {
+        workstation = [ "squarepusher" "vmarcus" "fero" ];
+        server = [ "deftones" ];
+      };
+
       mkNixosConfiguration =
         { system ? "x86_64-linux"
         , hostname
