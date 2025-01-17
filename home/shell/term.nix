@@ -7,8 +7,6 @@
         args = [ "-l" "-c" "tmux attach || tmux"];
       };
 
-      draw_bold_text_with_bright_colors = true;
-
       font = {
         size = 10.5;
         normal = { family = "MesloLGS NF"; };
@@ -29,6 +27,7 @@
       };
 
       colors = {
+	draw_bold_text_with_bright_colors = true;
         primary = {
           background = "#1a1c1c";
           foreground = "#f99d32";
