@@ -1,11 +1,4 @@
-{
-  pkgs,
-  username,
-  hostname,
-  agenix,
-  ...
-}:
-{
+{ pkgs, username, hostname, agenix, wm, ... }: {
 
   imports = [
     ./system/wm
@@ -82,8 +75,11 @@
     };
   };
 
+  shu.Wm = {
+      enable = if wm == "headless" then false else true;
+      manager = wm;
+  };
   services = {
-    shuWm.enable = true;
     fwupd.enable = true;
     resolved.enable = true;
     avahi = {

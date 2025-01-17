@@ -21,6 +21,14 @@
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    stylix = {
+      url = "github:danth/stylix?rev=d042af478ce87e188139480922a3085218194106";
+      inputs.home-manager.follows = "home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
   };
 
   outputs =
@@ -66,6 +74,7 @@
           agenix
           nix-index-database
           nixos-hardware
+          stylix
           ;
         channels = {
           inherit nixpkgs nixpkgs-unstable;
@@ -88,8 +97,8 @@
           inherit system specialArgs;
           modules = [
             (configurationDefaults specialArgs)
-            home-manager.nixosModules.home-manager
             agenix.nixosModules.default
+            home-manager.nixosModules.home-manager
           ] ++ modules;
         };
     in
@@ -97,11 +106,8 @@
       nixosConfigurations.vmarcus = mkNixosConfiguration {
         hostname = "vmarcus";
         username = "sebastien";
-        wm = "gnome";
-        modules = [
-          ./system.nix
-          ./hardware/vmarcus.nix
-        ];
+        wm = "hyprland";
+        modules = [ ./system.nix ./hardware/vmarcus.nix ];
       };
 
       nixosConfigurations.squarepusher = mkNixosConfiguration {
