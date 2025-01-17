@@ -2,7 +2,6 @@
   agenix,
   nix-index-database,
   pkgs,
-  stylix,
   username,
   wm,
   ...
