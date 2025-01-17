@@ -50,8 +50,8 @@ in
                 "class<.*chrome.*>" = "󰊯";
                 "class<Alacritty>" = "";
                 "code" = "󰨞";
-                "title<(.*) Emacs (.*)" = "";
-                "class<(.*)Nautilus" = "";
+                "class<Emacs>" = "";
+                "class<(.*)Nautilus>" = "";
               };
               "all-output" = true;
               "persistent-workspaces" = {

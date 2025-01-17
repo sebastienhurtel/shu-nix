@@ -24,7 +24,6 @@ in
           };
 
           background = {
-            path = "/home/${username}/.dotfiles/wallpaper.png";
             blur_size = 4;
             blur_passes = 3;
             noise = 0.0117;
@@ -96,17 +95,12 @@ in
             dots_spacing = 0.64;
             dots_center = true;
             dots_rounding = -1;
-            outer_color = "rgb(CAE6E6)";
-            inner_color = "rgb(010204)";
-            font_color = "rgb(CAE6E6)";
             fade_on_empty = true;
             fade_timeout = 1500;
             font_family = "JetBrainsMono Nerd Font Bold";
             placeholder_text = "<i>Enter Password...</i>";
             hide_input = false;
             rounding = 15;
-            check_color = "rgb(0B1319)";
-            fail_color = "rgb(204, 34, 34)";
             fail_text = "<i>$FAIL <b>($ATTEMPTS)</b></i>";
             fail_timeout = 2000;
             fail_transition = 200;

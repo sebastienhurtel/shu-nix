@@ -128,8 +128,8 @@ in
         brightnessctl
         fira
         font-awesome
-        gnome.nautilus
-        gnome.seahorse
+        nautilus
+        seahorse
         jetbrains-mono
         nerdfonts
         networkmanager_strongswan
@@ -211,11 +211,6 @@ in
               new_optimizations = true;
               xray = true;
             };
-            drop_shadow = true;
-            shadow_ignore_window = true;
-            shadow_offset = "0 2";
-            shadow_range = 20;
-            shadow_render_power = 3;
           };
           animations = {
             enabled = true;

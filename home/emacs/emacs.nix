@@ -19,7 +19,6 @@ let
     pipenv
     poetry
     pyenv
-    python3Packages.nose
     wl-clipboard
   ];
   unstable = with pkgs.unstable; [
