@@ -1,6 +1,7 @@
 {
   config,
   wm,
+  pkgs,
   ...
 }:
 {
@@ -18,6 +19,21 @@
     tmux.enable = true;
   };
   programs = {
-    nnn.enable = true;
+    nnn = {
+      enable = true;
+      plugins = {
+        mappings = {
+          i = "imgview";
+        };
+        src =
+          (pkgs.fetchFromGitHub {
+            owner = "jarun";
+            repo = "nnn";
+            rev = "v5.0";
+            sha256 = "sha256-HShHSjqD0zeE1/St1Y2dUeHfac6HQnPFfjmFvSuEXUA=";
+          })
+          + "/plugins";
+      };
+    };
   };
 }
