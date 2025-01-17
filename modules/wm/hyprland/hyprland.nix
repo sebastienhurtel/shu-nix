@@ -9,9 +9,30 @@ let
   cfg = config.shu.hyprland;
 
   generalStartScript = pkgs.writeShellScriptBin "start" ''
-    systemctl --user enable --now hypridle.service
-    systemctl --user enable --now waybar.service
     systemctl --user enable --now hyprpaper.service
+    systemctl --user enable --now hyprpolkitagent.service
+  '';
+
+  mainWorkspaceScript = pkgs.writeShellScriptBin "mainWorkspace" ''
+    EMACS_WINDOW_NAME="emacs"
+    ALACRITTY_WINDOW_TOP="alacritty_top"
+    ALACRITTY_WINDOW_BOTTOM="alacritty_bottom"
+    sleep 5
+    ${pkgs.alacritty}/bin/alacritty --class "$ALACRITTY_WINDOW_TOP" -e zsh -c "tmux new-session -A -s 0"
+    sleep 2
+    ${pkgs.alacritty}/bin/alacritty --class "$ALACRITTY_WINDOW_BOTTOM" -e zsh -c "tmux new-session -A -s 1"
+    sleep 2
+    ${pkgs.emacs29-pgtk}/bin/emacsclient -n
+    sleep 2
+    ${pkgs.hyprland}/bin/hyprctl keyword windowrule "workspace unset, $EMACS_WINDOW_NAME"
+    ${pkgs.hyprland}/bin/hyprctl keyword windowrule "workspace unset, $ALACRITTY_WINDOW_TOP"
+    ${pkgs.hyprland}/bin/hyprctl keyword windowrule "workspace unset, $ALACRITTY_WINDOW_BOTTOM"
+    ${pkgs.hyprland}/bin/hyprctl dispatch focuswindow "$EMACS_WINDOW_NAME"
+    ${pkgs.hyprland}/bin/hyprctl dispatch movewindow to 0 0
+    ${pkgs.hyprland}/bin/hyprctl dispatch focuswindow "$ALACRITTY_WINDOW_TOP"
+    ${pkgs.hyprland}/bin/hyprctl dispatch movewindow to 60% 0
+    ${pkgs.hyprland}/bin/hyprctl dispatch focuswindow "$ALACRITTY_WINDOW_BOTTOM"
+    ${pkgs.hyprland}/bin/hyprctl dispatch movewindow to 60% 50%
   '';
 
   windowrulev2 = [
@@ -22,9 +43,11 @@ let
     "float, class:(pavucontrol)"
     "size 40% 30%, class:(pavucontrol)"
     "workspace 1, class:^(Emacs)$"
-    "workspace 1, class:^(Alacritty)$"
+    "workspace 1, initialTitle:^(Alacritty)$"
     "workspace 2, class:^(Google-chrome)$"
     "workspace 2, class:^(firefox)$"
+    "workspace 2, class:^(firefox)$"
+    "workspace 3, class:^(steam)$"
   ];
 
   bind = {
@@ -54,8 +77,8 @@ let
       "$mod, page_up, workspace, -1"
       "$mod, page_down, workspace, +1"
 
-      ", XF86MonBrightnessDown, exec, brightnessctl s 10%-"
-      ", XF86MonBrightnessUp, exec, brightnessctl s +10%"
+      ", XF86MonBrightnessDown, exec, ${pkgs.brightnessctl}/bin/brightnessctl s 10%-"
+      ", XF86MonBrightnessUp, exec, ${pkgs.brightnessctl}/bin/brightnessctl s +10%"
     ] ++ bind.workspaces;
 
     bindl = [
@@ -66,8 +89,8 @@ let
       ", XF86AudioPlay, exec, playerctl play-pause"
       ", XF86AudioNext, exec, playerctl next"
       ", XF86AudioPrev, exec, playerctl previous"
-      ", switch:off:Lid Switch, exec, kanshictl switch docked-lid-open"
-      ", switch:on:Lid Switch, exec, kanshictl switch docked-lid-closed"
+      ", switch:off:Lid Switch, exec, uwsm app -- ${pkgs.kanshi}/bin/kanshictl switch docked-lid-open"
+      ", switch:on:Lid Switch, exec, uwsm app -- ${pkgs.kanshi}/bin/kanshictl switch docked-lid-closed"
     ];
 
     workspaces = (
@@ -90,14 +113,13 @@ let
 
   exec-once = [
     (lib.getExe generalStartScript)
+    (lib.getExe mainWorkspaceScript)
   ] ++ autostarts;
 
   autostarts = [
-    "alacritty"
-    "google-chrome-stable"
-    "emacs"
-    "mako"
+    "${pkgs.google-chrome}/bin/google-chrome-stable"
   ];
+
 in
 {
   options.shu.hyprland.enable = lib.mkEnableOption "Enable shuHyprland";
@@ -119,12 +141,18 @@ in
       enable = true;
       powerOnBoot = true;
     };
-    security.pam.services.gdm.enableGnomeKeyring = true;
 
     home-manager.users.${username} = {
       services = {
         udiskie.enable = true;
-        gnome-keyring.enable = true;
+        gnome-keyring = {
+          enable = true;
+          components = [
+            "ssh"
+            "pkcs11"
+            "secrets"
+          ];
+        };
       };
       home.packages = with pkgs; [
         blueman
@@ -133,6 +161,7 @@ in
         font-awesome
         geist-font
         hyprcursor
+        hyprpolkitagent
         jetbrains-mono
         nautilus
         nerdfonts
@@ -148,6 +177,7 @@ in
       };
       wayland.windowManager.hyprland = {
         enable = true;
+        systemd.enable = false;
         settings = {
           "$mod" = "SUPER";
           exec-once = exec-once;

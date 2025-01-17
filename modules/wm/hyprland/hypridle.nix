@@ -11,6 +11,15 @@ in
   options.shu.Hypridle.enable = lib.mkEnableOption "Enable Shu Hypridle";
   config = lib.mkIf cfg.enable {
     home-manager.users.${username} = {
+      systemd.user.services.hypridle = {
+        Unit = {
+          PartOf = lib.mkForce [ "graphical-session.target" ];
+          After = lib.mkForce [ "graphical-session.target" ];
+        };
+        Service = {
+          Slice = [ "background-graphical.slice" ];
+        };
+      };
       services.hypridle = {
         enable = true;
         settings = {
