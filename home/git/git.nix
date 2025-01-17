@@ -7,7 +7,7 @@
 {
 
   home.activation.removeOlgConfig = config.lib.dag.entryBefore [ "checkFilesChanged" ] ''
-    rm -f .config/git/config
+    rm -f .config/git/config*
   '';
 
   home.activation."git-secrets" = lib.hm.dag.entryAfter [ "reloadSystemd" ] ''
