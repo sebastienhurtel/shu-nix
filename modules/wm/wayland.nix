@@ -4,10 +4,10 @@
   ...
 }:
 let
-  cfg = config.shu.Wayland;
+  cfg = config.shu.wayland;
 in
 {
-  options.shu.Wayland.enable = lib.mkEnableOption "Enable shuWayland";
+  options.shu.wayland.enable = lib.mkEnableOption "Enable shu Wayland";
   config = lib.mkIf cfg.enable {
     services = {
       libinput.enable = true;

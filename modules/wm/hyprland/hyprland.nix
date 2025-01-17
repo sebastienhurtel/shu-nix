@@ -6,7 +6,7 @@
   ...
 }:
 let
-  cfg = config.shu.Hyprland;
+  cfg = config.shu.hYprland;
 
   generalStartScript = pkgs.writeShellScriptBin "start" ''
     systemctl --user enable --now hypridle.service
@@ -100,7 +100,7 @@ let
   ];
 in
 {
-  options.shu.Hyprland.enable = lib.mkEnableOption "Enable shuHyprland";
+  options.shu.hyprland.enable = lib.mkEnableOption "Enable shuHyprland";
   config = lib.mkIf cfg.enable {
     programs.hyprland = {
       enable = true;
@@ -133,15 +133,16 @@ in
         brightnessctl
         fira
         font-awesome
-        nautilus
-        seahorse
+        geist-font
+        hyprcursor
         jetbrains-mono
+        nautilus
         nerdfonts
         networkmanager_strongswan
         networkmanagerapplet
         papirus-icon-theme
         playerctl
-        geist-font
+        seahorse
       ];
       home.sessionVariables = {
         NIXOS_OZONE_WL = "1";
@@ -182,7 +183,7 @@ in
 
           gestures = {
             workspace_swipe = true;
-            workspace_swipe_invert = true;
+            workspace_swipe_invert = false;
           };
 
           misc = {
