@@ -32,7 +32,6 @@ in
           package = pkgs.dejavu_fonts;
           name = "DejaVu Serif";
         };
-
         sizes = {
           applications = 12;
           terminal = 10;
@@ -40,10 +39,9 @@ in
           popups = 10;
         };
       };
-
       cursor = {
-        name = "numix-cursor-dark";
-        package = pkgs.numix-cursor-theme;
+        name = "Vanilla-DMZ-AA";
+        size = 24;
       };
     };
   };
