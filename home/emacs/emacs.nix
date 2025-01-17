@@ -14,7 +14,7 @@ let
     graphviz
     isort
     libvterm
-    nixpkgs-fmt
+    nixfmt
     nixd
     pipenv
     poetry
@@ -26,6 +26,7 @@ let
   unstable = with pkgs.unstable; [
     python3Packages.pytest
     python3Packages.pyflakes
+    nixfmt-rfc-style
   ];
 in
 { home.packages = stable ++ unstable; }

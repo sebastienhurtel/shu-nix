@@ -156,9 +156,6 @@
 ;; LSP confiugration
 (setq lsp-signature-function 'lsp-signature-posframe)
 
-(after! nix-mode (
-  setq lsp-nix-nil-formatter ["nixpkgs-fmt"]))
-
 ;; Treemacs configuration
 (setq treemacs-width 30)
 (setq doom-themes-treemacs-theme "doom-colors")
