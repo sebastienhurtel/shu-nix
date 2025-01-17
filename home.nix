@@ -52,6 +52,7 @@ let
     nix-tree
     nvd
     nnn
+    pass
     parsec-bin
     pavucontrol
     python3Packages.git-filter-repo
