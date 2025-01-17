@@ -107,7 +107,10 @@
         hostname = "vmarcus";
         username = "sebastien";
         wm = "hyprland";
-        modules = [ ./system.nix ./hardware/vmarcus.nix ];
+        modules = [
+          ./system.nix
+          ./hardware/vmarcus.nix
+        ];
       };
 
       nixosConfigurations.squarepusher = mkNixosConfiguration {

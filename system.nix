@@ -14,8 +14,11 @@
     ./services
   ];
 
-  home-manager.users.${username} = {
-    imports = [ ./home.nix ];
+  home-manager = {
+    users.${username} = {
+      imports = [ ./home.nix ];
+    };
+    backupFileExtension = "backup";
   };
 
   time.timeZone = "Europe/Paris";
