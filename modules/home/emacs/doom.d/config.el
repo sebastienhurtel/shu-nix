@@ -47,19 +47,19 @@
 
   (setq org-todo-keywords
         '((sequence
-           "TODO(t)"  ; A task that needs doing & is ready to do
-           "STRT(s!)"  ; A task that is in progress
-           "WAIT(w)"  ; Something external is holding up this task
-           "HOLD(h!)"  ; This task is paused/on hold because of me
+           "TODO(t)"          ; A task that needs doing & is ready to do
+           "STRT(s!)"         ; A task that is in progress
+           "WAIT(w)"          ; Something external is holding up this task
+           "HOLD(h!)"         ; This task is paused/on hold because of me
            "|"
-           "DONE(d@/!)"  ; Task successfully completed
+           "DONE(d@/!)"       ; Task successfully completed
            "CANCELLED(k@/!)") ; Task was cancelled, aborted or is no longer applicable
           (sequence
-           "[ ](T)"   ; A task that needs doing
-           "[-](S)"   ; Task is in progress
-           "[?](W)"   ; Task is being held up or paused
+           "[ ](T)"           ; A task that needs doing
+           "[-](S)"           ; Task is in progress
+           "[?](W)"           ; Task is being held up or paused
            "|"
-           "[X](D)")) ; Task was completed
+           "[X](D)"))         ; Task was completed
         org-todo-keyword-faces
         '(("[-]"  . +org-todo-active)
           ("STRT" . +org-todo-active)
@@ -104,10 +104,10 @@
                       (mu4e-update-interval   . 120)))
 (after! mu4e
   (setq mu4e-bookmarks
-         '(("flag:unread AND NOT flag:trashed AND NOT maildir:/shu/All" "Unread messages" ?u)
-           ("maildir:/shu/INBOX" "Inbox" ?i)
-           ("maildir:/shu/Sent" "Messages sent" ?s)
-           ("maildir:/shu/Starred:" "Starred" ?f)))
+        '(("flag:unread AND NOT flag:trashed AND NOT maildir:/shu/All" "Unread messages" ?u)
+          ("maildir:/shu/INBOX" "Inbox" ?i)
+          ("maildir:/shu/Sent" "Messages sent" ?s)
+          ("maildir:/shu/Starred:" "Starred" ?f)))
   (setq mu4e-headers-fields
         '((:flags . 6)
           (:account-stripe . 2)
@@ -120,17 +120,17 @@
   (appendq! mu4e-header-info-custom
             '((:folder .
                (:name "Folder" :shortname "Folder" :help "Lowest level folder" :function
-                (lambda (msg)
-                  (+mu4e-colorize-str
-                   (replace-regexp-in-string "\\`.*/" "" (mu4e-message-field msg :maildir))
-                   '+mu4e-header--folder-colors))))))
-;; mu4e alert
-;; Specific to gmail
-(after! mu4e
-  (setq mu4e-index-cleanup nil
-        ;; because gmail uses labels as folders we can use lazy check since
-        ;; messages don't really "move"
-        mu4e-index-lazy-check t))
+                      (lambda (msg)
+                        (+mu4e-colorize-str
+                         (replace-regexp-in-string "\\`.*/" "" (mu4e-message-field msg :maildir))
+                         '+mu4e-header--folder-colors))))))
+  ;; mu4e alert
+  ;; Specific to gmail
+  (after! mu4e
+    (setq mu4e-index-cleanup nil
+          ;; because gmail uses labels as folders we can use lazy check since
+          ;; messages don't really "move"
+          mu4e-index-lazy-check t))
   ;; Don't display mail in All as unread
   (setq mu4e-alert-interesting-mail-query
         (concat
@@ -159,10 +159,10 @@
 (setq doom-themes-treemacs-theme "doom-colors")
 
 ;; Modeline
-(setq doom-modeline-vcs-max-length 25)
-(setq doom-modeline-major-mode-icon t)
-(setq doom-modeline-github t)
-(setq doom-modeline-github-interval t)
+(setq doom-modeline-vcs-max-length 25
+      doom-modeline-major-mode-icon t
+      doom-modeline-github t
+      doom-modeline-github-interval t)
 
 ;; File templates
 (set-file-template! "/script\\.py$" :trigger "__script.py" :mode 'python-mode)
