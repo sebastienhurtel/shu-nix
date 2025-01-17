@@ -9,5 +9,6 @@
     ./dconf/dconf.nix
     ./git/git.nix
     ./kanshi/kanshi.nix
+    ./stylix/stylix.nix
   ];
 }

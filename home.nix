@@ -1,8 +1,9 @@
 {
-  pkgs,
-  username,
-  nix-index-database,
   agenix,
+  nix-index-database,
+  pkgs,
+  stylix,
+  username,
   wm,
   ...
 }:
@@ -70,10 +71,11 @@ let
 in
 {
   imports = [
-    nix-index-database.hmModules.nix-index
-    agenix.homeManagerModules.default
     ./modules/home
     ./users/${username}.nix
+    agenix.homeManagerModules.default
+    nix-index-database.hmModules.nix-index
+    stylix.homeManagerModules.stylix
   ];
   manual.manpages.enable = false;
 
