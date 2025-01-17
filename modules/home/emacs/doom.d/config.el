@@ -141,8 +141,7 @@
          " AND NOT flag:trashed"
          " AND NOT maildir:"
          "/shu/All")))
-;; Window transparency
-;; (set-frame-parameter (selected-frame) 'alpha '(98 . 90))
+;;
 ;; BM Bookmark
 (map! (:leader
        (:desc "Toggle mark"      :nv "b m" #'bm-toggle
