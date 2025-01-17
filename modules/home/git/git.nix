@@ -5,6 +5,8 @@
 }:
 let
   cfg = config.shu.home.git;
+  email = "sebastienhurtel+github@gmail.com";
+  name = "shu";
 in
 {
   options.shu.home.git.enable = lib.mkEnableOption "Enable shu home git";
@@ -24,19 +26,14 @@ in
           navigate = true;
         };
       };
-      userEmail = "sebastienhurtel+github@gmail.com";
-      userName = "shu";
+      userEmail = email;
+      userName = name;
       extraConfig = {
         push = {
           default = "current";
           autoSetupRemote = true;
         };
-        merge = {
-          conflictstyle = "diff3";
-        };
-        diff = {
-          colorMoved = "default";
-        };
+        difftastic.enable = true;
         pull = {
           ff = "only";
         };
@@ -49,10 +46,19 @@ in
         branch = {
           sort = "authordate";
         };
-        "includeIf ${''"gitdir:~/git/free"''}" = {
-          path = "~/.config/git/config-free";
+        github = {
+          user = "sebastienhurtel";
+          name = name;
+          email= email;
         };
+
       };
+      includes = [
+        {
+          condition = "gitdir:~/git/free/";
+          path = "~/.config/git/config-free";
+        }
+      ];
     };
   };
 }

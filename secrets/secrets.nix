@@ -10,7 +10,6 @@ let
 in
 {
   "emailPro.age".publicKeys = users;
-  "emailGithub.age".publicKeys = users;
   "plexClaim.age".publicKeys = users ++ systems;
   "shScripts.age".publicKeys = users;
 }
