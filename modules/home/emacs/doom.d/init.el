@@ -28,6 +28,7 @@
        doom-quit
        (emoji +unicode)
        hl-todo
+       minimap
        modeline
        nav-flash
        ophints
