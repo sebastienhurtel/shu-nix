@@ -35,12 +35,7 @@ in
             "hyprland/workspaces" = {
               "active-only" = false;
               "all-outputs" = true;
-              "format" = "{windows}";
-              "format-icons" = {
-                "empty" = "";
-                "persistent" = "";
-                "default" = "";
-              };
+              "format" = "{icon}{windows}";
               "format-window-separator" = " ";
               "window-rewrite-default" = "";
               "window-rewrite" = {
@@ -54,12 +49,12 @@ in
                 "class<(.*)Nautilus>" = "";
               };
               "all-output" = true;
+              "format-icons" = {
+                "default"= "";
+                "empty" = "";
+              };
               "persistent-workspaces" = {
-                "1" = [ ];
-                "2" = [ ];
-                "3" = [ ];
-                "4" = [ ];
-                "5" = [ ];
+                "*" = [ 1 2 3 4 ];
               };
             };
 
