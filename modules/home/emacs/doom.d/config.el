@@ -88,9 +88,6 @@
  'org-babel-load-languages
  '((ein . t)))
 
-;; Confluence exporter
-(load! "org-mode/+ox-confluence.el")
-
 ;; mu4e
 ;; Path to mu4e
 (add-load-path! "/usr/local/share/emacs/site-lisp/mu4e")
