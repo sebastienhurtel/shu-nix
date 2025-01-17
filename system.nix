@@ -56,18 +56,23 @@
   };
 
   environment = {
-    systemPackages = with pkgs; [
-      agenix.packages.${system}.default
-      fastfetch
-      gnupg
-      mesa
-      ncdu
-      numactl
-      pciutils
-      ripgrep
-      usbutils
-      vim
-    ];
+    systemPackages =
+      with pkgs;
+      [
+        agenix.packages.${system}.default
+        fastfetch
+        gnupg
+        mesa
+        ncdu
+        numactl
+        pciutils
+        ripgrep
+        usbutils
+        vim
+      ]
+      ++ [
+        pkgs.unstable.qwerty-fr
+      ];
   };
 
   nix = {
