@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  wm,
   ...
 }:
 let
@@ -9,7 +10,7 @@ let
 in
 {
   options.shu.dconf.enable = lib.mkEnableOption "Enable Shu dconf";
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg.enable && wm == "gnome") {
     home.packages = with pkgs; [
       adwaita-icon-theme
       papirus-icon-theme
