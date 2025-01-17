@@ -82,10 +82,10 @@
        emacs-lisp
        (go +lsp)
        (latex
-       +latexmk
-       +cdlatex
-       +fold
-       +lsp)
+        +latexmk
+        +cdlatex
+        +fold
+        +lsp)
        (nix +tree-sitter +lsp)
        (org
         +babel
