@@ -94,11 +94,12 @@
     manager = wm;
   };
   services = {
-    fwupd.enable = true;
-    resolved.enable = true;
     avahi = {
       enable = true;
       openFirewall = true;
     };
+    fwupd.enable = true;
+    resolved.enable = true;
+    tailscale.enable = true;
   };
 }
