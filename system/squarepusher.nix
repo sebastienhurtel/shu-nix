@@ -56,11 +56,21 @@
 
   hardware.pulseaudio.enable = false;
 
-  virtualisation.docker = {
-    enable = true;
-    enableOnBoot = true;
+  virtualisation = {
+      docker = {
+      enable = true;
+      enableOnBoot = true;
+    };
+    libvirtd = {
+      enable = true;
+      qemu = {
+        runAsRoot = true;
+        ovmf.enable = true;
+      };
+    };
   };
-  users.users.${username}.extraGroups = [ "docker" ];
+
+  users.users.${username}.extraGroups = [ "docker" "libvirtd" ];
 
   networking.nftables = {
       ruleset = ''
