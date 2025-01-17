@@ -75,7 +75,6 @@ in
     ./users/${username}.nix
     agenix.homeManagerModules.default
     nix-index-database.hmModules.nix-index
-    stylix.homeManagerModules.stylix
   ];
   manual.manpages.enable = false;
 

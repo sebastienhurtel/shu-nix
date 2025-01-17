@@ -4,10 +4,10 @@
   ...
 }:
 let
-  cfg = config.shu.git;
+  cfg = config.shu.home.git;
 in
 {
-  options.shu.git.enable = lib.mkEnableOption "Enable Shu git";
+  options.shu.home.git.enable = lib.mkEnableOption "Enable shu home git";
   config = lib.mkIf cfg.enable {
     age.secrets.emailPro = {
       file = ../../../secrets/emailPro.age;

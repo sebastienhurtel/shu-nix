@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.shu.term;
+  cfg = config.shu.home.term;
 in
 {
-  options.shu.term.enable = lib.mkEnableOption "enable shu term";
+  options.shu.home.term.enable = lib.mkEnableOption "enable shu home term";
   config = lib.mkIf cfg.enable {
     programs.alacritty = {
       enable = true;

@@ -1,9 +1,9 @@
 { config, lib, pkgs, ... }:
 let
-  cfg = config.shu.Gnome;
+  cfg = config.shu.gnome;
 in
 {
-  options.shu.Gnome.enable = lib.mkEnableOption "Enable shuGnome";
+  options.shu.gnome.enable = lib.mkEnableOption "Enable shu gnome";
   config = lib.mkIf cfg.enable {
     services = {
       xserver.desktopManager.gnome.enable = true;

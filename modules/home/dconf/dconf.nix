@@ -6,10 +6,10 @@
   ...
 }:
 let
-  cfg = config.shu.dconf;
+  cfg = config.shu.home.dconf;
 in
 {
-  options.shu.dconf.enable = lib.mkEnableOption "Enable Shu dconf";
+  options.shu.home.dconf.enable = lib.mkEnableOption "Enable shu home dconf";
   config = lib.mkIf (cfg.enable && wm == "gnome") {
     home.packages = with pkgs; [
       adwaita-icon-theme
