@@ -4,7 +4,7 @@
     rm -f .config/git/config
   '';
 
-  home.activation."git-secrets" = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
+  home.activation."git-secrets" = lib.hm.dag.entryAfter [ "reloadSystemd" ] ''
    secretGH=$(cat "${config.age.secrets.emailGithub.path}")
    config="${config.home.homeDirectory}/.config/git/config"
    ${pkgs.gnused}/bin/sed -i "s/@emailGithub@/$secretGH/" "$config"
