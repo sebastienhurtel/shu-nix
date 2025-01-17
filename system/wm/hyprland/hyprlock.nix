@@ -10,7 +10,6 @@ in
 {
   options.shu.Hyprlock.enable = lib.mkEnableOption "Enable Shu Hyprlock";
   config = lib.mkIf cfg.enable {
-    security.pam.services.hyprlock = { };
     home-manager.users.${username} = {
       programs.hyprlock = {
         enable = true;

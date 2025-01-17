@@ -10,6 +10,9 @@ let
 
   generalStartScript = pkgs.writeShellScriptBin "start" ''
     systemctl --user import-environment PATH &
+    systemctl --user enable --now hypridle.service
+    systemctl --user enable --now waybar.service
+    systemctl --user enable --now hyprpaper.service
     systemctl --user restart xdg-desktop-portal.service &
     sleep 2
   '';
@@ -95,16 +98,17 @@ let
   autostarts = [
     "alacritty"
     "google-chrome-stable"
-    "hypridle"
     "emacs"
-    "waybar"
     "mako"
   ];
 in
 {
   options.shu.Hyprland.enable = lib.mkEnableOption "Enable shuHyprland";
   config = lib.mkIf cfg.enable {
-    programs.hyprland.enable = true;
+    programs.hyprland ={
+      enable = true;
+      withUWSM = true;
+    };
     shu = {
       Gtk.enable = false;
       Hypridle.enable = true;
@@ -146,6 +150,7 @@ in
       };
       wayland.windowManager.hyprland = {
         enable = true;
+        systemd.enable = false;
         settings = {
           "$mod" = "SUPER";
           exec-once = exec-once;
