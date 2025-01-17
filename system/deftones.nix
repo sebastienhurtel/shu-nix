@@ -19,8 +19,8 @@
     ];
 
   services = {
-    shu-plex.enable = true;
-    shu-nfs.enable = true;
+    shuPlex.enable = true;
+    shuNfs.enable = true;
     openssh = {
       enable = true;
       settings.PasswordAuthentication = false;

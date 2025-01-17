@@ -67,7 +67,7 @@
   };
 
   services = {
-    shu-wm.enable = true;
+    shuWm.enable = true;
     fwupd.enable = true;
     resolved.enable = true;
     avahi = {
