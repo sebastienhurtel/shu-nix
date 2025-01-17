@@ -50,7 +50,7 @@ in
               "format-window-separator" = " ";
               "window-rewrite-default" = "";
               "window-rewrite" = {
-                "title<(.*)YouTube(.*)>" = "";
+                "title<(.*)YouTube(.*)>" = " ";
                 "class<firefox>" = "";
                 "class<firefox> title<.*github.*>" = "";
                 "class<Google-chrome>" = "󰊯";
@@ -60,6 +60,7 @@ in
                 "class<Emacs>" = "";
                 "class<(.*)Nautilus>" = "";
                 "class<steam>" = "󰓓";
+                "class<vlc>" = "󰕼";
               };
               "all-output" = true;
               "format-icons" = {
