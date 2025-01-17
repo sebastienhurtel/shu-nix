@@ -14,15 +14,7 @@
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs =
-    inputs@{ self
-    , nixpkgs
-    , nixpkgs-unstable
-    , nixos-hardware
-    , home-manager
-    , nix-index-database
-    , ...
-    }:
+  outputs = inputs: with inputs;
     let
       nixpkgsWithOverlays = rec {
         config.allowUnfree = true;
