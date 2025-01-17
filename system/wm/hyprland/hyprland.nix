@@ -27,55 +27,64 @@ let
     "workspace 2, class:^(firefox)$"
   ];
 
-  bind = [
-    "$mod, E, exec, rofi -show drun -replace"
-    "$mod, ESCAPE, exec, hyprlock"
-    "$mod, Q, killactive,"
-    "$mod SHIFT, M, exit,"
-    "$mod, F, togglefloating,"
-    "$mod, G, togglegroup,"
-    "$mod, up, fullscreen,"
-    "$mod, bracketleft, changegroupactive, b"
-    "$mod, bracketright, changegroupactive, f"
+  bind = {
+    bind = [
+      "$mod, E, exec, rofi -show drun -replace"
+      "$mod, ESCAPE, exec, hyprlock"
+      "$mod, Q, killactive,"
+      "$mod SHIFT, M, exit,"
+      "$mod, F, togglefloating,"
+      "$mod, G, togglegroup,"
+      "$mod, up, fullscreen,"
+      "$mod, bracketleft, changegroupactive, b"
+      "$mod, bracketright, changegroupactive, f"
 
-    "$mod, O, layoutmsg, rollprev"
-    "$mod SHIFT, O, layoutmsg, rollnext"
+      "$mod, O, layoutmsg, rollprev"
+      "$mod SHIFT, O, layoutmsg, rollnext"
 
-    "$mod, h, movefocus, l"
-    "$mod, l, movefocus, r"
-    "$mod, k, movefocus, u"
-    "$mod, j, movefocus, d"
+      "$mod, h, movefocus, l"
+      "$mod, l, movefocus, r"
+      "$mod, k, movefocus, u"
+      "$mod, j, movefocus, d"
 
-    "$mod SHIFT, h, movewindow, l"
-    "$mod SHIFT, l, movewindow, r"
-    "$mod SHIFT, k, movewindow, u"
-    "$mod SHIFT, j, movewindow, d"
+      "$mod SHIFT, h, movewindow, l"
+      "$mod SHIFT, l, movewindow, r"
+      "$mod SHIFT, k, movewindow, u"
+      "$mod SHIFT, j, movewindow, d"
+      "$mod, page_up, workspace, -1"
+      "$mod, page_down, workspace, +1"
 
-    ", XF86MonBrightnessDown, exec, brightnessctl s 10%-"
-    ", XF86MonBrightnessUp, exec, brightnessctl s +10%"
-    ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 6%+ --limit 1.8"
-    ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 6%-"
-    ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-    ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+      ", XF86MonBrightnessDown, exec, brightnessctl s 10%-"
+      ", XF86MonBrightnessUp, exec, brightnessctl s +10%"
+    ] ++ bind.workspaces;
 
-  ] ++ workspaces;
+    bindl = [
+      ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 6%+ --limit 1.8"
+      ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 6%-"
+      ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+      ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+      ", XF86AudioPlay, exec, playerctl play-pause"
+      ", XF86AudioNext, exec, playerctl next"
+      ", XF86AudioPrev, exec, playerctl previous"
+    ];
 
-  workspaces = (
-    # workspaces
-    # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
-    builtins.concatLists (
-      builtins.genList (
-        i:
-        let
-          ws = i + 1;
-        in
-        [
-          "$mod, code:1${toString i}, workspace, ${toString ws}"
-          "$mod SHIFT, code:1${toString i}, movetoworkspace, ${toString ws}"
-        ]
-      ) 9
-    )
-  );
+    workspaces = (
+      # workspaces
+      # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
+      builtins.concatLists (
+        builtins.genList (
+          i:
+          let
+            ws = i + 1;
+          in
+          [
+            "$mod, code:1${toString i}, workspace, ${toString ws}"
+            "$mod SHIFT, code:1${toString i}, movetoworkspace, ${toString ws}"
+          ]
+        ) 9
+      )
+    );
+  };
 
   exec-once = [
     (lib.getExe generalStartScript)
@@ -126,6 +135,7 @@ in
         networkmanager_strongswan
         networkmanagerapplet
         papirus-icon-theme
+        playerctl
         geist-font
       ];
       home.sessionVariables = {
@@ -137,10 +147,11 @@ in
         settings = {
           "$mod" = "SUPER";
           exec-once = exec-once;
-          bind = bind;
+          bind = bind.bind;
+          bindl = bind.bindl;
           monitor = [
             "eDP-1, 1920x1200@60, 0x0, 1"
-            "DP-10, 2560x1440@144, auto-left, 1"
+            ", prefered, auto-left, 1"
           ];
           input = {
             kb_layout = "us_qwerty-fr";
