@@ -239,7 +239,6 @@ in
             always_follow_on_dnd = true;
             layers_hog_keyboard_focus = true;
             animate_manual_resizes = false;
-            enable_swallow = true;
             focus_on_activate = true;
             new_window_takes_over_fullscreen = 2;
             middle_click_paste = false;
@@ -251,9 +250,9 @@ in
           };
 
           decoration = {
-            rounding = 5;
+            rounding = 6;
             active_opacity = 0.99;
-            inactive_opacity = 0.9;
+            inactive_opacity = 0.89;
             fullscreen_opacity = 1.0;
 
             blur = {
