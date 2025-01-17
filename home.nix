@@ -59,7 +59,7 @@ let
       darktable
       firefox
       google-chrome
-      pavucontrol
+      pwvucontrol
       libreoffice
       xclip
     ];

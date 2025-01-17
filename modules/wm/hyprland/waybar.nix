@@ -197,7 +197,7 @@ in
                   "󰕾 "
                 ];
               };
-              "on-click" = "pavucontrol";
+              "on-click" = "${pkgs.pwvucontrol}/bin/pwvucontrol";
             };
 
             bluetooth = {
