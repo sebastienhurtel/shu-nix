@@ -57,7 +57,7 @@
       usbutils
       mesa
       ncdu
-      neofetch
+      fastfetch
       numactl
       ripgrep
       vim
