@@ -32,7 +32,6 @@
     plugins = [ pkgs.networkmanager_strongswan ];
   };
 
-
   services = {
     tlp = {
       enable = true;
@@ -61,7 +60,10 @@
       };
     };
     flatpak.enable = true;
-    printing.enable = true;
+    printing = {
+      enable = true;
+      browsed.enable = false;
+    };
     pipewire = {
       enable = true;
       alsa = {
