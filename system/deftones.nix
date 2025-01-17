@@ -34,8 +34,6 @@
     };
   };
 
-  sound.enable = false;
-
   virtualisation = {
     docker.enable = false;
     podman = {
