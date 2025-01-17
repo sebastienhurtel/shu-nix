@@ -1,6 +1,14 @@
 { hostname, config, lib, self, ... }:
 let
   cfg = config.services.shuNfs;
+  nfsPorts = [
+        111
+        2049
+        config.services.nfs.server.statdPort
+        config.services.nfs.server.lockdPort
+        config.services.nfs.server.mountdPort
+        20048
+  ];
 in
 {
   options.services.shuNfs.enable = lib.mkEnableOption "Enable NFS server";
@@ -9,7 +17,6 @@ in
     services = {
       nfs.server = {
         enable = true;
-        hostName = hostname;
         statdPort = 4000;
         lockdPort = 4001;
         mountdPort = 4002;
@@ -25,13 +32,9 @@ in
         '';
       };
     };
-    networking.firewall = {
-      allowedTCPPorts = [
-        config.services.nfs.server.statdPort
-        config.services.nfs.server.lockdPort
-        config.services.nfs.server.mountdPort
-        111
-      ];
+    networking.firewall = lib.mkIf config.networking.firewall.enable {
+      allowedTCPPorts = nfsPorts;
+      allowedUDPPorts = nfsPorts;
     };
   };
 }
