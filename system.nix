@@ -63,6 +63,7 @@
       mesa
       ncdu
       numactl
+      pciutils
       ripgrep
       usbutils
       vim
