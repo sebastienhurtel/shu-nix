@@ -1,7 +1,13 @@
-{ pkgs, ... }:
+{ pkgs, self, config, username, ... }:
 {
 
   home.file.".config/zsh/.p10k.zsh".source = ./p10k.zsh;
+
+  age.secrets.shScripts = {
+    file = ../../secrets/shScripts.age;
+    path = "/home/${username}/.config/zsh/vpn.sh";
+  };
+
   programs = {
     direnv = {
       enable = true;
@@ -22,6 +28,7 @@
         tmate = "env -u TMUX tmate";
         q = "noglob qalc";
         clab = "containerlab";
+        pssh = ''{ ${pkgs.passh} -p <(pass show free/ssh) ssh "$@"; }'';
       };
       plugins = [
         {
@@ -47,6 +54,8 @@
         # Powerlevel10k Zsh theme
         source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
         test -f ~/.config/zsh/.p10k.zsh && source ~/.config/zsh/.p10k.zsh
+        # Custom scripts
+        test-f ~/.config/zsh/vpn.sh && source ~/.config/zsh/vpn.sh
       '';
       envExtra = ''
         # Add doom to path
@@ -76,6 +85,7 @@
         ];
         extraConfig = ''
           zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+          compdef pssh='ssh'
         '';
       };
     };
