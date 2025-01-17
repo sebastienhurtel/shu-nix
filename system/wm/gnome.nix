@@ -21,6 +21,11 @@ let
       iagno # go game
       hitori # sudoku game
       atomix # puzzle game
+      gnome-software
+      gnome-contacts
+      gnome-clocks
+      gnome-maps
+      gnome-weather
     ]);
   };
   gnomeLess = { services.xserver.desktopManager.gnome.enable = false; };
