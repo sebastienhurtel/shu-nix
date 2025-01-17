@@ -45,9 +45,8 @@ let
     "workspace 1, class:^(Emacs)$"
     "workspace 1, initialTitle:^(Alacritty)$"
     "workspace 2, class:^(Google-chrome)$"
-    "workspace 2, class:^(firefox)$"
-    "workspace 2, class:^(firefox)$"
-    "workspace 3, class:^(steam)$"
+    "workspace 3, class:^(firefox)$"
+    "workspace 4, class:^(steam)$"
   ];
 
   bind = {
