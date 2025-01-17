@@ -26,6 +26,7 @@ in
           tmux.enable = false;
           emacs.enable = false;
           waybar.enable = false;
+          rofi.enable = false;
         };
 
         fonts = {
