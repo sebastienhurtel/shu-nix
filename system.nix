@@ -54,12 +54,13 @@
   environment = {
     systemPackages = with pkgs; [
       agenix.packages.${system}.default
-      usbutils
+      fastfetch
+      gnupg
       mesa
       ncdu
-      fastfetch
       numactl
       ripgrep
+      usbutils
       vim
     ];
   };
