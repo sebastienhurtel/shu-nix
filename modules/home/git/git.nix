@@ -11,7 +11,7 @@ in
   options.shu.git.enable = lib.mkEnableOption "Enable Shu git";
   config = lib.mkIf cfg.enable {
     home.activation.removeOlgConfig = lib.hm.dag.entryBefore [ "checkFilesChanged" ] ''
-      rm -f .config/git/config*
+      rm -f "${config.home.homeDirectory}"/.config/git/config*
     '';
 
     home.activation."git-secrets" = lib.hm.dag.entryAfter [ "reloadSystemd" ] ''
