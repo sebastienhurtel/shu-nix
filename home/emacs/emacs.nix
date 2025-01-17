@@ -2,6 +2,7 @@
 let
   stable = with pkgs; [
     black
+    dockerfile-language-server-nodejs
     dockfmt
     emacs
     emacsPackages.sqlite3
@@ -15,12 +16,12 @@ let
     isort
     libvterm
     nixd
+    nodePackages_latest.bash-language-server
     pipenv
     poetry
     pyenv
-    wl-clipboard
     python3Packages.nose
-    dockerfile-language-server-nodejs
+    wl-clipboard
   ];
   unstable = with pkgs.unstable; [
     python3Packages.pytest
