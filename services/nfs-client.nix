@@ -1,7 +1,8 @@
 {
-  pkgs,
+  hostname,
   config,
   lib,
+  self,
   ...
 }:
 let
@@ -18,21 +19,25 @@ in
 
     services.rpcbind.enable = true;
 
-    systemd.mounts = [{
-      type = "nfs";
-      mountConfig = {
-        Options = "noatime,nfsvers=4.2,x-systemd.automount,x-systemd.idle-timeout=600,noauto";
-      };
-      what = "192.168.1.250:/data";
-      where = "/mnt/data";
-    }];
+    systemd.mounts = [
+      {
+        type = "nfs";
+        mountConfig = {
+          Options = "noatime,nfsvers=4.2,x-systemd.automount,x-systemd.idle-timeout=600,noauto";
+        };
+        what = "192.168.1.250:/data";
+        where = "/mnt/data";
+      }
+    ];
 
-    systemd.automounts = [{
-      wantedBy = [ "multi-user.target" ];
-      automountConfig = {
-        TimeoutIdleSec = "600";
-      };
-      where = "/mnt/data";
-    }];
+    systemd.automounts = [
+      {
+        wantedBy = [ "multi-user.target" ];
+        automountConfig = {
+          TimeoutIdleSec = "600";
+        };
+        where = "/mnt/data";
+      }
+    ];
   };
 }

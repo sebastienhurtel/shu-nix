@@ -1,4 +1,10 @@
-{ pkgs, username, nix-index-database, agenix, ... }:
+{
+  pkgs,
+  username,
+  nix-index-database,
+  agenix,
+  ...
+}:
 let
 
   unstable-packages = with pkgs.unstable; [
@@ -51,7 +57,8 @@ let
     python3Packages.git-filter-repo
   ];
 
-in {
+in
+{
   imports = [
     nix-index-database.hmModules.nix-index
     agenix.homeManagerModules.default

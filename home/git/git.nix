@@ -1,16 +1,22 @@
-{ config, pkgs, lib, ... }: {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+{
 
-  home.activation.removeOlgConfig = config.lib.dag.entryBefore ["checkFilesChanged"] ''
+  home.activation.removeOlgConfig = config.lib.dag.entryBefore [ "checkFilesChanged" ] ''
     rm -f .config/git/config
   '';
 
   home.activation."git-secrets" = lib.hm.dag.entryAfter [ "reloadSystemd" ] ''
-   secretGH=$(cat "${config.age.secrets.emailGithub.path}")
-   config="${config.home.homeDirectory}/.config/git/config"
-   ${pkgs.gnused}/bin/sed -i "s/@emailGithub@/$secretGH/" "$config"
-   secretPro=$(cat "${config.age.secrets.emailPro.path}")
-   configPro="${config.home.homeDirectory}/.config/git/config"
-   ${pkgs.gnused}/bin/sed -i "s/@emailPro@/$secretPro/" "$configPro"
+    secretGH=$(cat "${config.age.secrets.emailGithub.path}")
+    config="${config.home.homeDirectory}/.config/git/config"
+    ${pkgs.gnused}/bin/sed -i "s/@emailGithub@/$secretGH/" "$config"
+    secretPro=$(cat "${config.age.secrets.emailPro.path}")
+    configPro="${config.home.homeDirectory}/.config/git/config"
+    ${pkgs.gnused}/bin/sed -i "s/@emailPro@/$secretPro/" "$configPro"
   '';
 
   age.secrets.emailGithub.file = ../../secrets/emailGithub.age;
@@ -57,7 +63,7 @@
       branch = {
         sort = "authordate";
       };
-      "includeIf ${"\"gitdir:~/git/free\""}" = {
+      "includeIf ${''"gitdir:~/git/free"''}" = {
         path = "~/.config/git/config-free";
       };
     };

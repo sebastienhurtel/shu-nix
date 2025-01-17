@@ -7,7 +7,11 @@
   };
 
   environment.gnome.excludePackages =
-    (with pkgs; [ gnome-tour power-profiles-daemon ]) ++ (with pkgs.gnome; [
+    (with pkgs; [
+      gnome-tour
+      power-profiles-daemon
+    ])
+    ++ (with pkgs.gnome; [
       cheese # webcam tool
       gnome-music
       gnome-terminal

@@ -39,7 +39,7 @@
 
         #Optional helps save long term battery health
         START_CHARGE_THRESH_BAT0 = 50; # bellow it starts to charge
-        STOP_CHARGE_THRESH_BAT0 = 65;  # above it stops charging
+        STOP_CHARGE_THRESH_BAT0 = 65; # above it stops charging
 
       };
     };
@@ -57,7 +57,7 @@
   hardware.pulseaudio.enable = false;
 
   virtualisation = {
-      docker = {
+    docker = {
       enable = true;
       enableOnBoot = true;
     };
@@ -70,15 +70,18 @@
     };
   };
 
-  users.users.${username}.extraGroups = [ "docker" "libvirtd" ];
+  users.users.${username}.extraGroups = [
+    "docker"
+    "libvirtd"
+  ];
 
   networking.nftables = {
-      ruleset = ''
-        table inet nixos-fw {
-          chain input-allow {
-            ip saddr 192.168.1.0/24 ip daddr 192.168.1.0/24 accept comment "LAN"
-          }
+    ruleset = ''
+      table inet nixos-fw {
+        chain input-allow {
+          ip saddr 192.168.1.0/24 ip daddr 192.168.1.0/24 accept comment "LAN"
         }
-      '';
-    };
+      }
+    '';
+  };
 }

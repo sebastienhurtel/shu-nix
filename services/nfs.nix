@@ -2,12 +2,12 @@
 let
   cfg = config.services.shuNFS;
   nfsPorts = [
-        111
-        2049
-        config.services.nfs.server.statdPort
-        config.services.nfs.server.lockdPort
-        config.services.nfs.server.mountdPort
-        20048
+    111
+    2049
+    config.services.nfs.server.statdPort
+    config.services.nfs.server.lockdPort
+    config.services.nfs.server.mountdPort
+    20048
   ];
 in
 {
@@ -32,8 +32,6 @@ in
         '';
       };
     };
-    networking.firewall = lib.mkIf config.networking.firewall.enable {
-      allowedTCPPorts = nfsPorts;
-    };
+    networking.firewall = lib.mkIf config.networking.firewall.enable { allowedTCPPorts = nfsPorts; };
   };
 }

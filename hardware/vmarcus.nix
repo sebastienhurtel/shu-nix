@@ -27,8 +27,13 @@
         preLVM = true;
       };
       kernelModules = [ "dm-snapshot" ];
-      availableKernelModules =
-        [ "ahci" "xhci_pci" "virtio_pci" "sr_mod" "virtio_blk" ];
+      availableKernelModules = [
+        "ahci"
+        "xhci_pci"
+        "virtio_pci"
+        "sr_mod"
+        "virtio_blk"
+      ];
 
     };
     kernelModules = [ "kvm-amd" ];
@@ -68,7 +73,10 @@
     enable = true;
     driSupport = true;
     driSupport32Bit = true;
-    extraPackages = with pkgs; [ vaapiVdpau libvdpau-va-gl ];
+    extraPackages = with pkgs; [
+      vaapiVdpau
+      libvdpau-va-gl
+    ];
   };
   system.stateVersion = "23.05";
 }

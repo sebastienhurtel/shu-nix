@@ -1,4 +1,10 @@
-{ pkgs, config, lib, wm, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  wm,
+  ...
+}:
 with lib;
 let
   cfg = config.services.shuWm;
