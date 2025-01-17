@@ -22,11 +22,11 @@
       pinentryPackage = pkgs.pinentry-gnome3;
     };
     steam = {
-      enable = false;
+      enable = true;
       remotePlay.openFirewall = true;
     };
   };
-  hardware.steam-hardware.enable = false;
+  hardware.steam-hardware.enable = true;
 
   networking.networkmanager = {
     plugins = [ pkgs.networkmanager_strongswan ];
