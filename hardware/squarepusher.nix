@@ -57,6 +57,7 @@
   fileSystems."/nix/store" = {
     device = "/dev/disk/by-uuid/c67747c8-f5da-48fd-8764-03e93c046c21";
     fsType = "ext4";
+    options = [ "noatime" ];
   };
 
   fileSystems."/home" = {
