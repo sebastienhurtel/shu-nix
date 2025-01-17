@@ -72,6 +72,7 @@
       };
       jack.enable = true;
       pulse.enable = true;
+      wireplumber.enable = true;
     };
     shuNFSClient.enable = true;
   };
