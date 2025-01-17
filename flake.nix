@@ -21,8 +21,6 @@
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    nixpkgs-110b0eb.url = "github:NixOS/nixpkgs/110b0eb2e534a2ab923738b7f5f4a25815e33a80";
   };
 
   outputs =
@@ -49,17 +47,6 @@
               };
             });
           })
-          (
-            _final: prev:
-            let
-              pkgs-110b0eb = import nixpkgs-110b0eb {
-                inherit (prev) system;
-              };
-            in
-            {
-              cacert = pkgs-110b0eb.cacert;
-            }
-          )
         ];
       };
 
@@ -81,11 +68,7 @@
           nixos-hardware
           ;
         channels = {
-          inherit nixpkgs nixpkgs-unstable nixpkgs-110b0eb;
-        };
-        pkgs-fd40cef8d = import nixpkgs-fd40cef8d {
-          inherit system;
-          config.allowUnfree = true;
+          inherit nixpkgs nixpkgs-unstable;
         };
       };
 
