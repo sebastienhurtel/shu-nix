@@ -44,6 +44,7 @@ let
   stable-packages = with pkgs; [
     ansible
     gnumake
+    gopass
     meslo-lgs-nf
     nix-tree
     nvd
