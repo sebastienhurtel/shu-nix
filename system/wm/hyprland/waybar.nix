@@ -6,7 +6,7 @@
 }:
 let
   cfg = config.shu.Waybar;
-  style = import ./style.nix;
+  style = import ./style.nix { inherit config username lib; };
 in
 {
   options.shu.Waybar.enable = lib.mkEnableOption "Enable Shu Waybar";
@@ -33,6 +33,8 @@ in
             };
 
             "hyprland/workspaces" = {
+              "active-only" = false;
+              "all-outputs" = true;
               "format" = "{windows}";
               "format-icons" = {
                 "empty" = "";
@@ -49,16 +51,15 @@ in
                 "class<Alacritty>" = "";
                 "code" = "󰨞";
                 "title<(.*) Emacs (.*)" = "";
-                "class<(.*)Nautilus"= "";
+                "class<(.*)Nautilus" = "";
               };
               "all-output" = true;
               "persistent-workspaces" = {
-                "*" = [
-                  1
-                  2
-                  3
-                  4
-                ];
+                "1" = [ ];
+                "2" = [ ];
+                "3" = [ ];
+                "4" = [ ];
+                "5" = [ ];
               };
             };
 
@@ -67,7 +68,7 @@ in
             ];
 
             clock = {
-              "format" = "{:%H:%M %a}";
+              "format" = "{:%H:%M %A}";
               "on-click" = "ags -t calendar";
               "tooltip" = false;
             };
@@ -181,7 +182,8 @@ in
             };
           };
         };
-      } // style { inherit lib config username; };
+        style = style.waybar;
+      };
     };
   };
 }
