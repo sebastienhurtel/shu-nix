@@ -1,4 +1,4 @@
-{ pkgs, username, ... }:
+{ pkgs, username, hostname, ... }:
 
 {
   networking = {
@@ -19,10 +19,13 @@
     ];
 
   services = {
+    shu-plex.enable = true;
     nfs.server = {
+      hostname = hostname;
       enable = true;
       statdPort = 4000;
       lockdPort = 4001;
+      mountdPort = 4002;
       exports = ''
         /data 192.168.1.0/24(rw,all_squash,anonuid=1000,anongid=1000,sync,no_subtree_check,insecure)
         /data/movies 192.168.1.0/24(rw,all_squash,anonuid=1000,anongid=1000,sync,no_subtree_check,insecure)
@@ -40,6 +43,15 @@
       openFirewall = true;
     };
   };
+
+  networking = {
+    firewall.allowedTCPPorts = [
+      4000 #nfs statdPort
+      4001 #nfs statdPort
+      4002 #nfs statdPort
+    ];
+  };
+
   sound.enable = false;
 
   systemd.services.myUnbound = {
@@ -60,8 +72,6 @@
     };
     wantedBy = [ "multi-user.target" ];
   };
-
-  services.shu-plex.enable = true;
 
   virtualisation = {
     docker.enable = false;
