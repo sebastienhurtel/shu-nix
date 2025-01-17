@@ -10,6 +10,11 @@ in
     networkmanager.enable = true;
   };
 
+  # disable X
+  programs.ssh.setXAuthLocation = false;
+  security.pam.services.su.forwardXAuth = lib.mkForce false;
+  fonts.fontconfig.enable = false;
+
   services = {
     gnome.gnome-keyring.enable = true;
     openssh = {
