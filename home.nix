@@ -51,6 +51,7 @@ let
     gopass
     htop
     ipcalc
+    immich-cli
     jq
     killall
     libqalculate
