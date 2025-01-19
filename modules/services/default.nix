@@ -8,5 +8,6 @@
     ./unbound.nix
     ./headscale.nix
     ./syncthing.nix
+    ./immich.nix
   ];
 }

@@ -26,6 +26,7 @@
     shuPlex.enable = true;
     shuNFS.enable = true;
     shuUnbound.enable = true;
+    shu.immich.enable = true;
     resolved.enable = lib.mkForce false;
     gnome.gnome-keyring.enable = true;
     openssh = {

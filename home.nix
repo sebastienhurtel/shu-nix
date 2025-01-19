@@ -24,6 +24,7 @@ let
     fzf
     git-crypt
     htop
+    immich-cli
     jq
     killall
     libqalculate
