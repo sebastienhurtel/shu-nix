@@ -28,7 +28,9 @@ let
     jq
     killall
     libqalculate
+    mpv
     nmap
+    nvtop
     procs
     python3Packages.ipython
     ripgrep
