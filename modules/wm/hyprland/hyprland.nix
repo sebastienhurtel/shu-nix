@@ -152,7 +152,7 @@ in
       Hypridle.enable = true;
       Hyprlock.enable = true;
       Rofi.enable = true;
-      Waybar.enable = true;
+      waybar.enable = true;
       swaync.enable = true;
     };
     networking.networkmanager.enable = true;

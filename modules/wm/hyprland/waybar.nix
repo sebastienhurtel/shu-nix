@@ -6,11 +6,11 @@
   ...
 }:
 let
-  cfg = config.shu.Waybar;
+  cfg = config.shu.waybar;
   style = import ./style.nix { inherit config username lib; };
 in
 {
-  options.shu.Waybar.enable = lib.mkEnableOption "Enable Shu Waybar";
+  options.shu.waybar.enable = lib.mkEnableOption "Enable Shu Waybar";
   config = lib.mkIf cfg.enable {
     home-manager.users.${username} = {
       systemd.user.services.waybar = {
