@@ -14,7 +14,6 @@
     mako.enable = false;
     shell.enable = true;
     stylix.enable = if wm != "headless" then true else true;
-    swaync.enable = if wm == "hyprland" then true else false;
     term.enable = if wm != "headless" then true else true;
     tmux.enable = if wm != "headless" then true else true;
   };

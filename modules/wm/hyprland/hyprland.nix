@@ -153,6 +153,7 @@ in
       Hyprlock.enable = true;
       Rofi.enable = true;
       Waybar.enable = true;
+      swaync.enable = true;
     };
     networking.networkmanager.enable = true;
     hardware.bluetooth = {

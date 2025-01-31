@@ -7,5 +7,6 @@
     ./hypridle.nix
     ./gtk.nix
     ./rofi.nix
+    ./swaync.nix
   ];
 }
