@@ -167,3 +167,9 @@
 ;; File templates
 (set-file-template! "/script\\.py$" :trigger "__script.py" :mode 'python-mode)
 (set-file-template! "/ansible\\.py$" :trigger "__ansible.py" :mode 'python-mode)
+
+;;lsp-nix with nixd
+(setq lsp-nix-nixd-server-path "nixd"
+      lsp-nix-nixd-nixpkgs-expr "import <nixpkgs> { }"
+      lsp-nix-nixd-nixos-options-expr "(builtins.getFlake \"/home/sebastien/.dotfiles\").nixosConfigurations.squarepusher.options"
+      lsp-nix-nixd-home-manager-options-expr "(builtins.getFlake \"/home/sebastien/.dotfiles\").nixosConfigurations.squarepusher.options.home-manager.users.type.getSubOptions []")
