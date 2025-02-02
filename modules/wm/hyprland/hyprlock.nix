@@ -6,6 +6,7 @@
 }:
 let
   cfg = config.shu.Hyprlock;
+  style = import ./style.nix { inherit config username lib; };
 in
 {
   options.shu.Hyprlock.enable = lib.mkEnableOption "Enable Shu Hyprlock";
@@ -20,6 +21,7 @@ in
             fingerprint_ready_message = "fingerprint reader is ready";
             fingerprint_present_message = "reading... ";
             pam_module = "/etc/pam.d/login";
+            hide_cursor = true;
           };
 
           background = {
@@ -35,9 +37,9 @@ in
           label = [
             # Hours
             {
+              color = style.colors.blue;
               monitor = "";
               text = ''cmd[update:1000] echo "<b><big> $(date +"%H") </big></b>"'';
-              color = "rgb(010204)";
               font_size = 112;
               font_family = "Geist Mono 10";
               shadow_passes = 3;
@@ -49,6 +51,7 @@ in
 
             # Minutes
             {
+              color = style.colors.red;
               monitor = "";
               text = ''cmd[update:1000] echo "<b><big> $(date +"%M") </big></b>"'';
               font_size = 112;
@@ -64,7 +67,6 @@ in
             {
               monitor = "";
               text = ''cmd[update:18000000] echo "<b><big> "$(date +'%A')" </big></b>"'';
-              color = "rgb(010204)";
               font_size = 22;
               font_family = "JetBrainsMono Nerd Font 10";
               position = "0, 0";
@@ -76,7 +78,6 @@ in
             {
               monitor = "";
               text = ''cmd[update:18000000] echo "<b> "$(date +'%d %b')" </b>"'';
-              color = "rgb(010204)";
               font_size = 18;
               font_family = "JetBrainsMono Nerd Font 10";
               position = "0, -40";
@@ -87,21 +88,22 @@ in
 
           input-field = {
             monitor = "";
-            size = "200, 50";
+            size = "200, 40";
             outline_thickness = 2;
-            dots_size = 0.26;
-            dots_spacing = 0.64;
+            dots_size = 0.33;
+            dots_spacing = 0.15;
             dots_center = true;
-            dots_rounding = -1;
             fade_on_empty = true;
-            fade_timeout = 1500;
-            font_family = "JetBrainsMono Nerd Font Bold";
-            placeholder_text = "<i>Enter Password...</i>";
+            fade_timeout = 4000;
+            placeholder_text = "<i>Input Password...</i>";
             hide_input = false;
-            rounding = 15;
+            rounding = "-1";
             fail_text = "<i>$FAIL <b>($ATTEMPTS)</b></i>";
-            fail_timeout = 2000;
-            fail_transition = 200;
+            fail_transition = "300";
+            fail_timeout = "4000";
+            position = "0, 80";
+            halign = "center";
+            valign = "bottom";
           };
         };
       };
