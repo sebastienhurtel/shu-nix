@@ -30,7 +30,7 @@ let
     libqalculate
     mpv
     nmap
-    nvtop
+    nvtopPackages.full
     procs
     python3Packages.ipython
     ripgrep
