@@ -62,12 +62,10 @@
         ncdu
         numactl
         pciutils
+        qwerty-fr
         ripgrep
         usbutils
         vim
-      ]
-      ++ [
-        unstable.qwerty-fr
       ];
   };
 
