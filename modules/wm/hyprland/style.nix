@@ -41,6 +41,7 @@ let
   };
 in
 {
+  colors = with custom; { inherit blue red green yellow orange; };
   rofi = with custom; {
     configuration = {
       modi = "drun,run";
