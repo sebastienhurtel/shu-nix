@@ -52,21 +52,19 @@
   };
 
   environment = {
-    systemPackages =
-      with pkgs;
-      [
-        agenix.packages.${system}.default
-        cmake
-        fastfetch
-        mesa
-        ncdu
-        numactl
-        pciutils
-        qwerty-fr
-        ripgrep
-        usbutils
-        vim
-      ];
+    systemPackages = with pkgs; [
+      agenix.packages.${system}.default
+      cmake
+      fastfetch
+      mesa
+      ncdu
+      numactl
+      pciutils
+      qwerty-fr
+      ripgrep
+      usbutils
+      vim
+    ];
   };
 
   nix = {

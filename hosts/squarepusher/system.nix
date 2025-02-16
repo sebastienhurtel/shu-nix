@@ -2,17 +2,18 @@
 
 {
   environment = {
-    systemPackages = with pkgs; [
-      bridge-utils
-      linuxKernel.packages.linux_zen.cpupower
-      openssl
-      passh
-      pinentry-gnome3
-      powertop
-      python3
-      strongswanNM
-      virt-manager
-    ];
+    systemPackages =
+      with pkgs;
+      [
+        bridge-utils
+        linuxKernel.packages.linux_zen.cpupower
+        openssl
+        passh
+        powertop
+        python313
+        strongswanNM
+        virt-manager
+      ];
   };
 
   programs = {
