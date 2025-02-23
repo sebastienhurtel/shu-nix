@@ -3,14 +3,27 @@
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
-    (modulesPath + "/profiles/qemu-guest.nix")
-    ./default-hardware.nix
   ];
 
-  boot.loader.grub = {
-    # devices = [];
-    efiSupport = true;
-    efiInstallAsRemovable = true;
+  boot = {
+    initrd = {
+      availableKernelModules = [
+        "uhci_hcd"
+        "ehci_pci"
+        "ahci"
+        "virtio_pci"
+        "sr_mod"
+        "virtio_blk"
+      ];
+      kernelModules = [ ];
+    };
+    kernelModules = [ "kvm-intel" ];
+    extraModulePackages = [ ];
+    loader.grub = {
+      # devices = [];
+      efiSupport = true;
+      efiInstallAsRemovable = true;
+    };
   };
 
   disko.devices = {
@@ -48,6 +61,7 @@
   };
 
   networking = {
+    useDHCP = lib.mkDefault true;
     interfaces.eth0 = {
       ipv4.addresses = [
         {
