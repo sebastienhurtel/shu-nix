@@ -6,7 +6,7 @@
 }:
 let
   cfg = config.shu.home.emacs;
-  emacs = pkgs.emacs29-pgtk;
+  emacs = pkgs.emacs30-pgtk;
   stable = with pkgs; [
     black
     dockerfile-language-server-nodejs
@@ -18,7 +18,6 @@ let
     gotools
     graphviz
     isort
-    libvterm
     libxml2
     nodePackages_latest.bash-language-server
     pipenv
@@ -27,6 +26,7 @@ let
     pyright
     shellcheck
     shfmt
+    uv
     wl-clipboard
   ];
   emacsPackages = with pkgs.emacsPackages; [
@@ -35,8 +35,8 @@ let
     vterm
   ];
   unstable = with pkgs.unstable; [
-    python3Packages.pytest
-    python3Packages.pyflakes
+    python313Packages.pytest
+    python313Packages.pyflakes
     nixfmt-rfc-style
     nixd
   ];
@@ -44,8 +44,9 @@ in
 {
   options.shu.home.emacs.enable = lib.mkEnableOption "Enable shu home emacs";
   config = lib.mkIf cfg.enable {
-    home.packages = stable ++ unstable ++ [ emacs ] ++ emacsPackages;
+    home.packages = stable ++ unstable ++ emacsPackages ++ [ emacs ];
     services.emacs = {
+      enable = true;
       package = emacs;
       socketActivation.enable = true;
       startWithUserSession = "graphical";
