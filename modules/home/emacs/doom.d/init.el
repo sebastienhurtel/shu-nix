@@ -33,7 +33,7 @@
        nav-flash
        ophints
        (popup +all +defaults)
-       (treemacs +lsp)
+       treemacs
        unicode
        vc-gutter
        vi-tilde-fringe
@@ -71,7 +71,8 @@
        ein
        (eval +overlay)
        (lookup +docsets)
-       (lsp +peek)
+       (lsp
+        +peek)
        (magit +forge)
        pass
        pdf
@@ -87,7 +88,9 @@
         +cdlatex
         +fold
         +lsp)
-       (nix +tree-sitter +lsp)
+       (nix
+        +tree-sitter
+        +lsp)
        (org
         +babel
         +capture
@@ -101,7 +104,9 @@
         +pyright
         +lsp
         +tree-sitter)
-       (sh +lsp +tree-sitter)
+       (sh
+        +lsp
+        +tree-sitter)
 
        :email
 

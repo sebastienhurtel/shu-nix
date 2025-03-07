@@ -68,7 +68,6 @@
           ("HOLD" . +org-todo-onhold)
           ("PROJ" . +org-todo-project))))
 
-(setq org-roam-directory "~/Documents/org/notes")
 ;; Git auto commit mode for org
 (defvar shu:git-auto-commit-mode-for-orgmode-directories
   '("~/Documents/shu/org")
@@ -87,6 +86,92 @@
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((ein . t)))
+;; org-modern
+(use-package! org-modern
+  :hook (org-mode . org-modern-mode)
+  :config
+  (setq
+   ;; Edit settings
+   org-auto-align-tags nil
+   org-tags-column 0
+   org-catch-fold-nvisible-edits 'show-and-error
+   org-special-ctrl-a/e t
+   org-insert-heading-respect-content t
+   ;; Appearance
+   org-modern-todo nil
+   org-modern-tag nil
+   org-modern-timestamp t
+   org-modern-statistics nil
+   org-modern-progress nil
+   org-modern-priority nil
+   org-modern-horizontal-rule "──────────"
+   org-modern-keyword "‣"
+   org-modern-list '((43 . "•")
+                     (45 . "–")
+                     (42 . "∘")))
+  (set-face-attribute 'org-modern-label nil :family "Alegreya Sans")
+  (set-face-attribute 'org-modern-tag nil
+                      :background (doom-blend (doom-color 'blue) (doom-color 'bg) 0.1)
+                      :foreground (doom-color 'grey)))
+
+(use-package! svg-tag-mode
+  :config
+  (defconst date-re "[0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}")
+  (defconst time-re "[0-9]\\{2\\}:[0-9]\\{2\\}")
+  (defconst day-re "[A-Za-z]\\{3\\}")
+  (defconst day-time-re (format "\\(%s\\)? ?\\(%s\\)?" day-re time-re))
+
+  (defun svg-progress-percent (value)
+    (save-match-data
+      (svg-image (svg-lib-concat
+                  (svg-lib-progress-bar  (/ (string-to-number value) 100.0)
+                                         nil :margin 0 :stroke 2 :radius 3 :padding 2 :width 11)
+                  (svg-lib-tag (concat value "%")
+                               nil :stroke 0 :margin 0)) :ascent 'center)))
+
+  (defun svg-progress-count (value)
+    (save-match-data
+      (let* ((seq (split-string value "/"))
+             (count (if (stringp (car seq))
+                        (float (string-to-number (car seq)))
+                      0))
+             (total (if (stringp (cadr seq))
+                        (float (string-to-number (cadr seq)))
+                      1000)))
+        (svg-image (svg-lib-concat
+                    (svg-lib-progress-bar (/ count total) nil
+                                          :margin 0 :stroke 2 :radius 3 :padding 2 :width 11)
+                    (svg-lib-tag value nil
+                                 :stroke 0 :margin 0)) :ascent 'center))))
+
+  (setq svg-tag-tags
+        `(
+          ;; Progress
+          ("\\(\\[[0-9]\\{1,3\\}%\\]\\)" . ((lambda (tag)
+                                              (svg-progress-percent (substring tag 1 -2)))))
+          ("\\(\\[[0-9]+/[0-9]+\\]\\)" . ((lambda (tag)
+                                            (svg-progress-count (substring tag 1 -1)))))
+          ("TODO" . ((lambda (tag) (svg-tag-make tag :height 0.8 :inverse t
+                                                 :face 'org-todo :margin 0 :radius 5))))
+          ("HOLD" . ((lambda (tag) (svg-tag-make tag :height 0.8
+                                                 :face '+org-todo-onhold :margin 0 :radius 5))))
+          ("DONE" . ((lambda (tag) (svg-tag-make tag :height 0.8 :inverse t
+                                                 :face 'org-done :margin 0 :radius 5))))
+          ("STARTED" . ((lambda (tag) (svg-tag-make tag
+                                                    :height 0.8 :inverse t
+                                                    :face '+org-todo-active :margin 0 :radius 5))))
+          ;; Citation of the form [cite:@Knuth:1984]
+          ("\\(\\[cite:@[A-Za-z]+:\\)" . ((lambda (tag)
+                                            (svg-tag-make tag
+                                                          :inverse t
+                                                          :beg 7 :end -1
+                                                          :crop-right t))))
+          ("\\[cite:@[A-Za-z]+:\\([0-9]+\\]\\)" . ((lambda (tag)
+                                                     (svg-tag-make tag
+                                                                   :end -1
+                                                                   :crop-left t))))
+          ))
+  :hook (org-mode . svg-tag-mode))
 
 ;; mu4e
 ;; Path to mu4e
@@ -170,6 +255,13 @@
 
 ;;lsp-nix with nixd
 (setq lsp-nix-nixd-server-path "nixd"
-      lsp-nix-nixd-nixpkgs-expr "import <nixpkgs> { }"
+      lsp-nix-nixd-formatting-command [ "nixfmt" ]
+      lsp-nix-nixd-nixpkgs-expr "import (builtins.getFlake \"/home/sebastien/.dotfiles/\").inputs.nixpkgs { }"
       lsp-nix-nixd-nixos-options-expr "(builtins.getFlake \"/home/sebastien/.dotfiles\").nixosConfigurations.squarepusher.options"
-      lsp-nix-nixd-home-manager-options-expr "(builtins.getFlake \"/home/sebastien/.dotfiles\").nixosConfigurations.squarepusher.options.home-manager.users.type.getSubOptions []")
+      lsp-nix-nixd-home-manager-options-expr "(builtins.getFlake \"/home/sebastien/.dotfiles\").nixosConfigurations.squarepusher.options.home-manager.users.type.getSubOptions [ ]")
+
+;; Corfu
+(setq corfu-auto-delay 0.0)
+
+;; Eglot
+(add-hook 'eglot-managed-mode-hook #'eldoc-box-hover-mode t)
