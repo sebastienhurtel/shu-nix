@@ -79,6 +79,7 @@ in
             "clab"
             "docker"
             "docker-compose"
+            "direnv"
             "fzf"
             "fzf-tab"
             "git"
