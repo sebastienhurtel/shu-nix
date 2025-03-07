@@ -7,6 +7,29 @@
   ...
 }:
 let
+  pyangPackage =
+    with pkgs.python3Packages;
+    buildPythonPackage rec {
+      pname = "pyang";
+      version = "2.6.1";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "mbj4668";
+        repo = pname;
+        rev = "pyang-${version}";
+        hash = "sha256-sZokdBegfkDUXuf9lHIZ7AJzjomxSRpwyX+myquQy3Y=";
+      };
+      # setuptools is not needed if version > 2.6.1
+      inputs =
+        if version > "2.6.1" then
+          [ lxml ]
+        else
+          [
+            lxml
+            setuptools
+          ];
+      propagatedBuildInputs = inputs;
+    };
 
   unstable-packages = with pkgs.unstable; [
     bat
@@ -24,7 +47,6 @@ let
     fzf
     git-crypt
     htop
-    immich-cli
     jq
     killall
     libqalculate
@@ -32,7 +54,7 @@ let
     nmap
     nvtopPackages.full
     procs
-    python3Packages.ipython
+    python313Packages.ipython
     ripgrep
     sd
     tree
@@ -52,20 +74,18 @@ let
     nix-tree
     nvd
     pass
-    python3Packages.git-filter-repo
+    python313Packages.git-filter-repo
   ];
 
-  ui-packages =
-    with pkgs;
-    [
-      audacity
-      darktable
-      firefox
-      google-chrome
-      pwvucontrol
-      libreoffice
-      xclip
-    ];
+  ui-packages = with pkgs; [
+    audacity
+    darktable
+    firefox
+    google-chrome
+    pwvucontrol
+    libreoffice
+    xclip
+  ];
 
   home-packages =
     if wm == "headless" then
@@ -85,7 +105,7 @@ in
   home = {
     username = "${username}";
     homeDirectory = "/home/${username}";
-    packages = home-packages;
+    packages = home-packages ++ [ pyangPackage ];
   };
 
   # required to autoload fonts from packages installed via Home Manager
