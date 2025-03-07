@@ -32,7 +32,6 @@
         "sd_mod"
         "rtsx_pci_sdmmc"
       ];
-
     };
     kernelModules = [ "kvm-amd" ];
     extraModulePackages = [ ];
