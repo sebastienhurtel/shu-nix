@@ -6,7 +6,7 @@
 }:
 let
   cfg = config.shu.swaync;
-  style = import ./style.nix { inherit config username lib; };
+  # style = import ./style.nix { inherit config username lib; };
 in
 {
   options.shu.swaync.enable = lib.mkEnableOption "Enable shu home swaync";
@@ -14,7 +14,7 @@ in
     home-manager.users.${username} = {
       services.swaync = {
         enable = true;
-        style = style.swaync;
+        # style = style.swaync;
         settings = {
           control-center-width = 600;
           control-center-layer = "top";
