@@ -17,11 +17,14 @@ let
     EMACS_WINDOW_NAME="emacs"
     ALACRITTY_WINDOW_TOP="alacritty_top"
     ALACRITTY_WINDOW_BOTTOM="alacritty_bottom"
-    sleep 3
-    ${pkgs.alacritty}/bin/alacritty --class "$ALACRITTY_WINDOW_TOP" -e zsh -c "tmux new-session -A -s 0"
-    ${pkgs.alacritty}/bin/alacritty --class "$ALACRITTY_WINDOW_BOTTOM" -e zsh -c "tmux new-session -A -s 1"
-    ${pkgs.emacs29-pgtk}/bin/emacsclient -n
-    ${pkgs.hyprland}/bin/hyprctl --batch '\
+    sleep 5
+    alacritty --class "$ALACRITTY_WINDOW_TOP" -e zsh -c "tmux new-session -A -s 0"
+    sleep 1
+    alacritty --class "$ALACRITTY_WINDOW_BOTTOM" -e zsh -c "tmux new-session -A -s 1"
+    sleep 1
+    emacsclient -n
+    sleep 1
+    hyprctl --batch '\
         keyword windowrule "workspace unset, $EMACS_WINDOW_NAME";\
         keyword windowrule "workspace unset, $ALACRITTY_WINDOW_TOP";\
         keyword windowrule "workspace unset, $ALACRITTY_WINDOW_BOTTOM";\
@@ -163,6 +166,7 @@ in
 
     home-manager.users.${username} = {
       services = {
+        network-manager-applet.enable = true;
         udiskie.enable = true;
         gnome-keyring = {
           enable = true;
@@ -184,7 +188,6 @@ in
         nautilus
         nerdfonts
         networkmanager_strongswan
-        networkmanagerapplet
         overskride
         papirus-icon-theme
         playerctl
