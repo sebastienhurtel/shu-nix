@@ -72,6 +72,7 @@
        (eval +overlay)
        (lookup +docsets)
        (lsp
+        +eglot
         +peek)
        (magit +forge)
        pass
