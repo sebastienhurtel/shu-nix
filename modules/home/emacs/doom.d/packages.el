@@ -27,3 +27,5 @@
 (package! eldoc-box)
 (when (eq emacs-major-version 30)
   (package! eldoc :built-in t))
+(package! emacs-syncthing
+  :recipe (:host github :repo "KeyWeeUsr/emacs-syncthing"))

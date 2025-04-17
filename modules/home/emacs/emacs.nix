@@ -44,7 +44,7 @@ in
 {
   options.shu.home.emacs.enable = lib.mkEnableOption "Enable shu home emacs";
   config = lib.mkIf cfg.enable {
-    home.packages = stable ++ unstable ++ [ emacs ];
+    home.packages = stable ++ unstable ++ [ emacs ] ++ emacsPackages;
     services.emacs = {
       enable = true;
       package = emacs;
