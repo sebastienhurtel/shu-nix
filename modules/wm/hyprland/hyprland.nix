@@ -10,30 +10,6 @@ let
 
   generalStartScript = pkgs.writeShellScriptBin "start" ''
     systemctl --user enable --now hyprpaper.service
-    systemctl --user enable --now hyprpolkitagent.service
-  '';
-
-  mainWorkspaceScript = pkgs.writeShellScriptBin "mainWorkspace" ''
-    EMACS_WINDOW_NAME="emacs"
-    ALACRITTY_WINDOW_TOP="alacritty_top"
-    ALACRITTY_WINDOW_BOTTOM="alacritty_bottom"
-    sleep 5
-    alacritty --class "$ALACRITTY_WINDOW_TOP" -e zsh -c "tmux new-session -A -s 0"
-    sleep 1
-    alacritty --class "$ALACRITTY_WINDOW_BOTTOM" -e zsh -c "tmux new-session -A -s 1"
-    sleep 1
-    emacsclient -n
-    sleep 1
-    hyprctl --batch '\
-        keyword windowrule "workspace unset, $EMACS_WINDOW_NAME";\
-        keyword windowrule "workspace unset, $ALACRITTY_WINDOW_TOP";\
-        keyword windowrule "workspace unset, $ALACRITTY_WINDOW_BOTTOM";\
-        dispatch focuswindow "$EMACS_WINDOW_NAME";\
-        dispatch movewindow to 0 0;\
-        dispatch focuswindow "$ALACRITTY_WINDOW_TOP";\
-        dispatch movewindow to 60% 0;\
-        dispatch focuswindow "$ALACRITTY_WINDOW_BOTTOM";\
-        dispatch movewindow to 60% 50%'
   '';
 
   toggleAnimationsScript = pkgs.writeShellScriptBin "toggleAnimations" ''
@@ -61,7 +37,7 @@ let
     "size 45% 35%, class:((.*)Overskride(.*))"
     "float, class:(pwvucontrol)"
     "size 40% 30%, class:(pwvucontrol)"
-    "workspace 1, class:^(Emacs)$"
+    "workspace 1, class:^(emacs)$"
     "workspace 1, initialTitle:^(Alacritty)$"
     "workspace 2, class:^(google-chrome)$"
     "workspace 3, class:^(firefox)$"
@@ -135,11 +111,13 @@ let
 
   exec-once = [
     (lib.getExe generalStartScript)
-    (lib.getExe mainWorkspaceScript)
   ] ++ autostarts;
 
   autostarts = [
-    "${pkgs.google-chrome}/bin/google-chrome-stable"
+    "uwsm app -- ${pkgs.pkgs.emacs30-pgtk}/bin/emacsclient -c"
+    "uwsm app -- ${pkgs.alacritty}/bin/alacritty -e zsh -c 'tmux new-session -A -s 0'"
+    "uwsm app -- ${pkgs.alacritty}/bin/alacritty -e zsh -c 'tmux new-session -A -s 1'"
+    "uwsm app -- ${pkgs.google-chrome}/bin/google-chrome-stable"
   ];
 
 in
@@ -166,6 +144,7 @@ in
 
     home-manager.users.${username} = {
       services = {
+        #hyprpolkitagent.enable = true;
         network-manager-applet.enable = true;
         udiskie.enable = true;
         gnome-keyring = {
@@ -183,7 +162,6 @@ in
         font-awesome
         geist-font
         grimblast
-        hyprpolkitagent
         jetbrains-mono
         nautilus
         nerdfonts
@@ -274,7 +252,7 @@ in
           animations = {
             enabled = true;
             bezier = [
-              "myBezier, 0.05, 0.9, 0.1, 1.05"
+              "myBezier, 0.02, 0.7, 0.1, 1.02"
             ];
 
             animation = [
