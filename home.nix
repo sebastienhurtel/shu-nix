@@ -21,7 +21,7 @@ let
       };
       # setuptools is not needed if version > 2.6.1
       inputs =
-        if version > "2.6.1" then
+        if lib.versionOlder version "2.6.1" then
           [ lxml ]
         else
           [
