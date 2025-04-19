@@ -45,11 +45,13 @@ in
   options.shu.home.emacs.enable = lib.mkEnableOption "Enable shu home emacs";
   config = lib.mkIf cfg.enable {
     home.packages = stable ++ unstable ++ [ emacs ] ++ emacsPackages;
+    systemd.user.services.emacs.environment.SSH_AUTH_SOCK = "%t/keyring/ssh";
     services.emacs = {
       enable = true;
       package = emacs;
       socketActivation.enable = true;
       startWithUserSession = "graphical";
+      client.enable = true;
     };
   };
 }
