@@ -20,18 +20,8 @@
   programs = {
     nnn = {
       enable = true;
-      plugins = {
-        mappings = {
-          i = "imgview";
-        };
-        src =
-          (pkgs.fetchFromGitHub {
-            owner = "jarun";
-            repo = "nnn";
-            rev = "v5.0";
-            sha256 = "sha256-HShHSjqD0zeE1/St1Y2dUeHfac6HQnPFfjmFvSuEXUA=";
-          })
-          + "/plugins";
+      package = pkgs.nnn.override {
+        withEmojis = true;
       };
     };
   };
