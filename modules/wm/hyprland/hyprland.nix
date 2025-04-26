@@ -34,10 +34,11 @@ let
     "float, title:(rofi)"
     "float, class:(nm-connection-editor)"
     "float, class:((.*)Overskride(.*))"
-    "size 45% 35%, class:((.*)Overskride(.*))"
+    "size 50% 40%, class:((.*)Overskride(.*))"
     "float, class:(pwvucontrol)"
-    "size 40% 30%, class:(pwvucontrol)"
+    "size 45% 35%, class:(pwvucontrol)"
     "workspace 1, class:^(emacs)$"
+    "move 10 54, class:^(emacs)$"
     "workspace 1, initialTitle:^(Alacritty)$"
     "workspace 2, class:^(google-chrome)$"
     "workspace 3, class:^(firefox)$"
@@ -114,9 +115,9 @@ let
   ] ++ autostarts;
 
   autostarts = [
-    "uwsm app -- ${pkgs.pkgs.emacs30-pgtk}/bin/emacsclient -c"
     "uwsm app -- ${pkgs.alacritty}/bin/alacritty -e zsh -c 'tmux new-session -A -s 0'"
     "uwsm app -- ${pkgs.alacritty}/bin/alacritty -e zsh -c 'tmux new-session -A -s 1'"
+    "uwsm app -- ${pkgs.emacs30-pgtk}/bin/emacsclient -c"
     "uwsm app -- ${pkgs.google-chrome}/bin/google-chrome-stable"
   ];
 
@@ -131,7 +132,7 @@ in
     shu = {
       gtk.enable = true;
       Hypridle.enable = true;
-      Hyprlock.enable = true;
+      hyprlock.enable = true;
       Rofi.enable = true;
       waybar.enable = true;
       swaync.enable = true;
@@ -144,7 +145,7 @@ in
 
     home-manager.users.${username} = {
       services = {
-        #hyprpolkitagent.enable = true;
+        hyprpolkitagent.enable = true;
         network-manager-applet.enable = true;
         udiskie.enable = true;
         gnome-keyring = {
@@ -164,7 +165,7 @@ in
         grimblast
         jetbrains-mono
         nautilus
-        nerdfonts
+        nerd-fonts.jetbrains-mono
         networkmanager_strongswan
         overskride
         papirus-icon-theme

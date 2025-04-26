@@ -5,11 +5,11 @@
   ...
 }:
 let
-  cfg = config.shu.Hyprlock;
+  cfg = config.shu.hyprlock;
   style = import ./style.nix { inherit config username lib; };
 in
 {
-  options.shu.Hyprlock.enable = lib.mkEnableOption "Enable Shu Hyprlock";
+  options.shu.hyprlock.enable = lib.mkEnableOption "Enable Shu Hyprlock";
   config = lib.mkIf cfg.enable {
     home-manager.users.${username} = {
       programs.hyprlock = {
@@ -17,11 +17,18 @@ in
         settings = {
           general = {
             ignore_empty_input = true;
-            enable_fingerprint = true;
-            fingerprint_ready_message = "fingerprint reader is ready";
-            fingerprint_present_message = "reading... ";
-            pam_module = "/etc/pam.d/login";
             hide_cursor = true;
+          };
+
+          auth = {
+            fingerprint = {
+              enabled = true;
+              ready_message = "fingerprint reader is ready";
+              present_message = "reading... ";
+            };
+            pam = {
+              module = "/etc/pam.d/login";
+            };
           };
 
           background = {
@@ -37,7 +44,6 @@ in
           label = [
             # Hours
             {
-              color = style.colors.blue;
               monitor = "";
               text = ''cmd[update:1000] echo "<b><big> $(date +"%H") </big></b>"'';
               font_size = 112;
@@ -51,7 +57,6 @@ in
 
             # Minutes
             {
-              color = style.colors.red;
               monitor = "";
               text = ''cmd[update:1000] echo "<b><big> $(date +"%M") </big></b>"'';
               font_size = 112;
@@ -99,8 +104,6 @@ in
             hide_input = false;
             rounding = "-1";
             fail_text = "<i>$FAIL <b>($ATTEMPTS)</b></i>";
-            fail_transition = "300";
-            fail_timeout = "4000";
             position = "0, 80";
             halign = "center";
             valign = "bottom";

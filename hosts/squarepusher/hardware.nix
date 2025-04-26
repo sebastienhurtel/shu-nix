@@ -44,7 +44,7 @@
       amdvlk
       vaapiVdpau
       libvdpau-va-gl
-      mesa.drivers
+      mesa
     ];
   };
 

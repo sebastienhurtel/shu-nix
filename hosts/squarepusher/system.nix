@@ -77,6 +77,8 @@
     };
     shuNFSClient.enable = true;
     gnome.gnome-keyring.enable = true;
+    gvfs.enable = true;
+    pulseaudio.enable = false;
     syncthing = {
       enable = true;
       openDefaultPorts = true;
@@ -103,7 +105,6 @@
 
   systemd.services.syncthing.environment.STNODEFAULTFOLDER = "true";
 
-  hardware.pulseaudio.enable = false;
 
   virtualisation = {
     docker = {

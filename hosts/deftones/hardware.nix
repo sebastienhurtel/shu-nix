@@ -56,7 +56,7 @@
     kernelPackages = pkgs.linuxPackages_6_12;
   };
 
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
 
   hardware.graphics = {
     enable = true;
@@ -64,7 +64,7 @@
       amdvlk
       vaapiVdpau
       libvdpau-va-gl
-      mesa.drivers
+      mesa
     ];
     extraPackages32 = with pkgs; [ driversi686Linux.amdvlk ];
   };

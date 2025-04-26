@@ -31,7 +31,8 @@ let
       propagatedBuildInputs = inputs;
     };
 
-  unstable-packages = with pkgs.unstable; [
+  packages = with pkgs; [
+    ansible
     bat
     bottom
     containerlab
@@ -46,14 +47,21 @@ let
     fx
     fzf
     git-crypt
+    gnumake
+    gopass
     htop
     jq
     killall
     libqalculate
+    meslo-lgs-nf
     mpv
+    nix-tree
     nmap
+    nvd
     nvtopPackages.full
+    pass
     procs
+    python313Packages.git-filter-repo
     python313Packages.ipython
     ripgrep
     sd
@@ -66,32 +74,22 @@ let
     zip
   ];
 
-  stable-packages = with pkgs; [
-    ansible
-    gnumake
-    gopass
-    meslo-lgs-nf
-    nix-tree
-    nvd
-    pass
-    python313Packages.git-filter-repo
-  ];
-
   ui-packages = with pkgs; [
     audacity
     darktable
     firefox
     google-chrome
-    pwvucontrol
+    imagemagick
     libreoffice
+    pwvucontrol
     xclip
   ];
 
   home-packages =
     if wm == "headless" then
-      stable-packages ++ unstable-packages
+      packages
     else
-      stable-packages ++ unstable-packages ++ ui-packages;
+      packages ++ ui-packages;
 in
 {
   imports = [

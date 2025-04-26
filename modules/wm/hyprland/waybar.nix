@@ -38,7 +38,7 @@ in
             ];
 
             "custom/appmenu" = {
-              "format" = " ";
+              "format" = "";
               "on-click" = "rofi -show drun -replace";
               "tooltip" = false;
             };
@@ -50,7 +50,7 @@ in
               "format-window-separator" = " ";
               "window-rewrite-default" = "";
               "window-rewrite" = {
-                "title<(.*)YouTube(.*)>" = " ";
+                "title<(.*)YouTube(.*)>" = "";
                 "class<firefox>" = "";
                 "class<firefox> title<.*github.*>" = "";
                 "class<Google-chrome>" = "󰊯";

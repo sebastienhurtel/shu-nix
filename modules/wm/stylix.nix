@@ -42,6 +42,7 @@ in
       cursor = {
         name = "Vanilla-DMZ-AA";
         size = 24;
+        package = pkgs.vanilla-dmz;
       };
     };
   };

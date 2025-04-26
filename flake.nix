@@ -2,14 +2,12 @@
   description = "Shu's configurations";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
-
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.11";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -24,7 +22,7 @@
     };
 
     stylix = {
-      url = "github:danth/stylix/release-24.11";
+      url = "github:danth/stylix";
       inputs.home-manager.follows = "home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -43,15 +41,6 @@
     let
       nixpkgsWithOverlays = rec {
         config.allowUnfree = true;
-        overlays = [
-          (_final: prev: {
-            # this allows us to reference pkgs.unstable
-            unstable = import nixpkgs-unstable {
-              inherit (prev) system;
-              inherit config;
-            };
-          })
-        ];
       };
 
       configurationDefaults = args: {
@@ -73,7 +62,7 @@
           stylix
           ;
         channels = {
-          inherit nixpkgs nixpkgs-unstable;
+          inherit nixpkgs;
         };
       };
 
