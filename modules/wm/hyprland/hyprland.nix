@@ -45,7 +45,7 @@ let
     "workspace 4, class:^(steam)$"
   ];
 
-  bind = {
+  binds = {
     bind = [
       "$mod, E, exec, rofi -show drun -replace"
       "$mod, ESCAPE, exec, hyprlock"
@@ -75,7 +75,8 @@ let
       ", Print, exec, ${pkgs.grimblast}/bin/grimblast --notify copysave area /home/${username}/Pictures/Screenshots/$(${pkgs.coreutils}/bin/coreutils --coreutils-prog=date --iso-8601=seconds).png"
       "SHIFT, Print, exec, ${pkgs.grimblast}/bin/grimblast --notify copysave output /home/${username}/Pictures/Screenshots/$(${pkgs.coreutils}/bin/coreutils --coreutils-prog=date --iso-8601=seconds).png"
       "$mod, A, exec, ${toggleAnimations}"
-    ] ++ bind.workspaces;
+      "$mod, S, exec, pgrep ${pkgs.nnn}/bin/nnn && hyprctl dispatch togglespecialworkspace ${pkgs.nnn}/bin/nnn || ${pkgs.nnn}/bin/nnn &"
+    ] ++ binds.workspaces;
 
     bindl = [
       ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 6%+ --limit 1.8"
@@ -182,8 +183,8 @@ in
         settings = {
           "$mod" = "SUPER";
           exec-once = exec-once;
-          bind = bind.bind;
-          bindl = bind.bindl;
+          bind = binds.bind;
+          bindl = binds.bindl;
           monitor = [
             "eDP-1, 1920x1200@60, 0x0, 1"
             ", prefered, auto-left, 1"
