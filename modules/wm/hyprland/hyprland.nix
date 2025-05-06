@@ -39,6 +39,8 @@ let
     "workspace 2, class:^(google-chrome)$"
     "workspace 3, class:^(firefox)$"
     "workspace 4, class:^(steam)$"
+    "float,class:(nnn)"
+    "workspace special:nnn,class:(nnn)"
   ];
 
   binds = {
