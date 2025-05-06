@@ -8,10 +8,6 @@
 let
   cfg = config.shu.hyprland;
 
-  generalStartScript = pkgs.writeShellScriptBin "start" ''
-    systemctl --user enable --now hyprpaper.service
-  '';
-
   toggleAnimationsScript = pkgs.writeShellScriptBin "toggleAnimations" ''
     HYPRGAMEMODE=$(${pkgs.hyprland}/bin/hyprctl getoption animations:enabled | awk 'NR==1{print $2}')
     if [ "$HYPRGAMEMODE" = 1 ] ; then
@@ -112,10 +108,6 @@ let
   };
 
   exec-once = [
-    (lib.getExe generalStartScript)
-  ] ++ autostarts;
-
-  autostarts = [
     "uwsm app -- ${pkgs.alacritty}/bin/alacritty -e zsh -c 'tmux new-session -A -s 0'"
     "uwsm app -- ${pkgs.alacritty}/bin/alacritty -e zsh -c 'tmux new-session -A -s 1'"
     "uwsm app -- ${pkgs.emacs30-pgtk}/bin/emacsclient -c"
@@ -146,6 +138,7 @@ in
 
     home-manager.users.${username} = {
       services = {
+        hyprpaper.enable = true;
         hyprpolkitagent.enable = true;
         network-manager-applet.enable = true;
         udiskie.enable = true;
