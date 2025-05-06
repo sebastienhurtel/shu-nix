@@ -57,7 +57,6 @@
         #Optional helps save long term battery health
         START_CHARGE_THRESH_BAT0 = 50; # bellow it starts to charge
         STOP_CHARGE_THRESH_BAT0 = 80; # above it stops charging
-
       };
     };
     flatpak.enable = true;
@@ -75,7 +74,7 @@
       pulse.enable = true;
       wireplumber.enable = true;
     };
-    shuNFSClient.enable = true;
+    shu.nfsClient.enable = true;
     gnome.gnome-keyring.enable = true;
     gvfs.enable = true;
     pulseaudio.enable = false;

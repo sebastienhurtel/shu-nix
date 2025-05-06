@@ -5,11 +5,11 @@
   ...
 }:
 let
-  cfg = config.services.shuPlex;
+  cfg = config.services.shu.plex;
   volumePath = "${config.home-manager.users.sebastien.home.homeDirectory}/git/pms-docker";
 in
 {
-  options.services.shuPlex.enable = lib.mkEnableOption "Enable Plex running in container";
+  options.services.shu.plex.enable = lib.mkEnableOption "Enable Plex running in container";
 
   config = lib.mkIf cfg.enable {
     age.secrets.plexClaim.file = "${self}/secrets/plexClaim.age";

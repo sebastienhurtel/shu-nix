@@ -23,10 +23,12 @@
   ];
 
   services = {
-    shuPlex.enable = true;
-    shuNFS.enable = true;
-    shuUnbound.enable = true;
-    shu.immich.enable = true;
+    shu = {
+      immich.enable = true;
+      plex.enable = true;
+      nfs.enable = true;
+      unbound.enable = true;
+    };
     resolved.enable = lib.mkForce false;
     gnome.gnome-keyring.enable = true;
     openssh = {

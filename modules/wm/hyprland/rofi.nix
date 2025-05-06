@@ -5,11 +5,11 @@
   ...
 }:
 let
-  cfg = config.shu.Rofi;
+  cfg = config.shu.rofi;
   style = import ./style.nix { inherit config username lib; };
 in
 {
-  options.shu.Rofi.enable = lib.mkEnableOption "Enable Shu Rofi";
+  options.shu.rofi.enable = lib.mkEnableOption "Enable Shu rofi";
   config = lib.mkIf cfg.enable {
     home-manager.users.${username} = {
       programs = {

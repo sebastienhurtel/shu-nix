@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.shu.Hypridle;
+  cfg = config.shu.hypridle;
 in
 {
-  options.shu.Hypridle.enable = lib.mkEnableOption "Enable Shu Hypridle";
+  options.shu.hypridle.enable = lib.mkEnableOption "Enable Shu Hypridle";
   config = lib.mkIf cfg.enable {
     home-manager.users.${username} = {
       systemd.user.services.hypridle = {

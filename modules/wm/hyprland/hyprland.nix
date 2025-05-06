@@ -131,9 +131,9 @@ in
     };
     shu = {
       gtk.enable = true;
-      Hypridle.enable = true;
+      hypridle.enable = true;
       hyprlock.enable = true;
-      Rofi.enable = true;
+      rofi.enable = true;
       waybar.enable = true;
       swaync.enable = true;
     };

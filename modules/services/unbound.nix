@@ -1,11 +1,11 @@
 { config, lib, ... }:
 let
-  cfg = config.services.shuUnbound;
+  cfg = config.services.shu.unbound;
   volumePath = "${config.home-manager.users.sebastien.home.homeDirectory}/git/my-unbound";
 in
 {
   options = {
-    services.shuUnbound.enable = lib.mkEnableOption "Enable Unbound running in container";
+    services.shu.unbound.enable = lib.mkEnableOption "Enable Unbound running in container";
   };
 
   config = lib.mkIf cfg.enable {
