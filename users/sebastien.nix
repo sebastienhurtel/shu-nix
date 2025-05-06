@@ -11,7 +11,6 @@
     emacs.enable = if wm != "headless" then true else true;
     git.enable = true;
     kanshi.enable = if wm == "hyprland" then true else false;
-    mako.enable = false;
     shell.enable = true;
     stylix.enable = if wm != "headless" then true else true;
     term.enable = if wm != "headless" then true else true;
