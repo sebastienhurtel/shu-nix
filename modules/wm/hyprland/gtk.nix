@@ -15,15 +15,12 @@ in
         enable = true;
         gtk2.extraConfig = ''
           gtk-key-theme-name = "Emacs";
-          gtk-icon-theme-name = "Papirus-Dark";
         '';
         gtk3.extraConfig = {
           gtk-key-theme-name = "Emacs";
-          gtk-icon-theme-name = "Papirus-Dark";
         };
         gtk4.extraConfig = {
           gtk-key-theme-name = "Emacs";
-          gtk-icon-theme-name = "Papirus-Dark";
         };
       };
     };
