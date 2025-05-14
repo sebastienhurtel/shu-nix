@@ -8,6 +8,26 @@
 let
   cfg = config.shu.hyprland;
 
+  volumeUpScript = pkgs.writeShellScriptBin "volumeUp" ''
+    MUTED=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | rg -q MUTED && echo "yes" || echo "no")
+    if [ "$MUTED" = "yes" ]; then
+      wpctl set-mute @DEFAULT_AUDIO_SINK@ 0
+    fi
+    wpctl set-volume @DEFAULT_AUDIO_SINK@ 6%+ --limit 1.8
+  '';
+
+  volumeUp = lib.getExe volumeUpScript;
+
+  volumeDownScript = pkgs.writeShellScriptBin "volumeDown" ''
+    MUTED=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | rg -q MUTED && echo "yes" || echo "no")
+    if [ "$MUTED" = "yes" ]; then
+      wpctl set-mute @DEFAULT_AUDIO_SINK@ 0
+    fi
+    wpctl set-volume @DEFAULT_AUDIO_SINK@ 6%-
+  '';
+
+  volumeDown = lib.getExe volumeDownScript;
+
   toggleAnimationsScript = pkgs.writeShellScriptBin "toggleAnimations" ''
     HYPRGAMEMODE=$(${pkgs.hyprland}/bin/hyprctl getoption animations:enabled | awk 'NR==1{print $2}')
     if [ "$HYPRGAMEMODE" = 1 ] ; then
@@ -23,7 +43,6 @@ let
     fi
     ${pkgs.hyprland}/bin/hyprctl reload
   '';
-
   toggleAnimations = lib.getExe toggleAnimationsScript;
 
   windowrulev2 = [
@@ -77,8 +96,8 @@ let
     ] ++ binds.workspaces;
 
     bindl = [
-      ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 6%+ --limit 1.8"
-      ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 6%-"
+      ", XF86AudioRaiseVolume, exec, ${volumeUp}"
+      ", XF86AudioLowerVolume, exec, ${volumeDown}"
       ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
       ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
       ", XF86AudioPlay, exec, playerctl play-pause"
