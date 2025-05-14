@@ -103,7 +103,6 @@ let
       ", XF86AudioPlay, exec, playerctl play-pause"
       ", XF86AudioNext, exec, playerctl next"
       ", XF86AudioPrev, exec, playerctl previous"
-      ", XF86PowerOff, exec, systemctl suspend"
       ", switch:off:Lid Switch, exec, ${pkgs.kanshi}/bin/kanshictl switch docked-lid-open"
       ", switch:on:Lid Switch, exec, ${pkgs.kanshi}/bin/kanshictl switch docked-lid-closed"
       ", XF86MonBrightnessDown, exec, ${pkgs.brightnessctl}/bin/brightnessctl s 5%-"
@@ -139,10 +138,18 @@ in
 {
   options.shu.hyprland.enable = lib.mkEnableOption "Enable shuHyprland";
   config = lib.mkIf cfg.enable {
-    programs.hyprland = {
+    programs = {
+      hyprland = {
+        enable = true;
+        withUWSM = true;
+      };
       regreet.enable = true;
+    };
+    services.logind.powerKey = "suspend";
+    networking.networkmanager.enable = true;
+    hardware.bluetooth = {
       enable = true;
-      withUWSM = true;
+      powerOnBoot = true;
     };
     shu = {
       gtk.enable = true;
@@ -151,11 +158,6 @@ in
       rofi.enable = true;
       waybar.enable = true;
       swaync.enable = true;
-    };
-    networking.networkmanager.enable = true;
-    hardware.bluetooth = {
-      enable = true;
-      powerOnBoot = true;
     };
 
     home-manager.users.${username} = {
@@ -232,14 +234,14 @@ in
           };
 
           misc = {
+            always_follow_on_dnd = true;
+            animate_manual_resizes = false;
             disable_autoreload = true;
             disable_hyprland_logo = true;
-            always_follow_on_dnd = true;
-            layers_hog_keyboard_focus = true;
-            animate_manual_resizes = false;
             focus_on_activate = true;
-            new_window_takes_over_fullscreen = 2;
+            layers_hog_keyboard_focus = true;
             middle_click_paste = false;
+            new_window_takes_over_fullscreen = 2;
           };
 
           master = {
