@@ -6,7 +6,7 @@
 }:
 let
   cfg = config.shu.home.emacs;
-  emacs = pkgs.emacs30-pgtk;
+  emacs = pkgs.emacs-pgtk;
   packages = with pkgs; [
     black
     dockerfile-language-server-nodejs
