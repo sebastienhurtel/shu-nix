@@ -49,6 +49,12 @@ in
               "format" = "{icon}{windows}";
               "format-window-separator" = " ";
               "window-rewrite-default" = "";
+              "workspace-taskbar" = {
+                  "enable" = true;
+                  "update-active-window" = true;
+                  "format" = "{icon}";
+                  "icon-size" = 18;
+              };
               "window-rewrite" = {
                 "title<(.*)YouTube(.*)>" = "";
                 "class<firefox>" = "";
@@ -127,17 +133,30 @@ in
             };
 
             modules-right = [
+              "gamemode"
               "tray"
-              "backlight"
               "bluetooth"
-              "network"
+              "backlight"
               "pulseaudio"
               "battery"
             ];
 
+            gamemode = {
+                "format" = "{glyph}";
+                "format-alt" = "{glyph} {count}";
+                "glyph" = "";
+                "hide-not-running" = true;
+                "use-icon" = true;
+                "icon-name" = "input-gaming-symbolic";
+                "icon-spacing" = 4;
+                "icon-size" = 21;
+                "tooltip" = true;
+                "tooltip-format" = "Games running: {count}";
+            };
+
             tray = {
               "icon-size" = 21;
-              "spacing" = 10;
+              "spacing" = 12;
             };
 
             backlight = {
@@ -153,26 +172,6 @@ in
                 ""
                 ""
               ];
-            };
-
-            network = {
-              "format" = "{ifname}";
-              "format-wifi" = "{icon}";
-              "format-icons" = [
-                "󰤯 "
-                "󰤟 "
-                "󰤢 "
-                "󰤥 "
-                "󰤨 "
-              ];
-              "format-ethernet" = "  {ipaddr}";
-              "format-disconnected" = "Not connected";
-              "tooltip-format" = " {ifname} via {gwaddri}";
-              "tooltip-format-wifi" = "󰤨  ({signalStrength}%)";
-              "tooltip-format-ethernet" = " {ifname}";
-              "tooltip-format-disconnected" = "Disconnected";
-              "max-length" = 50;
-              "on-click" = "nm-connection-editor";
             };
 
             pulseaudio = {
@@ -207,6 +206,7 @@ in
               "interval" = 30;
               "on-click" = "${pkgs.overskride}/bin/overskride";
               "format-no-controller" = "";
+              "format-connected-battery" = "{device_alias} {device_battery_percentage}% ";
             };
 
             battery = {
