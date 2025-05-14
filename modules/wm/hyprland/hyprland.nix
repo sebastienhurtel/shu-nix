@@ -121,6 +121,7 @@ in
   options.shu.hyprland.enable = lib.mkEnableOption "Enable shuHyprland";
   config = lib.mkIf cfg.enable {
     programs.hyprland = {
+      regreet.enable = true;
       enable = true;
       withUWSM = true;
     };

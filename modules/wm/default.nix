@@ -11,7 +11,6 @@ in
     ./dm.nix
     ./gnome.nix
     ./hyprland
-    ./regreet.nix
     ./stylix.nix
   ];
   options.shu.wm = with lib; {
@@ -28,7 +27,6 @@ in
     };
     shu.gnome.enable = if cfg.manager == "gnome" then true else false;
     shu.hyprland.enable = if cfg.manager == "hyprland" then true else false;
-    shu.regreet.enable = true;
     shu.stylix.enable = true;
   };
 }
