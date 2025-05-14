@@ -65,6 +65,7 @@ in
             };
             volume = {
               label = "󰕾";
+              show-per-app = true;
             };
             backlight = {
               label = "󰃟";
