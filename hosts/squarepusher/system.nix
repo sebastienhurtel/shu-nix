@@ -155,4 +155,5 @@
       }
     '';
   };
+  boot.plymouth.enable = true;
 }
