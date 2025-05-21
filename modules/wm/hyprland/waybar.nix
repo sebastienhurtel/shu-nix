@@ -57,12 +57,13 @@ in
               };
               "window-rewrite" = {
                 "title<(.*)YouTube(.*)>" = "";
-                "class<firefox>" = "";
-                "class<firefox> title<.*github.*>" = "";
-                "class<Google-chrome>" = "󰊯";
-                "class<Google-chrome> title<.*github.*>" = "";
-                "class<(.*)[aA]lacritty(.*)>" = "";
+                "title<(.*)Twitch(.*)>" = "";
+                "title<.*github.*>" = "";
+                "title<(.*)Gmail(.*)>" = "󰊫";
                 "code" = "󰨞";
+                "class<firefox>" = "";
+                "class<Google-chrome>" = "󰊯";
+                "class<(.*)[aA]lacritty(.*)>" = "";
                 "class<Emacs>" = "";
                 "class<(.*)Nautilus>" = "";
                 "class<steam>" = "󰓓";
