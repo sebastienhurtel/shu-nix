@@ -74,7 +74,7 @@
        (lsp
         +eglot
         +peek)
-       (magit +forge)
+       magit
        pass
        pdf
        tmux
