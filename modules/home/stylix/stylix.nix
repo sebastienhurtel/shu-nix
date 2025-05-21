@@ -27,7 +27,7 @@ in
           name = "MesloLGS NF";
         };
         sansSerif = {
-          package = pkgs.dejavu_fonts;
+          package = pkgs.cantarell-fonts;
           name = "Cantarell";
         };
         serif = {
