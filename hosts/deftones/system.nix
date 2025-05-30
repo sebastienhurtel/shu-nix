@@ -20,6 +20,7 @@
   environment.systemPackages = with pkgs; [
     docker-compose
     mdadm
+    ntfs3g
   ];
 
   services = {
