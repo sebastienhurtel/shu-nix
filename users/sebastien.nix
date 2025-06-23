@@ -12,7 +12,7 @@
     git.enable = true;
     kanshi.enable = if wm == "hyprland" then true else false;
     shell.enable = true;
-    stylix.enable = if wm != "headless" then true else true;
+    stylix.enable = if wm != "headless" then true else false;
     term.enable = if wm != "headless" then true else true;
     tmux.enable = if wm != "headless" then true else true;
   };
