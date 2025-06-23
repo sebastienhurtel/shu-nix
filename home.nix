@@ -50,6 +50,7 @@ let
     gnumake
     gopass
     htop
+    ipcalc
     jq
     killall
     libqalculate
@@ -82,7 +83,7 @@ let
     imagemagick
     libreoffice
     pwvucontrol
-    xclip
+    wl-clipboard
   ];
 
   home-packages =
