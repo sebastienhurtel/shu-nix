@@ -60,7 +60,6 @@ let
     nix-tree
     nmap
     nvd
-    nvtopPackages.full
     pass
     procs
     python313Packages.git-filter-repo
