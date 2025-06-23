@@ -104,11 +104,6 @@
 
   systemd.services.syncthing.environment.STNODEFAULTFOLDER = "true";
 
-<<<<<<< HEAD
-=======
-  hardware.pulseaudio.enable = false;
->>>>>>> 32aa6af ([system] enable syncthing)
-
   virtualisation = {
     docker = {
       enable = true;
