@@ -15,11 +15,10 @@
 
 (package! bm)
 (package! git-auto-commit-mode)
-(package! logstash-conf :pin "ebc4731c45709ad1e0526f4f4164020ae83cbeff")
 (package! minimap)
-(package! org-download :pin "19e166f0a8c539b4144cfbc614309d47a9b2a9b7")
+(package! org-download)
 (package! org-modern)
-(package! protobuf-mode :pin "2f6e7055952eeff2fef2f29edb092c97e7949793")
+(package! protobuf-mode)
 (package! smtpmail)
 (package! svg-tag-mode)
 (package! uuid)
