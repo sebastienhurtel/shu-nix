@@ -34,11 +34,11 @@ in
         shellAliases = {
           l = "eza";
           e = "emacsclient -n";
-          toclip = "xclip -selection c";
+          toclip = "wl-copy";
           tmate = "env -u TMUX tmate";
           q = "noglob qalc";
           clab = "containerlab";
-          pssh = ''{ ${pkgs.passh} -p <(pass show free/ssh) ssh "$@"; }'';
+          pssh = ''{ ${pkgs.passh}/bin/passh -p <(${pkgs.pass}/bin/pass show free/ssh) ssh "$@"; }'';
         };
         plugins = [
           {
