@@ -62,7 +62,8 @@ let
     "workspace 3, class:^(firefox)$"
     "workspace 4, class:^(steam)$"
     "float,class:(nnn)"
-    "workspace special:nnn,class:(nnn)"
+    "centerwindow,class:(nnn)"
+    "workspace special:nnn,class:^(nnn)$"
   ];
 
   binds = {
@@ -95,7 +96,7 @@ let
       ", Print, exec, ${pkgs.grimblast}/bin/grimblast --notify copysave area /home/${username}/Pictures/Screenshots/$(${pkgs.coreutils}/bin/coreutils --coreutils-prog=date --iso-8601=seconds).png"
       "SHIFT, Print, exec, ${pkgs.grimblast}/bin/grimblast --notify copysave output /home/${username}/Pictures/Screenshots/$(${pkgs.coreutils}/bin/coreutils --coreutils-prog=date --iso-8601=seconds).png"
       "$mod, A, exec, ${toggleAnimations}"
-      "$mod, S, exec, pgrep ${pkgs.nnn}/bin/nnn && hyprctl dispatch togglespecialworkspace ${pkgs.nnn}/bin/nnn || ${pkgs.nnn}/bin/nnn &"
+      "$mod, F, exec, hyprctl dispatch togglespecialworkspace ${pkgs.alacritty}/bin/alacritty --class nnn -e ${pkgs.nnn}/bin/nnn || ${pkgs.alacritty}/bin/alacritty --class nnn -e ${pkgs.nnn}/bin/nnn"
     ] ++ binds.workspaces;
 
     bindl = [
