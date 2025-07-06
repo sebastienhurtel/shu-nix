@@ -43,9 +43,10 @@ let
     fi
     ${pkgs.hyprland}/bin/hyprctl reload
   '';
+
   toggleAnimations = lib.getExe toggleAnimationsScript;
 
-  windowrulev2 = [
+  windowrule = [
     "float, title:(rofi)"
     "float, class:(nm-connection-editor)"
     "float, class:((.*)Overskride(.*))"
@@ -229,7 +230,7 @@ in
             layout = "master";
           };
 
-          windowrulev2 = windowrulev2;
+          windowrule = windowrule;
 
           gestures = {
             workspace_swipe = true;
