@@ -52,6 +52,8 @@ let
     "size 50% 40%, class:((.*)Overskride(.*))"
     "float, class:(pwvucontrol)"
     "size 45% 35%, class:(pwvucontrol)"
+    "float, class:(^.*copyq$)"
+    "size 45% 35%, class:(^.*copyq$)"
     "workspace 1, class:^(emacs)$"
     "move 10 54, class:^(emacs)$"
     "workspace 1, initialTitle:^(Alacritty)$"
@@ -162,6 +164,7 @@ in
 
     home-manager.users.${username} = {
       services = {
+        copyq.enable = true;
         hyprpaper.enable = true;
         hyprpolkitagent.enable = true;
         network-manager-applet.enable = true;
