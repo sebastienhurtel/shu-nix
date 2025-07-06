@@ -71,11 +71,8 @@ let
       "$mod, E, exec, rofi -show drun -replace"
       "$mod, ESCAPE, exec, hyprlock"
       "$mod, Q, killactive,"
-      "$mod, F, togglefloating,"
-      "$mod, G, togglegroup,"
+      "$mod SHIFT, F, togglefloating,"
       "$mod, up, fullscreen, 1"
-      "$mod, bracketleft, changegroupactive, b"
-      "$mod, bracketright, changegroupactive, f"
       "$mod, O, layoutmsg, rollprev"
       "$mod SHIFT, O, layoutmsg, rollnext"
       "$mod, h, movefocus, l"
@@ -86,6 +83,9 @@ let
       "$mod SHIFT, l, movewindow, r"
       "$mod SHIFT, k, movewindow, u"
       "$mod SHIFT, j, movewindow, d"
+      "$mod, G, togglegroup,"
+      "$mod, bracketleft, changegroupactive, b"
+      "$mod, bracketright, changegroupactive, f"
       "Control_L&SHIFT, h, movewindoworgroup, l"
       "Control_L&SHIFT, l, movewindoworgroup, r"
       "Control_L&SHIFT, k, movewindoworgroup, u"
@@ -180,24 +180,23 @@ in
           ];
         };
       };
-      home.packages = with pkgs; [
-        brightnessctl
-        fira
-        font-awesome
-        geist-font
-        grimblast
-        jetbrains-mono
-        nautilus
-        nerd-fonts.jetbrains-mono
-        networkmanager_strongswan
-        overskride
-        papirus-icon-theme
-        playerctl
-        seahorse
-      ];
-      home.sessionVariables = {
-        NIXOS_OZONE_WL = "1";
-        SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/keyring/ssh";
+      home = {
+        packages = with pkgs; [
+          brightnessctl
+          fira
+          font-awesome
+          geist-font
+          grimblast
+          jetbrains-mono
+          nautilus
+          nerd-fonts.jetbrains-mono
+          networkmanager_strongswan
+          overskride
+          papirus-icon-theme
+          playerctl
+          seahorse
+        ];
+        sessionVariables.NIXOS_OZONE_WL = "1";
       };
       wayland.windowManager.hyprland = {
         enable = true;
