@@ -14,7 +14,7 @@
 ;;      Alternatively, press 'gd' (or 'C-c g d') on a module to browse its
 ;;      directory (for easy access to its source code).
 ;;
-;; NOTE Default template at https://github.com/doomemacs/doomemacs/blob/8be1ef498b81628214ab5e78739661faaf9d950f/templates/init.example.el#L24
+;; NOTE Modules available https://github.com/doomemacs/doomemacs/blob/master/docs/modules.org
 
 (doom! :input
 
@@ -71,9 +71,7 @@
        ein
        (eval +overlay)
        (lookup +docsets)
-       (lsp
-        +eglot
-        +peek)
+       (lsp +eglot)
        magit
        pass
        pdf
