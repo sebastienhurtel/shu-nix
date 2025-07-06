@@ -148,6 +148,7 @@ in
         withUWSM = true;
       };
       regreet.enable = true;
+      seahorse.enable = true;
     };
     services.logind.powerKey = "suspend";
     networking.networkmanager.enable = true;
@@ -194,7 +195,6 @@ in
           overskride
           papirus-icon-theme
           playerctl
-          seahorse
         ];
         sessionVariables.NIXOS_OZONE_WL = "1";
       };
