@@ -12,6 +12,7 @@ let
     buildPythonPackage rec {
       pname = "pyang";
       version = "2.6.1";
+      pyproject = true;
 
       src = pkgs.fetchFromGitHub {
         owner = "mbj4668";
