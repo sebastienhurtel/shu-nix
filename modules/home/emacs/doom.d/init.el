@@ -60,8 +60,7 @@
        vterm
 
        :checkers
-       (syntax
-        +childframe)
+       (syntax +childframe)
 
        :tools
        ansible
@@ -101,6 +100,9 @@
         +roam2)
        (python
         +pyright
+        +lsp
+        +tree-sitter)
+       (rust
         +lsp
         +tree-sitter)
        (sh
