@@ -265,3 +265,15 @@
 
 ;; Eglot
 (add-hook 'eglot-managed-mode-hook #'eldoc-box-hover-mode t)
+
+;; Flyover
+;; Enable flyover-mode globally
+(add-hook 'flycheck-mode-hook #'flyover-mode)
+;; Configure which error levels to display
+;; Possible values: error, warning, info
+(setq flyover-levels '(error warning)  ; Show all levels
+      flyover-use-theme-colors t            ; Use theme colors for error/warning/info faces
+      flyover-background-lightness 45       ; Adjust background lightness (lower values = darker)
+      flyover-percent-darker 40 ; Make icon background darker than foreground
+      flyover-text-tint 'lighter ; or 'darker or nil
+      flyover-text-tint-percent 50) ; "Percentage to lighten or darken the text when tinting is enabled."
