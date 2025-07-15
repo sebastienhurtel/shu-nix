@@ -32,10 +32,10 @@ let
       propagatedBuildInputs = inputs;
     };
 
-  packages = with pkgs; [
-    ansible
+  packages = with pkgs.unstable; [
     bat
     bottom
+    cargo
     containerlab
     coreutils
     curl
@@ -51,8 +51,8 @@ let
     gnumake
     gopass
     htop
-    ipcalc
     immich-cli
+    ipcalc
     jq
     killall
     libqalculate
@@ -63,9 +63,10 @@ let
     nvd
     pass
     procs
-    python313Packages.git-filter-repo
-    python313Packages.ipython
+    python3Packages.git-filter-repo
+    python3Packages.ipython
     ripgrep
+    rustc
     sd
     tree
     unzip

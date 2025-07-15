@@ -8,7 +8,7 @@ let
   cfg = config.shu.home.emacs;
   emacs = pkgs.emacs-pgtk;
   packages =
-    with pkgs;
+    with pkgs.unstable;
     [
       black
       dockerfile-language-server-nodejs
@@ -23,18 +23,17 @@ let
       libxml2
       nixd
       nixfmt-rfc-style
-      nodePackages_latest.bash-language-server
       pipenv
       poetry
       pyenv
       pyright
+      rust-analyzer
       shellcheck
       shfmt
       uv
-      wl-clipboard
     ]
     ++ [ emacs ];
-  nodePackages = with pkgs.nodePackages_latest; [
+  nodePackages = with pkgs.unstable.nodePackages_latest; [
     bash-language-server
   ];
   pythonPackages = with pkgs.python313Packages; [

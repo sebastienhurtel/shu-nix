@@ -11,7 +11,6 @@
         passh
         powertop
         python313
-        strongswanNM
         virt-manager
       ];
   };

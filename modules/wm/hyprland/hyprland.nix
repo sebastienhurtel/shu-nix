@@ -143,6 +143,7 @@ in
   options.shu.hyprland.enable = lib.mkEnableOption "Enable shuHyprland";
   config = lib.mkIf cfg.enable {
     programs = {
+      uwsm.package = pkgs.unstable.uwsm;
       hyprland = {
         enable = true;
         withUWSM = true;
@@ -150,12 +151,15 @@ in
       regreet.enable = true;
       seahorse.enable = true;
     };
-    services.logind.powerKey = "suspend";
-    networking.networkmanager.enable = true;
+    networking.networkmanager = {
+      enable = true;
+      enableStrongSwan = true;
+    };
     hardware.bluetooth = {
       enable = true;
       powerOnBoot = true;
     };
+    services.logind.powerKey = "suspend";
     shu = {
       gtk.enable = true;
       hypridle.enable = true;
@@ -191,12 +195,14 @@ in
           jetbrains-mono
           nautilus
           nerd-fonts.jetbrains-mono
-          networkmanager_strongswan
           overskride
           papirus-icon-theme
           playerctl
         ];
-        sessionVariables.NIXOS_OZONE_WL = "1";
+        sessionVariables = {
+          NIXOS_OZONE_WL = "1";
+          SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/keyring/ssh";
+        };
       };
       wayland.windowManager.hyprland = {
         enable = true;

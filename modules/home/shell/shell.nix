@@ -38,7 +38,6 @@ in
           tmate = "env -u TMUX tmate";
           q = "noglob qalc";
           clab = "containerlab";
-          pssh = ''{ ${pkgs.passh}/bin/passh -p <(${pkgs.pass}/bin/pass show free/ssh) ssh "$@"; }'';
         };
         plugins = [
           {
@@ -46,8 +45,8 @@ in
             src = pkgs.fetchFromGitHub {
               owner = "Aloxaf";
               repo = "fzf-tab";
-              rev = "6aced3f35def61c5edf9d790e945e8bb4fe7b305";
-              sha256 = "1brljd9744wg8p9v3q39kdys33jb03d27pd0apbg1cz0a2r1wqqi";
+              rev = "fc6f0dcb2d5e41a4a685bfe9af2f2393dc39f689";
+              sha256 = "sha256-1g3kToboNGXNJTd+LEIB/j76VgPdYqG2PNs3u6Zke9s=";
             };
           }
           {
@@ -66,6 +65,8 @@ in
           test -f ~/.config/zsh/.p10k.zsh && source ~/.config/zsh/.p10k.zsh
           # Custom scripts
           test -f ~/.config/zsh/vpn.sh && source ~/.config/zsh/vpn.sh
+          pssh () { ${pkgs.sshpass}/bin/sshpass -f <(${pkgs.pass}/bin/pass show free/ssh) ssh "$@"; }
+          comdef pssh='ssh'
         '';
         envExtra = ''
           # Add doom to path
@@ -100,7 +101,7 @@ in
       };
 
       eza = {
-        package = pkgs.eza;
+        package = pkgs.unstable.eza;
         enable = true;
         icons = "auto";
         git = true;
