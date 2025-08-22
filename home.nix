@@ -66,7 +66,9 @@ let
     python3Packages.git-filter-repo
     python3Packages.ipython
     ripgrep
+    rust-analyzer
     rustc
+    rustfmt
     sd
     tree
     unzip
@@ -99,7 +101,7 @@ in
     ./modules/home
     ./users/${username}.nix
     agenix.homeManagerModules.default
-    nix-index-database.hmModules.nix-index
+    nix-index-database.homeModules.nix-index
   ];
   manual.manpages.enable = false;
 
