@@ -51,12 +51,6 @@ in
               "format" = "{icon}{windows}";
               "format-window-separator" = " ";
               "window-rewrite-default" = "";
-              "workspace-taskbar" = {
-                  "enable" = true;
-                  "update-active-window" = true;
-                  "format" = "{icon}";
-                  "icon-size" = 18;
-              };
               "window-rewrite" = {
                 "title<(.*)YouTube(.*)>" = "";
                 "title<(.*)Twitch(.*)>" = "";
