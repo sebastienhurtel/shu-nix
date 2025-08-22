@@ -56,6 +56,7 @@
       agenix.packages.${system}.default
       cmake
       fastfetch
+      file
       mesa
       ncdu
       numactl
