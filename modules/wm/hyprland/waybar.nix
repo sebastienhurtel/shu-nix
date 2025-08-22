@@ -3,11 +3,12 @@
   config,
   lib,
   pkgs,
+  self,
   ...
 }:
 let
   cfg = config.shu.waybar;
-  style = import ./style.nix { inherit config username lib; };
+  style = import ./style.nix { inherit config username lib self; };
 in
 {
   options.shu.waybar.enable = lib.mkEnableOption "Enable Shu Waybar";

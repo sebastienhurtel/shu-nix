@@ -2,12 +2,14 @@
   lib,
   config,
   username,
+  self,
   ...
 }:
 let
   inherit (config.home-manager.users.${username}.lib.formats.rasi) mkLiteral;
   scheme = config.home-manager.users.${username}.lib.stylix.colors;
   wallpaper = config.home-manager.users.${username}.stylix.image;
+  rofiImage = "${self}/heic1917a.jpg";
   custom = {
     fonts = [
       ''"Fira Sans Semibold"''
@@ -161,7 +163,7 @@ in
     img = {
       padding = mkLiteral "64px 128px";
       border-radius = mkLiteral "24px";
-      background-image = mkLiteral ''url("${wallpaper}", height)'';
+      background-image = mkLiteral ''url("${rofiImage}", height)'';
     };
 
     inputbar = {
