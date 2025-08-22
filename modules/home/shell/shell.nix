@@ -66,7 +66,7 @@ in
           # Custom scripts
           test -f ~/.config/zsh/vpn.sh && source ~/.config/zsh/vpn.sh
           pssh () { ${pkgs.sshpass}/bin/sshpass -f <(${pkgs.pass}/bin/pass show free/ssh) ssh "$@"; }
-          comdef pssh='ssh'
+          compdef pssh='ssh'
         '';
         envExtra = ''
           # Add doom to path
