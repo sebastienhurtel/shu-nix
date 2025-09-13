@@ -97,7 +97,8 @@
             agenix.nixosModules.default
             home-manager.nixosModules.home-manager
             disko.nixosModules.disko
-          ] ++ modules;
+          ]
+          ++ modules;
         };
     in
     {

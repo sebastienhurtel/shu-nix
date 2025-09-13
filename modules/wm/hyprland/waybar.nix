@@ -64,6 +64,7 @@ in
                 "class<(.*)Nautilus>" = "";
                 "class<steam>" = "󰓓";
                 "class<vlc>" = "󰕼";
+                "class<parsecd>" = "󰢹";
               };
               "all-output" = true;
               "format-icons" = {

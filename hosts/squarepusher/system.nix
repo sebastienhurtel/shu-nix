@@ -1,20 +1,23 @@
-{ pkgs, username, ... }:
+{
+  pkgs,
+  username,
+  lib,
+  ...
+}:
 
 {
   environment = {
-    systemPackages =
-      with pkgs;
-      [
-        bridge-utils
-        linuxKernel.packages.linux_zen.cpupower
-        openssl
-        passh
-        powertop
-        python313
-        virt-manager
-      ];
+    systemPackages = with pkgs; [
+      bridge-utils
+      linuxKernel.packages.linux_zen.cpupower
+      openssl
+      passh
+      powertop
+      python313
+      virt-manager
+    ];
   };
-
+  nix.gc.automatic = lib.mkForce false;
   programs = {
     gnupg.agent = {
       enable = true;
@@ -24,6 +27,14 @@
     steam = {
       enable = true;
       remotePlay.openFirewall = true;
+    };
+    nh = {
+      enable = true;
+      flake = "/home/${username}/.dotfiles";
+      clean = {
+        enable = true;
+        extraArgs = "--keep 5 --keep-since 3d";
+      };
     };
   };
   hardware.steam-hardware.enable = true;

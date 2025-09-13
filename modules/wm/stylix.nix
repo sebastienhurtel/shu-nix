@@ -11,7 +11,7 @@ let
 in
 {
   imports = [ stylix.nixosModules.stylix ];
-  options.shu.stylix.enable = lib.mkEnableOption "Enable shuStylix";
+  options.shu.stylix.enable = lib.mkEnableOption "Enable Stylix";
   config = lib.mkIf cfg.enable {
     stylix = {
       enable = true;
