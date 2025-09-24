@@ -9,7 +9,7 @@ let
   emacs = pkgs.emacs-pgtk;
   packages = with pkgs.unstable; [
     black
-    dockerfile-language-server-nodejs
+    dockerfile-language-server
     dockfmt
     gcc
     gomodifytags
