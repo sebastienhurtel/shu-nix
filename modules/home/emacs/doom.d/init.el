@@ -69,8 +69,9 @@
        editorconfig
        ein
        (eval +overlay)
+       llm
        (lookup +docsets)
-       (lsp +eglot)
+       (lsp +peek)
        magit
        pass
        pdf

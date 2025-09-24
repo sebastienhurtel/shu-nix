@@ -19,7 +19,7 @@
             "bibtex %b"
             "pdflatex -interaction nonstopmode -output-directory %o %f"
             "pdflatex -interaction nonstopmode -output-directory %o %f"))
-    (setq org-latex-with-hyperref nil)
+    (setq org-latex-hyperref-template nil)
     (setq org-latex-prefer-user-labels t)
     (setq org-latex-logfiles-extensions
           (quote ("lof" "lot" "tex~" "aux" "idx" "log" "out" "toc" "nav" "snm" "vrb" "dvi" "fdb_latexmk" "blg" "brf" "fls" "entoc" "ps" "spl" "bbl" "xmpi" "run.xml" "bcf" "acn" "acr" "alg" "glg" "gls" "ist")))
@@ -33,7 +33,7 @@
    org-cycle-separator-lines 0            ; don't show blank lines between collapsed trees
    org-src-fontify-natively t             ; fontify code blocks
    org-edit-src-content-indentation 0     ; don't indent source blocks
-   org-catch-invisible-edits 'error       ; don't edit invisible text
+   org-fold-catch-invisible-edits 'error  ; don't edit invisible text
    org-pretty-entities t                  ; use "pretty entities"
    org-export-use-babel nil               ; do not evaluate blocks when exporting
    org-export-with-toc nil                ; do not add a ToC when exporting
@@ -237,7 +237,18 @@
         :desc "redo" :nv "C-r" #'undo-tree-redo)))
 
 ;; LSP confiugration
-(setq lsp-signature-function 'lsp-signature-posframe)
+(setq lsp-signature-function 'lsp-signature-posframe
+      lsp-inlay-hint-enable t)
+
+;;lsp-nix with nixd
+(setq lsp-nix-nixd-server-path "nixd"
+      lsp-nix-nixd-formatting-command [ "nixfmt" ]
+      lsp-nix-nixd-nixpkgs-expr "import (builtins.getFlake \"/home/sebastien/.dotfiles/\").inputs.nixpkgs { }"
+      lsp-nix-nixd-nixos-options-expr "(builtins.getFlake \"/home/sebastien/.dotfiles\").nixosConfigurations.squarepusher.options"
+      lsp-nix-nixd-home-manager-options-expr "(builtins.getFlake \"/home/sebastien/.dotfiles\").nixosConfigurations.squarepusher.options.home-manager.users.type.getSubOptions [ ]")
+
+;; Eglot
+(add-hook 'eglot-managed-mode-hook #'eldoc-box-hover-mode t)
 
 ;; Treemacs configuration
 (setq treemacs-width 30)
@@ -253,22 +264,13 @@
 (set-file-template! "/script\\.py$" :trigger "__script.py" :mode 'python-mode)
 (set-file-template! "/ansible\\.py$" :trigger "__ansible.py" :mode 'python-mode)
 
-;;lsp-nix with nixd
-(setq lsp-nix-nixd-server-path "nixd"
-      lsp-nix-nixd-formatting-command [ "nixfmt" ]
-      lsp-nix-nixd-nixpkgs-expr "import (builtins.getFlake \"/home/sebastien/.dotfiles/\").inputs.nixpkgs { }"
-      lsp-nix-nixd-nixos-options-expr "(builtins.getFlake \"/home/sebastien/.dotfiles\").nixosConfigurations.squarepusher.options"
-      lsp-nix-nixd-home-manager-options-expr "(builtins.getFlake \"/home/sebastien/.dotfiles\").nixosConfigurations.squarepusher.options.home-manager.users.type.getSubOptions [ ]")
-
 ;; Corfu
 (setq corfu-auto-delay 0.0)
-
-;; Eglot
-(add-hook 'eglot-managed-mode-hook #'eldoc-box-hover-mode t)
 
 ;; Flyover
 ;; Enable flyover-mode globally
 (add-hook 'flycheck-mode-hook #'flyover-mode)
+
 ;; Configure which error levels to display
 ;; Possible values: error, warning, info
 (setq flyover-levels '(error warning)  ; Show all levels
