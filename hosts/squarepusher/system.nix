@@ -53,14 +53,11 @@
         CPU_SCALING_GOVERNOR_ON_AC = "performance";
         CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
 
-        RADEON_POWER_PROFILE_ON_AC = "default";
-        RADEON_POWER_PROFILE_ON_BAT = "low";
-
         RADEON_DPM_STATE_ON_AC = "performance";
         RADEON_DPM_STATE_ON_BAT = "battery";
 
         RADEON_DPM_PERF_LEVEL_ON_AC = "auto";
-        RADEON_DPM_PERF_LEVEL_ON_BAT = "low";
+        RADEON_DPM_PERF_LEVEL_ON_BAT = "auto";
 
         RUNTIME_PM_ON_AC = "auto";
 

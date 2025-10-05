@@ -53,7 +53,7 @@
 
   environment = {
     systemPackages = with pkgs; [
-      agenix.packages.${system}.default
+      agenix.packages.${system}.default # agenix CLI
       cmake
       fastfetch
       file
@@ -90,10 +90,12 @@
     enable = if wm == "headless" then false else true;
     manager = wm;
   };
+
   services = {
     avahi = {
       enable = true;
       openFirewall = true;
+      nssmdns4 = true;
     };
     fwupd.enable = true;
     resolved.enable = true;
