@@ -69,7 +69,13 @@
     flatpak.enable = true;
     printing = {
       enable = true;
-      browsed.enable = false;
+      browsed.enable = true;
+      openFirewall = true;
+      drivers = with pkgs; [
+        cups-filters
+        cups-browsed
+        dcp9020cdw-cupswrapper
+      ];
     };
     pipewire = {
       enable = true;
