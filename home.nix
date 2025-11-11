@@ -1,5 +1,4 @@
 {
-  agenix,
   nix-index-database,
   pkgs,
   username,
@@ -41,7 +40,7 @@ let
     curl
     difftastic
     dig
-    du-dust
+    dust
     duf
     fd
     findutils
@@ -100,7 +99,6 @@ in
   imports = [
     ./modules/home
     ./users/${username}.nix
-    agenix.homeManagerModules.default
     nix-index-database.homeModules.nix-index
   ];
   manual.manpages.enable = false;

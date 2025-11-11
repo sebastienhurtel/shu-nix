@@ -2,6 +2,7 @@
   config,
   lib,
   self,
+  agenix,
   ...
 }:
 let
@@ -9,6 +10,7 @@ let
   volumePath = "${config.home-manager.users.sebastien.home.homeDirectory}/git/pms-docker";
 in
 {
+  imports = [ agenix.nixosModules.default ];
   options.services.shu.plex.enable = lib.mkEnableOption "Enable Plex running in container";
 
   config = lib.mkIf cfg.enable {

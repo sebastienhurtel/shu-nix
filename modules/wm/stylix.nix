@@ -2,16 +2,16 @@
   config,
   lib,
   pkgs,
-  stylix,
   username,
+  stylix,
   ...
 }:
 let
   cfg = config.shu.stylix;
 in
 {
-  imports = [ stylix.nixosModules.stylix ];
   options.shu.stylix.enable = lib.mkEnableOption "Enable Stylix";
+  imports = [ stylix.nixosModules.stylix ];
   config = lib.mkIf cfg.enable {
     stylix = {
       enable = true;

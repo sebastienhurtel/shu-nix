@@ -65,6 +65,7 @@
           self
           inputs
           agenix
+          disko
           nix-index-database
           nixos-hardware
           stylix
@@ -90,9 +91,7 @@
           inherit system specialArgs;
           modules = [
             (configurationDefaults specialArgs)
-            agenix.nixosModules.default
             home-manager.nixosModules.home-manager
-            disko.nixosModules.disko
           ]
           ++ modules;
         };

@@ -1,13 +1,15 @@
 {
+  agenix,
   config,
-  wm,
   pkgs,
+  wm,
   ...
 }:
 {
+  imports = [ agenix.homeManagerModules.default ];
   age.identityPaths = [ "${config.home.homeDirectory}/.ssh/id_ecdsa_age" ];
   shu.home = {
-    dconf.enable = if wm != "headless" then true else true;
+    dconf.enable = if wm == "gnome" then true else false;
     emacs.enable = if wm != "headless" then true else true;
     git.enable = true;
     kanshi.enable = if wm == "hyprland" then true else false;

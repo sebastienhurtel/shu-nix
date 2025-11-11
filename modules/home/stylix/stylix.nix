@@ -20,7 +20,6 @@ in
         applications = 0.9;
         desktop = 0.5;
       };
-      base16Scheme = lib.mkForce "${pkgs.base16-schemes}/share/themes/google-dark.yaml";
       fonts = {
         monospace = {
           package = pkgs.meslo-lgs-nf;
