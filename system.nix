@@ -45,7 +45,7 @@
   };
 
   programs = {
-    # donf is enable to use GTK in home.nix
+    # dconf is enable to use GTK in home.nix
     dconf.enable = true;
     mtr.enable = true;
     zsh.enable = true;
