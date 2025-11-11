@@ -35,7 +35,7 @@ in
       backend = "podman";
       containers."plex" = {
         autoStart = true;
-        image = "lscr.io/linuxserver/plex@sha256:535b88a993e3bfe7693edab81346817cd128794eb6fdae0eab02a953823d02f2";
+        image = "lscr.io/linuxserver/plex:latest";
         environment = {
           TZ = " Europe/Paris ";
           PUID = "1000";
