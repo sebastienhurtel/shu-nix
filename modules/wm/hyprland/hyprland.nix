@@ -143,7 +143,7 @@ in
   options.shu.hyprland.enable = lib.mkEnableOption "Enable shuHyprland";
   config = lib.mkIf cfg.enable {
     programs = {
-      uwsm.package = pkgs.unstable.uwsm;
+      uwsm.package = pkgs.uwsm;
       hyprland = {
         enable = true;
         withUWSM = true;
