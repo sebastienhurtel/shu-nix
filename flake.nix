@@ -2,12 +2,8 @@
   description = "Shu's configurations";
 
   inputs = {
-
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
-    nixpkgs-old.url = "github:NixOS/nixpkgs?ref=c23193b943c6c689d70ee98ce3128239ed9e32d1";
-
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     home-manager = {
@@ -45,10 +41,6 @@
       nixpkgsWithOverlays = rec {
         config.allowUnfree = true;
         overlays = [
-          # https://github.com/nixos/nixpkgs/issues/444538
-          (_: prev: {
-            inherit (inputs.nixpkgs-old.legacyPackages.${prev.system}) linux-firmware;
-          })
           (_final: prev: {
             # this allows us to reference pkgs.unstable
             unstable = import nixpkgs-unstable {
