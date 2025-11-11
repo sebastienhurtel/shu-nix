@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 let
@@ -60,6 +61,7 @@ in
           postgresql.enable = true;
           immich = {
             enable = true;
+            package = pkgs.unstable.immich;
             openFirewall = true;
             port = hostPort;
             mediaLocation = "/photos";
