@@ -1,8 +1,14 @@
-{ lib, modulesPath, ... }:
+{
+  lib,
+  modulesPath,
+  disko,
+  ...
+}:
 
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
+    disko.nixosModules.disko
   ];
 
   boot = {
