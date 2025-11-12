@@ -3,17 +3,20 @@
   lib,
   pkgs,
   self,
+  stylix,
   ...
 }:
 let
   cfg = config.shu.home.stylix;
 in
 {
+  imports = [ stylix.homeModules.stylix ];
   # Stylix is imported at system level, home-manager options are automagically detected
   options.shu.home.stylix.enable = lib.mkEnableOption "Enable shu home stylix";
   config = lib.mkIf cfg.enable {
     stylix = {
       enable = true;
+      base16Scheme = "${pkgs.base16-schemes}/share/themes/google-dark.yaml";
       image = "${self}/wallpaper.png";
       polarity = "dark";
       opacity = {

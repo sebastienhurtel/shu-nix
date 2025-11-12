@@ -27,6 +27,6 @@ in
     };
     shu.gnome.enable = if cfg.manager == "gnome" then true else false;
     shu.hyprland.enable = if cfg.manager == "hyprland" then true else false;
-    shu.stylix.enable = true;
+    shu.stylix.enable = if cfg.manager != "headless" then true else false;
   };
 }
