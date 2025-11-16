@@ -98,7 +98,7 @@
         +jupyter
         +present
         +pretty
-        +roam2)
+        +roam)
        (python
         +pyright
         +lsp
