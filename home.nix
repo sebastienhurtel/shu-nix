@@ -80,7 +80,9 @@ let
     google-chrome
     imagemagick
     libreoffice
+    plex-desktop
     pwvucontrol
+    vlc
     wl-clipboard
   ];
 

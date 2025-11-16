@@ -56,6 +56,7 @@ in
                 "title<(.*)Twitch(.*)>" = "";
                 "title<.*github.*>" = "";
                 "title<(.*)Gmail(.*)>" = "󰊫";
+                "title<Plex>" = "󰚺";
                 "code" = "󰨞";
                 "class<firefox>" = "";
                 "class<Google-chrome>" = "󰊯";
