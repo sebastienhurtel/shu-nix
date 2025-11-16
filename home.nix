@@ -34,7 +34,6 @@ let
   packages = with pkgs.unstable; [
     bat
     bottom
-    cargo
     containerlab
     coreutils
     curl
@@ -65,14 +64,10 @@ let
     python3Packages.git-filter-repo
     python3Packages.ipython
     ripgrep
-    rust-analyzer
-    rustc
-    rustfmt
     sd
     tree
     unzip
     vim
-    vlc
     wget
     yt-dlp
     zip
