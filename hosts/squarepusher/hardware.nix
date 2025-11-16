@@ -38,14 +38,25 @@
     kernelPackages = pkgs.linuxPackages_latest;
   };
 
-  hardware.graphics = {
-    enable = true;
-    extraPackages = with pkgs; [
-      amdvlk
-      vaapiVdpau
-      libvdpau-va-gl
-      mesa
-    ];
+  hardware = {
+    sane = {
+      enable = true;
+      openFirewall = true;
+      extraBackends = [
+        pkgs.sane-airscan
+        pkgs.sane-backends
+      ];
+    };
+    cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+    graphics = {
+      enable = true;
+      extraPackages = with pkgs; [
+        amdvlk
+        vaapiVdpau
+        libvdpau-va-gl
+        mesa
+      ];
+    };
   };
 
   fileSystems."/" = {
@@ -90,7 +101,6 @@
     SUBSYSTEMS=="usb", ATTRS{idVendor}=="3496", ATTRS{idProduct}=="00a0", SYMLINK+="Preonic",  ENV{ID_MM_DEVICE_IGNORE}="1", ENV{ID_MM_CANDIDATE}="0", TAG+="uaccess", TAG+="seat"
     SUBSYSTEMS=="usb", ATTRS{idVendor}=="3496", ATTRS{idProduct}=="00a3", SYMLINK+="Preonic",  ENV{ID_MM_DEVICE_IGNORE}="1", ENV{ID_MM_CANDIDATE}="0", TAG+="uaccess", TAG+="seat"
   '';
-
   services.hardware.bolt.enable = true;
 
   swapDevices = [ ];
@@ -99,7 +109,5 @@
   networking.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-
   system.stateVersion = "23.11";
 }

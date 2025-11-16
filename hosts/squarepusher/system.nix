@@ -14,6 +14,7 @@
       passh
       powertop
       python313
+      simple-scan
       virt-manager
     ];
   };
