@@ -6,7 +6,6 @@
 }:
 let
   cfg = config.shu.hyprlock;
-  style = import ./style.nix { inherit config username lib; };
 in
 {
   options.shu.hyprlock.enable = lib.mkEnableOption "Enable Shu Hyprlock";
