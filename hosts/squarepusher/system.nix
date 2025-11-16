@@ -37,6 +37,10 @@
         extraArgs = "--keep 5 --keep-since 3d";
       };
     };
+    wireshark = {
+      enable = true;
+      package = pkgs.wireshark;
+    };
   };
   hardware.steam-hardware.enable = true;
 
@@ -159,14 +163,14 @@
     "libvirtd"
   ];
 
-  networking.nftables = {
-    ruleset = ''
-      table inet nixos-fw {
-        chain input-allow {
-          ip saddr 192.168.1.0/24 ip daddr 192.168.1.0/24 accept comment "LAN"
-        }
-      }
-    '';
-  };
+  # networking.nftables = {
+  #   ruleset = ''
+  #     table inet nixos-fw {
+  #       chain input-allow {
+  #         ip saddr 192.168.1.0/24 ip daddr 192.168.1.0/24 accept comment "LAN"
+  #       }
+  #     }
+  #   '';
+  # };
   boot.plymouth.enable = true;
 }

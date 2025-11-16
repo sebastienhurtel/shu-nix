@@ -37,6 +37,7 @@
         "networkmanager"
         "scanner"
         "lp"
+        "wireshark"
       ];
     };
   };
