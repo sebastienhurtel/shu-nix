@@ -52,6 +52,9 @@ in
           "/data/music:/music"
 
         ];
+        devices = [
+          "/dev/dri:/dev/dri"
+        ];
         extraOptions = [
           "--network=host"
           "--cpuset-cpus=12-15"
