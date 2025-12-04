@@ -13,7 +13,6 @@ in
     environment = with pkgs; {
       systemPackages = [ nfs-utils ];
     };
-
     services.rpcbind.enable = true;
     systemd = {
       mounts = [
@@ -26,7 +25,6 @@ in
           where = "/mnt/data";
         }
       ];
-
       automounts = [
         {
           wantedBy = [ "multi-user.target" ];

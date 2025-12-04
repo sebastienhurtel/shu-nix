@@ -86,11 +86,7 @@ let
     wl-clipboard
   ];
 
-  home-packages =
-    if wm == "headless" then
-      packages
-    else
-      packages ++ ui-packages;
+  home-packages = if wm == "headless" then packages else packages ++ ui-packages;
 in
 {
   imports = [
@@ -104,6 +100,9 @@ in
     username = "${username}";
     homeDirectory = "/home/${username}";
     packages = home-packages ++ [ pyangPackage ];
+    # The state version is required and should stay at the version you
+    # originally installed.
+    stateVersion = "23.11";
   };
 
   # required to autoload fonts from packages installed via Home Manager
@@ -115,8 +114,4 @@ in
     nix-index.enableZshIntegration = true;
     nix-index-database.comma.enable = true;
   };
-
-  # The state version is required and should stay at the version you
-  # originally installed.
-  home.stateVersion = "23.11";
 }
