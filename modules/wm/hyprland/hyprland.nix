@@ -132,10 +132,13 @@ let
     );
   };
 
+  gestures = [
+    "3, horizontal, workspace"
+  ];
+
   exec-once = [
     "uwsm app -- ${pkgs.alacritty}/bin/alacritty -e zsh -c 'tmux new-session -A -s 0'"
     "uwsm app -- ${pkgs.alacritty}/bin/alacritty -e zsh -c 'tmux new-session -A -s 1'"
-    "uwsm app -- ${pkgs.emacs30-pgtk}/bin/emacsclient -c"
     "uwsm app -- ${pkgs.google-chrome}/bin/google-chrome-stable"
   ];
 
@@ -143,6 +146,7 @@ in
 {
   options.shu.hyprland.enable = lib.mkEnableOption "Enable shuHyprland";
   config = lib.mkIf cfg.enable {
+    services.gnome.gcr-ssh-agent.enable = true;
     programs = {
       uwsm.package = pkgs.uwsm;
       hyprland = {
@@ -154,13 +158,13 @@ in
     };
     networking.networkmanager = {
       enable = true;
-      enableStrongSwan = true;
+      plugins = [ pkgs.networkmanager-strongswan ];
     };
     hardware.bluetooth = {
       enable = true;
       powerOnBoot = true;
     };
-    services.logind.powerKey = "suspend";
+    services.logind.settings.Login.HandlePowerKey = "suspend";
     shu = {
       gtk.enable = true;
       hypridle.enable = true;
@@ -171,7 +175,7 @@ in
     };
 
     home-manager.users.${username} = {
-      shu.home.kanshi.enable = true; 
+      shu.home.kanshi.enable = true;
       services = {
         copyq.enable = true;
         hyprpaper.enable = true;
@@ -181,7 +185,6 @@ in
         gnome-keyring = {
           enable = true;
           components = [
-            "ssh"
             "pkcs11"
             "secrets"
           ];
@@ -201,10 +204,7 @@ in
           papirus-icon-theme
           playerctl
         ];
-        sessionVariables = {
-          NIXOS_OZONE_WL = "1";
-          SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/keyring/ssh";
-        };
+        sessionVariables.NIXOS_OZONE_WL = "1";
       };
       wayland.windowManager.hyprland = {
         enable = true;
@@ -240,10 +240,7 @@ in
 
           windowrule = windowrule;
 
-          gestures = {
-            workspace_swipe = true;
-            workspace_swipe_invert = true;
-          };
+          gesture = gestures;
 
           misc = {
             always_follow_on_dnd = true;

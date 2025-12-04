@@ -8,6 +8,7 @@
 {
   imports = [ agenix.homeManagerModules.default ];
   age.identityPaths = [ "${config.home.homeDirectory}/.ssh/id_ecdsa_age" ];
+  xdg.enable = true;
   shu.home = {
     dconf.enable = if wm == "gnome" then true else false;
     emacs.enable = if wm != "headless" then true else true;

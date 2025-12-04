@@ -97,13 +97,10 @@ in
     home = {
       inherit file packages;
     };
-    systemd.user.services.emacs.Service.Environment = "SSH_AUTH_SOCK=%t/keyring/ssh";
     services.emacs = {
       enable = true;
       package = emacs;
-      socketActivation.enable = true;
       startWithUserSession = "graphical";
-      client.enable = true;
     };
   };
 }

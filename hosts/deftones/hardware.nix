@@ -61,12 +61,10 @@
   hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
-      amdvlk
-      vaapiVdpau
+      libva-vdpau-driver
       libvdpau-va-gl
       mesa
     ];
-    extraPackages32 = with pkgs; [ driversi686Linux.amdvlk ];
   };
 
   fileSystems."/" = {

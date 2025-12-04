@@ -16,8 +16,7 @@ in
       path = "${config.home.homeDirectory}/.config/git/config-free";
     };
 
-    programs.git = {
-      enable = true;
+    programs = {
       delta = {
         enable = true;
         options = {
@@ -26,39 +25,45 @@ in
           navigate = true;
         };
       };
-      userEmail = email;
-      userName = name;
-      extraConfig = {
-        push = {
-          default = "current";
-          autoSetupRemote = true;
+      git = {
+        enable = true;
+        settings = {
+          user = {
+            email = email;
+            name = name;
+          };
+          extraConfig = {
+            push = {
+              default = "current";
+              autoSetupRemote = true;
+            };
+            difftastic.enable = true;
+            pull = {
+              ff = "only";
+            };
+            init = {
+              defaultBranch = "main";
+            };
+            alias = {
+              glog = "log --graph --decorate --online --all";
+            };
+            branch = {
+              sort = "authordate";
+            };
+            github = {
+              user = "sebastienhurtel";
+              name = name;
+              email = email;
+            };
+          };
         };
-        difftastic.enable = true;
-        pull = {
-          ff = "only";
-        };
-        init = {
-          defaultBranch = "main";
-        };
-        alias = {
-          glog = "log --graph --decorate --online --all";
-        };
-        branch = {
-          sort = "authordate";
-        };
-        github = {
-          user = "sebastienhurtel";
-          name = name;
-          email= email;
-        };
-
+        includes = [
+          {
+            condition = "gitdir:~/git/free/";
+            path = "~/.config/git/config-free";
+          }
+        ];
       };
-      includes = [
-        {
-          condition = "gitdir:~/git/free/";
-          path = "~/.config/git/config-free";
-        }
-      ];
     };
   };
 }
