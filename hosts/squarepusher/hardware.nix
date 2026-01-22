@@ -27,7 +27,6 @@
       availableKernelModules = [
         "nvme"
         "xhci_pci"
-        "thunderbolt"
         "usb_storage"
         "sd_mod"
         "rtsx_pci_sdmmc"
@@ -68,8 +67,8 @@
     fsType = "vfat";
   };
 
-  fileSystems."/nix/store" = {
-    device = "/dev/mapper/vgnixos-store";
+  fileSystems."/nix" = {
+    device = "/dev/mapper/vgnixos-nix";
     fsType = "ext4";
     options = [ "noatime" ];
   };
