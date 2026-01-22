@@ -1,7 +1,6 @@
 {
   agenix,
   config,
-  pkgs,
   wm,
   ...
 }:
@@ -19,11 +18,9 @@
     tmux.enable = if wm == "headless" then false else true;
   };
   programs = {
-    nnn = {
+    yazi = {
       enable = true;
-      package = pkgs.nnn.override {
-        withEmojis = true;
-      };
+      enableZshIntegration = true;
     };
   };
 }

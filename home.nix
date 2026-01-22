@@ -39,8 +39,8 @@ let
     curl
     difftastic
     dig
-    dust
     duf
+    dust
     fd
     findutils
     fx

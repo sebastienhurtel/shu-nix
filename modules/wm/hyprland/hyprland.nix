@@ -8,26 +8,6 @@
 let
   cfg = config.shu.hyprland;
 
-  volumeUpScript = pkgs.writeShellScriptBin "volumeUp" ''
-    MUTED=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | rg -q MUTED && echo "yes" || echo "no")
-    if [ "$MUTED" = "yes" ]; then
-      wpctl set-mute @DEFAULT_AUDIO_SINK@ 0
-    fi
-    wpctl set-volume @DEFAULT_AUDIO_SINK@ 6%+ --limit 1.8
-  '';
-
-  volumeUp = lib.getExe volumeUpScript;
-
-  volumeDownScript = pkgs.writeShellScriptBin "volumeDown" ''
-    MUTED=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | rg -q MUTED && echo "yes" || echo "no")
-    if [ "$MUTED" = "yes" ]; then
-      wpctl set-mute @DEFAULT_AUDIO_SINK@ 0
-    fi
-    wpctl set-volume @DEFAULT_AUDIO_SINK@ 6%-
-  '';
-
-  volumeDown = lib.getExe volumeDownScript;
-
   toggleAnimationsScript = pkgs.writeShellScriptBin "toggleAnimations" ''
     HYPRGAMEMODE=$(${pkgs.hyprland}/bin/hyprctl getoption animations:enabled | awk 'NR==1{print $2}')
     if [ "$HYPRGAMEMODE" = 1 ] ; then
@@ -61,15 +41,15 @@ let
     "workspace 2, class:^(google-chrome)$"
     "workspace 3, class:^(firefox)$"
     "workspace 4, class:^(steam)$"
-    "float,class:(nnn)"
-    "centerwindow,class:(nnn)"
-    "workspace special:nnn,class:^(nnn)$"
+    "float,class:(yazi)"
+    "centerwindow,class:(yazi)"
+    "workspace special:yazi,class:^(yazi)$"
   ];
 
   binds = {
     bind = [
-      "$mod, E, exec, rofi -show drun -replace"
-      "$mod, ESCAPE, exec, hyprlock"
+      "$mod, E, exec, noctalia-shell ipc call launcher toggle"
+      "$mod, ESCAPE, exec, noctalia-shell ipc call lockScreen lock"
       "$mod, Q, killactive,"
       "$mod SHIFT, F, togglefloating,"
       "$mod, up, fullscreen, 1"
@@ -92,26 +72,26 @@ let
       "Control_L&SHIFT, j, movewindoworgroup, d"
       "$mod, page_up, workspace, -1"
       "$mod, page_down, workspace, +1"
-      "$mod, N, exec, ${pkgs.swaynotificationcenter}/bin/swaync-client -t -sw"
+      "$mod, N, exec, noctalia-shell ipc call notifications toggleHistory"
       ", Print, exec, ${pkgs.grimblast}/bin/grimblast --notify copysave area /home/${username}/Pictures/Screenshots/$(${pkgs.coreutils}/bin/coreutils --coreutils-prog=date --iso-8601=seconds).png"
       "SHIFT, Print, exec, ${pkgs.grimblast}/bin/grimblast --notify copysave output /home/${username}/Pictures/Screenshots/$(${pkgs.coreutils}/bin/coreutils --coreutils-prog=date --iso-8601=seconds).png"
       "$mod, A, exec, ${toggleAnimations}"
-      "$mod, F, exec, hyprctl dispatch togglespecialworkspace ${pkgs.alacritty}/bin/alacritty --class nnn -e ${pkgs.nnn}/bin/nnn || ${pkgs.alacritty}/bin/alacritty --class nnn -e ${pkgs.nnn}/bin/nnn"
+      "$mod, F, exec, hyprctl dispatch togglespecialworkspace ${pkgs.alacritty}/bin/alacritty --class yazi -e ${pkgs.yazi}/bin/yazi || ${pkgs.alacritty}/bin/alacritty --class yazi -e ${pkgs.yazi}/bin/yazi"
     ]
     ++ binds.workspaces;
 
     bindl = [
-      ", XF86AudioRaiseVolume, exec, ${volumeUp}"
-      ", XF86AudioLowerVolume, exec, ${volumeDown}"
-      ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-      ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-      ", XF86AudioPlay, exec, playerctl play-pause"
-      ", XF86AudioNext, exec, playerctl next"
-      ", XF86AudioPrev, exec, playerctl previous"
+      ", XF86AudioRaiseVolume, exec, noctalia-shell ipc call volume increase"
+      ", XF86AudioLowerVolume, exec, noctalia-shell ipc call volume decrease"
+      ", XF86AudioMute, exec, noctalia-shell ipc call volume muteOutput"
+      ", XF86AudioMicMute, exec, noctalia-shell ipc call volume muteInput"
+      ", XF86AudioPlay, exec, noctalia-shell ipc call media playPause"
+      ", XF86AudioNext, exec, noctalia-shell ipc call media next"
+      ", XF86AudioPrev, exec, noctalia-shell ipc call media previous"
       ", switch:off:Lid Switch, exec, ${pkgs.kanshi}/bin/kanshictl switch docked-lid-open"
       ", switch:on:Lid Switch, exec, ${pkgs.kanshi}/bin/kanshictl switch docked-lid-closed"
-      ", XF86MonBrightnessDown, exec, ${pkgs.brightnessctl}/bin/brightnessctl s 5%-"
-      ", XF86MonBrightnessUp, exec, ${pkgs.brightnessctl}/bin/brightnessctl s +5%"
+      ", XF86MonBrightnessDown, exec, noctalia-shell ipc call brightness decrease"
+      ", XF86MonBrightnessUp, exec, noctalia-shell ipc call brightness increase"
     ];
 
     workspaces = (
@@ -137,10 +117,10 @@ let
   ];
 
   exec-once = [
+    "uwsm app -- ${pkgs.emacs-pgtk}/share/applications/emacsclient.desktop"
     "uwsm app -- ${pkgs.alacritty}/bin/alacritty -e zsh -c 'tmux new-session -A -s 0'"
     "uwsm app -- ${pkgs.alacritty}/bin/alacritty -e zsh -c 'tmux new-session -A -s 1'"
     "uwsm app -- ${pkgs.google-chrome}/bin/google-chrome-stable"
-    "uwsm app -- emacsclient -c"
   ];
 
 in
@@ -165,20 +145,27 @@ in
       enable = true;
       powerOnBoot = true;
     };
-    services.logind.settings.Login.HandlePowerKey = "suspend";
+    services = {
+      logind.settings.Login.HandlePowerKey = "suspend";
+      upower.enable = true;
+    };
     shu = {
       gtk.enable = true;
       hypridle.enable = true;
-      hyprlock.enable = true;
-      rofi.enable = true;
-      waybar.enable = true;
-      swaync.enable = true;
+      hyprlock.enable = false;
+      rofi.enable = false;
+      waybar.enable = false;
+      swaync.enable = false;
     };
 
     home-manager.users.${username} = {
-      shu.home.kanshi.enable = true;
+      shu.home = {
+        kanshi.enable = true;
+        noctalia.enable = true;
+        khal.enable = true;
+      };
       services = {
-        copyq.enable = true;
+        copyq.enable = false;
         hyprpaper.enable = true;
         hyprpolkitagent.enable = true;
         network-manager-applet.enable = true;
@@ -264,6 +251,12 @@ in
             active_opacity = 0.99;
             inactive_opacity = 0.89;
             fullscreen_opacity = 1.0;
+
+            shadow = {
+              enabled = true;
+              range = 4;
+              render_power = 3;
+            };
 
             blur = {
               enabled = true;

@@ -32,7 +32,7 @@ let
     ++ [ emacs ];
   nixPackages = with pkgs.unstable; [
     nixd
-    nixfmt-rfc-style
+    nixfmt
   ];
   goPackages = with pkgs.unstable; [
     go
@@ -88,7 +88,7 @@ let
         '';
     in
     {
-      ".config/emacs/.local/etc/tree-sitter".source = tree-sitter-languages;
+      ".config/emacs/.local/cache/tree-sitter".source = tree-sitter-languages;
     };
 in
 {
@@ -101,13 +101,7 @@ in
       enable = true;
       package = emacs;
       startWithUserSession = "graphical";
-      client = {
-        enable = true;
-        arguments = [
-          "-c"
-          "-n"
-        ];
-      };
+      client.enable = true;
     };
   };
 }
