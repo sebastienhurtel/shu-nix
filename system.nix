@@ -9,7 +9,8 @@
 {
 
   imports = [
-    ./modules
+    ./modules/services
+    ./modules/wm
     ./hosts/${hostname}
   ];
 
