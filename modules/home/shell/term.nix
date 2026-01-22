@@ -1,7 +1,7 @@
 {
   config,
   lib,
-  username,
+  pkgs,
   ...
 }:
 let
@@ -15,7 +15,7 @@ in
       settings = {
         terminal = {
           shell = {
-            program = "/etc/profiles/per-user/${username}/bin/zsh";
+            program = "${pkgs.zsh}/bin/zsh";
             args = [
               "-l"
               "-c"

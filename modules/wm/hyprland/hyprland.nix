@@ -140,6 +140,7 @@ let
     "uwsm app -- ${pkgs.alacritty}/bin/alacritty -e zsh -c 'tmux new-session -A -s 0'"
     "uwsm app -- ${pkgs.alacritty}/bin/alacritty -e zsh -c 'tmux new-session -A -s 1'"
     "uwsm app -- ${pkgs.google-chrome}/bin/google-chrome-stable"
+    "uwsm app -- emacsclient -c"
   ];
 
 in

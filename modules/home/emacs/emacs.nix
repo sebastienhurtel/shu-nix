@@ -49,7 +49,7 @@ let
   nodePackages = with pkgs.unstable; [
     nodePackages_latest.bash-language-server
   ];
-  pythonPackages = with pkgs.unstable; [
+  pythonPackages = with pkgs; [
     uv
     pipenv
     poetry
@@ -101,6 +101,13 @@ in
       enable = true;
       package = emacs;
       startWithUserSession = "graphical";
+      client = {
+        enable = true;
+        arguments = [
+          "-c"
+          "-n"
+        ];
+      };
     };
   };
 }
