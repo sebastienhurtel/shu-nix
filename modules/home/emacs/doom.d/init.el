@@ -100,6 +100,7 @@
         +pretty
         +roam)
        (python
+	+uv
         +pyright
         +lsp
         +tree-sitter)
