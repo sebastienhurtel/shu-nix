@@ -26,7 +26,6 @@ def parse_args(args=sys.argv[1:]):
                    help="don't log")
 
     # TODO: modify these options
-    ...
 
     return parser.parse_args(args)
 
@@ -54,7 +53,8 @@ def setup_logging(options):
 
 
 def main(options):
-    ...
+    # TODO
+    pass
 
 
 if __name__ == "__main__":
@@ -67,15 +67,3 @@ if __name__ == "__main__":
         logger.exception("%s", e)
         sys.exit(1)
     sys.exit(0)
-
-
-# Unit tests
-import pytest                   # noqa: E402
-import shlex                    # noqa: E402
-
-
-@pytest.mark.parametrize("args, expected", [...])
-
-def test_main(args, expected):
-    options = parse_args(shlex.split(args))
-    assert main(options) == expected
