@@ -11,6 +11,7 @@
   imports = [
     ./modules/services
     ./modules/wm
+    ./modules/system
     ./hosts/${hostname}
   ];
 
@@ -51,7 +52,7 @@
   programs = {
     # dconf is enable to use GTK in home.nix
     dconf.enable = true;
-    mtr.enable = true;
+    ttl.enable = true;
     zsh.enable = true;
   };
 
