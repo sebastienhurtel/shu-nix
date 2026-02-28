@@ -6,6 +6,7 @@
     ./emacs/emacs.nix
     ./git/git.nix
     ./kanshi/kanshi.nix
+    ./khal/khal.nix
     ./noctalia/noctalia.nix
     ./shell/shell.nix
     ./shell/term.nix
