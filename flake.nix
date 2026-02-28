@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     home-manager = {
@@ -37,6 +38,8 @@
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-bwrapper.url = "github:Naxdy/nix-bwrapper";
   };
 
   outputs =
@@ -53,6 +56,7 @@
               inherit config;
             };
           })
+          nix-bwrapper.overlays.default
         ];
       };
 
@@ -75,6 +79,7 @@
           nixos-hardware
           stylix
           noctalia
+          nix-bwrapper
           ;
         channels = {
           inherit nixpkgs nixpkgs-unstable;

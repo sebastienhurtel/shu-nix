@@ -12,5 +12,6 @@
     ./shell/term.nix
     ./stylix/stylix.nix
     ./tmux/tmux.nix
+    ./claude-code/claude-code.nix
   ];
 }

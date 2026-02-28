@@ -16,6 +16,7 @@
     stylix.enable = if wm != "headless" then true else false;
     term.enable = if wm == "headless" then false else true;
     tmux.enable = if wm == "headless" then false else true;
+    claude-code.enable = if wm != "headless" then true else false;
   };
   programs = {
     yazi = {
