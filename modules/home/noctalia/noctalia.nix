@@ -16,9 +16,9 @@ in
   options.shu.home.noctalia.enable = lib.mkEnableOption "Enable Shu Noctalia";
   config = lib.mkIf cfg.enable {
     programs.noctalia-shell = {
+      inherit settings;
       enable = true;
       systemd.enable = true;
-      inherit settings;
     };
   };
 }
