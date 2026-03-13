@@ -92,7 +92,7 @@ in
   imports = [
     ./modules/home
     ./users/${username}.nix
-    nix-index-database.homeModules.nix-index
+    nix-index-database.homeModules.default
   ];
   manual.manpages.enable = false;
 
