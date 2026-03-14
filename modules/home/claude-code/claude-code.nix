@@ -6,21 +6,21 @@
 }:
 let
   cfg = config.shu.home.claude-code;
-  claude-code-unwrapped = pkgs.unstable.claude-code.overrideAttrs (old: {
-    postInstall = "";
-  });
   wrappedClaudeCode = pkgs.mkBwrapper {
     app = {
-      package = claude-code-unwrapped;
+      package = pkgs.unstable.claude-code;
       runScript = "claude";
-      renameDesktopFile = false;
-      overwriteExec = false;
       env = {
         CLAUDE_CONFIG_DIR = "$HOME/.config/claude-code";
-        DISABLE_AUTOUPDATER = "1";
-        DISABLE_INSTALLATION_CHECKS = "1";
       };
     };
+    mounts = {
+      readWrite = [
+        "$PWD"
+      ];
+    };
+    fhsenv.skipExtraInstallCmds = true;
+    sockets.x11 = false;
   };
 in
 {
