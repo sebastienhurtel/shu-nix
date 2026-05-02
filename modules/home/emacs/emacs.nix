@@ -23,7 +23,6 @@ let
       shellcheck
       shfmt
     ]
-    ++ nodePackages
     ++ emacsPackages
     ++ pythonPackages
     ++ rustPackges
@@ -34,20 +33,17 @@ let
     nixd
     nixfmt
   ];
-  goPackages = with pkgs.unstable; [
+  goPackages = with pkgs; [
     go
     gopls
     gotests
     gotools
   ];
-  rustPackges = with pkgs.unstable; [
+  rustPackges = with pkgs; [
     cargo
     rust-analyzer
     rustc
     rustfmt
-  ];
-  nodePackages = with pkgs.unstable; [
-    nodePackages_latest.bash-language-server
   ];
   pythonPackages = with pkgs; [
     uv
