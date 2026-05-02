@@ -48,6 +48,7 @@
   };
 
   services = {
+    upower.enable = true;
     tlp = {
       enable = true;
       settings = {
