@@ -31,7 +31,7 @@ let
       propagatedBuildInputs = inputs;
     };
 
-  packages = with pkgs.unstable; [
+  packages = with pkgs; [
     bat
     bottom
     containerlab
