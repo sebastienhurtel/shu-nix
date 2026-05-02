@@ -49,17 +49,7 @@
       nixpkgsWithOverlays = {
         config.allowUnfree = true;
         overlays = [
-          (final: prev: {
-            # this allows us to reference pkgs.unstable
-            unstable = import nixpkgs-unstable {
-              inherit (final) config;
-              inherit (final.stdenv.hostPlatform) system;
-            };
-            pyang = final.pkgs.callPackage ./packages/pyang.nix { };
-            libnetconf2 = final.pkgs.callPackage ./packages/libnetconf2.nix { };
-            sysrepo = final.pkgs.callPackage ./packages/sysrepo.nix { };
-            netopeer2 = final.pkgs.callPackage ./packages/netopeer2.nix { };
-          })
+          (import ./overlays inputs)
           nix-bwrapper.overlays.default
         ];
       };
@@ -76,19 +66,13 @@
       argDefaults = {
         inherit
           self
-          inputs
           agenix
           disko
           nix-index-database
           nixos-hardware
           stylix
           noctalia
-          nix-bwrapper
-          nixpkgs-unstable
           ;
-        channels = {
-          inherit nixpkgs nixpkgs-unstable;
-        };
       };
 
       mkNixosConfiguration =
@@ -97,7 +81,6 @@
           username,
           wm ? "headless",
           args ? { },
-          modules,
         }:
         let
           specialArgs = argDefaults // args // { inherit hostname username wm; };
@@ -107,8 +90,9 @@
           modules = [
             (configurationDefaults specialArgs)
             home-manager.nixosModules.home-manager
-          ]
-          ++ modules;
+            ./modules
+            ./hosts/${hostname}
+          ];
         };
     in
     {
@@ -116,25 +100,14 @@
         hostname = "squarepusher";
         username = "sebastien";
         wm = "hyprland";
-        modules = [
-          ./system.nix
-        ];
       };
-
       nixosConfigurations.deftones = mkNixosConfiguration {
         hostname = "deftones";
         username = "sebastien";
-        modules = [
-          ./system.nix
-        ];
       };
-
       nixosConfigurations.aphex = mkNixosConfiguration {
         hostname = "aphex";
         username = "sebastien";
-        modules = [
-          ./system.nix
-        ];
       };
     };
 }

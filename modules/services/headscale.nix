@@ -6,7 +6,7 @@
   ...
 }:
 let
-  cfg = config.services.shu.headscale;
+  cfg = config.shu.services.headscale;
   containerPort = hostPort;
   hostPort = 443;
   containerInterface = "ve-headscale";
@@ -16,7 +16,7 @@ let
   fqdn = "${hostname}.${baseDomain}";
 in
 {
-  options.services.shu.headscale = {
+  options.shu.services.headscale = {
     enable = lib.mkEnableOption "Enable headscale as systemd container";
     interface = lib.mkOption {
       type = lib.types.str;

@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.services.shu.nfsClient;
+  cfg = config.shu.services.nfsClient;
 in
 {
-  options.services.shu.nfsClient.enable = lib.mkEnableOption "Enable NFS server";
+  options.shu.services.nfsClient.enable = lib.mkEnableOption "Enable NFS server";
   config = lib.mkIf cfg.enable {
     environment = with pkgs; {
       systemPackages = [ nfs-utils ];

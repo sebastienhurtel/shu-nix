@@ -6,13 +6,11 @@
   nixos-hardware,
   ...
 }:
-
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
     nixos-hardware.nixosModules.lenovo-thinkpad-z13-gen2
   ];
-
   boot = {
     loader = {
       systemd-boot.enable = true;
@@ -45,7 +43,6 @@
       }
     ];
   };
-
   hardware = {
     sane = {
       enable = true;

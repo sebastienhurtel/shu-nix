@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  username,
   ...
 }:
 let
@@ -90,14 +91,16 @@ in
 {
   options.shu.home.emacs.enable = lib.mkEnableOption "Enable shu home emacs";
   config = lib.mkIf cfg.enable {
-    home = {
-      inherit file packages;
-    };
-    services.emacs = {
-      enable = true;
-      package = emacs;
-      startWithUserSession = "graphical";
-      client.enable = true;
+    home-manager.users.${username} = {
+      home = {
+        inherit file packages;
+      };
+      services.emacs = {
+        enable = true;
+        package = emacs;
+        startWithUserSession = "graphical";
+        client.enable = true;
+      };
     };
   };
 }

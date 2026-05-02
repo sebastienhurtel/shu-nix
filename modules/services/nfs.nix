@@ -1,6 +1,6 @@
 { config, lib, ... }:
 let
-  cfg = config.services.shu.nfs;
+  cfg = config.shu.services.nfs;
   nfsPorts = [
     111
     2049
@@ -11,7 +11,7 @@ let
   ];
 in
 {
-  options.services.shu.nfs.enable = lib.mkEnableOption "Enable NFS server";
+  options.shu.services.nfs.enable = lib.mkEnableOption "Enable NFS server";
 
   config = lib.mkIf cfg.enable {
     services = {

@@ -1,13 +1,13 @@
 { username, ... }:
 {
   imports = [
-    ./hardware.nix
-    ./system.nix
+    ./aphex
+    ./deftones
+    ./squarepusher
   ];
 
   shu = {
     base.enable = true;
-    hosts.squarepusher.system.enable = true;
     users.${username}.enable = true;
   };
 }

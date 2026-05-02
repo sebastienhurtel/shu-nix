@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.services.shu.immich;
+  cfg = config.shu.services.immich;
   containerAddress = "192.168.254.254";
   hostAddress = "192.168.254.253";
   containerInterface = "ve-immich";
@@ -13,7 +13,7 @@ let
   hostPort = 2283;
 in
 {
-  options.services.shu.immich.enable = lib.mkEnableOption "Enable immich as systemd container";
+  options.shu.services.immich.enable = lib.mkEnableOption "Enable immich as systemd container";
 
   config = lib.mkIf cfg.enable {
     networking.nat = {

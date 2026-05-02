@@ -16,10 +16,6 @@ in
     stylix = {
       inherit (hmStylix) image base16Scheme;
       enable = true;
-      homeManagerIntegration = {
-        autoImport = false;
-        followSystem = false;
-      };
       polarity = "dark";
     };
   };

@@ -160,27 +160,20 @@ in
       rofi.enable = false;
       waybar.enable = false;
       swaync.enable = false;
+      home = {
+        khal.enable = true;
+        kanshi.enable = true;
+        noctalia.enable = true;
+      };
     };
 
     home-manager.users.${username} = {
-      shu.home = {
-        kanshi.enable = true;
-        noctalia.enable = true;
-        khal.enable = true;
-      };
       services = {
         copyq.enable = false;
         hyprpaper.enable = true;
         hyprpolkitagent.enable = true;
         network-manager-applet.enable = true;
         udiskie.enable = true;
-        gnome-keyring = {
-          enable = true;
-          components = [
-            "pkcs11"
-            "secrets"
-          ];
-        };
       };
       home = {
         packages = with pkgs; [

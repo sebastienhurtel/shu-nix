@@ -6,12 +6,12 @@
   ...
 }:
 let
-  cfg = config.services.shu.plex;
+  cfg = config.shu.services.plex;
   volumePath = "${config.home-manager.users.sebastien.home.homeDirectory}/git/pms-docker";
 in
 {
   imports = [ agenix.nixosModules.default ];
-  options.services.shu.plex.enable = lib.mkEnableOption "Enable Plex running in container";
+  options.shu.services.plex.enable = lib.mkEnableOption "Enable Plex running in container";
 
   config = lib.mkIf cfg.enable {
     age.secrets.plexClaim.file = "${self}/secrets/plexClaim.age";

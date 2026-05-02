@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  username,
   ...
 }:
 let
@@ -43,9 +44,11 @@ in
 {
   options.shu.home.claude-code.enable = lib.mkEnableOption "Enable shu home claude-code";
   config = lib.mkIf cfg.enable {
-    programs.claude-code = {
-      enable = true;
-      package = wrappedClaudeCode;
+    home-manager.users.${username} = {
+      programs.claude-code = {
+        enable = true;
+        package = wrappedClaudeCode;
+      };
     };
   };
 }
