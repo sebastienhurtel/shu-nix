@@ -22,6 +22,7 @@ let
     greetd = {
       enable = true;
       restart = true;
+      greeterManagesPlymouth = true;
     };
   };
 
