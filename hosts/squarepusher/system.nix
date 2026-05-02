@@ -36,10 +36,7 @@
         extraArgs = "--keep 1 --keep-since 1d";
       };
     };
-    wireshark = {
-      enable = true;
-      package = pkgs.wireshark;
-    };
+    wireshark.enable = true;
   };
   hardware.steam-hardware.enable = true;
 
@@ -51,6 +48,7 @@
     upower.enable = true;
     tlp = {
       enable = true;
+      package = pkgs.unstable.tlp;
       settings = {
         CPU_ENERGY_PERF_POLICY_ON_AC = "balance_performance";
         CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
