@@ -55,6 +55,10 @@
               inherit (final) config;
               inherit (final.stdenv.hostPlatform) system;
             };
+            pyang = final.pkgs.callPackage ./packages/pyang.nix { };
+            libnetconf2 = final.pkgs.callPackage ./packages/libnetconf2.nix { };
+            sysrepo = final.pkgs.callPackage ./packages/sysrepo.nix { };
+            netopeer2 = final.pkgs.callPackage ./packages/netopeer2.nix { };
           })
           nix-bwrapper.overlays.default
         ];
