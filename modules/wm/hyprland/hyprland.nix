@@ -127,7 +127,10 @@ in
 {
   options.shu.hyprland.enable = lib.mkEnableOption "Enable shuHyprland";
   config = lib.mkIf cfg.enable {
-    services.gnome.gcr-ssh-agent.enable = true;
+    services.gnome = {
+      gcr-ssh-agent.enable = true;
+      evolution-data-server.enable = true;
+    };
     programs = {
       uwsm.package = pkgs.uwsm;
       hyprland = {
