@@ -60,9 +60,13 @@ in
             port = containerPort;
             address = "0.0.0.0";
             settings = {
-              server_url = "https://${fqdn}:${builtins.toString containerPort}";
+              server_url = "https://${fqdn}:${toString containerPort}";
               dns = {
                 magic_dns = false;
+                nameservers.global = [
+                  "45.90.28.29"
+                  "45.90.30.29"
+                ];
                 #                base_domain = "${baseDomain}";
               };
               derp.server.enabled = false;
