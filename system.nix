@@ -58,7 +58,7 @@
 
   environment = {
     systemPackages = with pkgs; [
-      agenix.packages.${system}.default # agenix CLI
+      agenix.packages.${pkgs.stdenv.hostPlatform.system}.default # agenix CLI
       cmake
       fastfetch
       file

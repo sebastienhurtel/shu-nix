@@ -46,14 +46,14 @@
     inputs:
     with inputs;
     let
-      nixpkgsWithOverlays = rec {
+      nixpkgsWithOverlays = {
         config.allowUnfree = true;
         overlays = [
-          (_final: prev: {
+          (final: prev: {
             # this allows us to reference pkgs.unstable
             unstable = import nixpkgs-unstable {
-              inherit (prev) system;
-              inherit config;
+              inherit (final) config;
+              inherit (final.stdenv.hostPlatform) system;
             };
           })
           nix-bwrapper.overlays.default
@@ -80,6 +80,7 @@
           stylix
           noctalia
           nix-bwrapper
+          nixpkgs-unstable
           ;
         channels = {
           inherit nixpkgs nixpkgs-unstable;
@@ -88,7 +89,6 @@
 
       mkNixosConfiguration =
         {
-          system ? "x86_64-linux",
           hostname,
           username,
           wm ? "headless",
@@ -99,7 +99,7 @@
           specialArgs = argDefaults // args // { inherit hostname username wm; };
         in
         nixpkgs.lib.nixosSystem {
-          inherit system specialArgs;
+          inherit specialArgs;
           modules = [
             (configurationDefaults specialArgs)
             home-manager.nixosModules.home-manager
