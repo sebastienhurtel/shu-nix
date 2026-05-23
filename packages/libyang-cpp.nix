@@ -1,14 +1,21 @@
-{ pkgs }:
-pkgs.stdenv.mkDerivation (finalAttrs: {
+{
+  cmake,
+  fetchFromGitHub,
+  git,
+  libyang,
+  pkg-config,
+  stdenv
+}:
+stdenv.mkDerivation (finalAttrs: {
   name = "libyang-cpp";
   version = "v4";
-  src = pkgs.fetchFromGitHub {
+  src = fetchFromGitHub {
     owner = "CESNET";
     repo = "libyang-cpp";
     rev = finalAttrs.version;
     hash = "sha256-RoApm3gSNDRaC2hKmCAon2q9OVQQ8Xg4+NUNmb6aUT0=";
   };
-  nativeBuildInputs = with pkgs; [
+  nativeBuildInputs = [
     cmake
     pkg-config
     git

@@ -1,18 +1,28 @@
-{ pkgs }:
-pkgs.stdenv.mkDerivation (finalAttrs: {
+{
+  cmake,
+  curl,
+  fetchFromGitHub,
+  libssh,
+  libxcrypt,
+  libyang,
+  openssl,
+  pkg-config,
+  stdenv
+}:
+stdenv.mkDerivation (finalAttrs: {
   name = "libnetconf2";
   version = "v3.7.10";
-  src = pkgs.fetchFromGitHub {
+  src = fetchFromGitHub {
     owner = "CESNET";
     repo = "libnetconf2";
     rev = finalAttrs.version;
     hash = "sha256-lqJqrXWlOTtwvqNNM7JjU45daCj1I7+d19reQT9isK4=";
   };
-  nativeBuildInputs = with pkgs; [
+  nativeBuildInputs = [
     cmake
     pkg-config
   ];
-  buildInputs = with pkgs; [
+  buildInputs = [
     libyang
     libssh
     openssl

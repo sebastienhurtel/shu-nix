@@ -1,14 +1,27 @@
-{ pkgs }:
-pkgs.stdenv.mkDerivation (finalAttrs: {
+{
+  boost183,
+  cmake,
+  docopt_cpp,
+  fetchFromGitHub,
+  git,
+  libnetconf2,
+  libnetconf2-cpp,
+  libyang,
+  libyang-cpp,
+  pkg-config,
+  replxx,
+  stdenv,
+}:
+stdenv.mkDerivation (finalAttrs: {
   name = "netconf-cli";
   version = "v1";
-  src = pkgs.fetchFromGitHub {
+  src = fetchFromGitHub {
     owner = "CESNET";
     repo = "netconf-cli";
     rev = finalAttrs.version;
     hash = "sha256-DEzNt/LMYryusOM2jxTAsTrrEi3ps6gvtXoCy9zfkNI=";
   };
-  nativeBuildInputs = with pkgs; [
+  nativeBuildInputs = [
     boost183
     cmake
     docopt_cpp

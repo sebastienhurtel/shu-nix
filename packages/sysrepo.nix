@@ -1,19 +1,25 @@
-{ pkgs }:
+{
+  cmake,
+  fetchFromGitHub,
+  libyang,
+  pkg-config,
+  stdenv,
+}:
 
-pkgs.stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation (finalAttrs: {
   name = "sysrepo";
   version = "v3.7.11";
-  src = pkgs.fetchFromGitHub {
+  src = fetchFromGitHub {
     owner = "sysrepo";
     repo = "sysrepo";
     rev = finalAttrs.version;
     hash = "sha256-v3FXY33PuM4/TXH49M6JBKweIry17TxS2ksIBm9X9wg=";
   };
-  nativeBuildInputs = with pkgs; [
+  nativeBuildInputs = [
     cmake
     pkg-config
   ];
-  buildInputs = with pkgs; [ libyang ];
+  buildInputs = [ libyang ];
   cmakeFlags = [
     "-DCMAKE_INSTALL_PREFIX=${placeholder "out"}"
     "-DCMAKE_INSTALL_LIBDIR=lib"

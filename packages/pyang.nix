@@ -1,15 +1,15 @@
 {
-  pkgs,
+  fetchFromGitHub,
   lib,
+  python3Packages,
   ...
 }:
-with pkgs.python3Packages;
-buildPythonPackage rec {
+python3Packages.buildPythonPackage rec {
   pname = "pyang";
   version = "2.7.1";
   pyproject = true;
 
-  src = pkgs.fetchFromGitHub {
+  src = fetchFromGitHub {
     owner = "mbj4668";
     repo = pname;
     rev = version;
@@ -17,6 +17,7 @@ buildPythonPackage rec {
   };
   # setuptools is not needed if version > 2.6.1
   propagatedBuildInputs =
+    with python3Packages;
     if lib.versionOlder version "2.6.1" then
       [ lxml ]
     else
