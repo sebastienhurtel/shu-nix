@@ -93,7 +93,7 @@ in
     shu.home = {
       claude-code.enable = if wm != "headless" then true else false;
       dconf.enable = if wm == "gnome" then true else false;
-      emacs.enable = if wm != "headless" then true else true;
+      emacs.enable = if wm != "headless" then true else false;
       git.enable = true;
       shell.enable = true;
       stylix.enable = if wm != "headless" then true else false;
