@@ -1,3 +1,6 @@
+# -*- mode: snippet -*-
+# expand-var: ((yas-indent-line 'fixed))
+# --
 import argparse
 import logging
 import logging.handlers

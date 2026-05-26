@@ -261,8 +261,9 @@
       doom-modeline-github-interval t)
 
 ;; File templates
-(set-file-template! "/script\\.py$" :trigger "__script.py" :mode 'python-mode)
-(set-file-template! "/ansible\\.py$" :trigger "__ansible.py" :mode 'python-mode)
+(set-file-template! "/script\\.py$" :trigger "__script.py" :mode 'python-ts-mode)
+(set-file-template! "/ansible\\.py$" :trigger "__ansible.py" :mode 'python-ts-mode)
+(set-file-template! "/shumod\\.nix$" :trigger "__shumod.nix" :mode 'nix-ts-mode)
 
 ;; Corfu
 (setq corfu-auto-delay 0.0)
