@@ -1,14 +1,18 @@
 {
-  username,
   config,
   lib,
   pkgs,
+  username,
   ...
 }:
 let
   cfg = config.shu.hyprland;
+  noctaliaShell = "${
+    config.home-manager.users.${username}.programs.noctalia-shell.package
+  }/bin/noctalia-shell";
 
   toggleAnimationsScript = pkgs.writeShellScriptBin "toggleAnimations" ''
+    ${noctaliaShell} ipc call powerProfile toggleNoctaliaPerformance;
     HYPRGAMEMODE=$(${pkgs.hyprland}/bin/hyprctl getoption animations:enabled | awk 'NR==1{print $2}')
     if [ "$HYPRGAMEMODE" = 1 ] ; then
         ${pkgs.hyprland}/bin/hyprctl --batch "\
@@ -52,8 +56,8 @@ let
 
   binds = {
     bind = [
-      "$mod, E, exec, noctalia-shell ipc call launcher toggle"
-      "$mod, ESCAPE, exec, noctalia-shell ipc call lockScreen lock"
+      "$mod, E, exec, ${noctaliaShell} ipc call launcher toggle"
+      "$mod, ESCAPE, exec, ${noctaliaShell} ipc call lockScreen lock"
       "$mod, Q, killactive,"
       "$mod SHIFT, F, togglefloating,"
       "$mod, up, fullscreen, 1"
@@ -76,7 +80,7 @@ let
       "Control_L&SHIFT, j, movewindoworgroup, d"
       "$mod, page_up, workspace, -1"
       "$mod, page_down, workspace, +1"
-      "$mod, N, exec, noctalia-shell ipc call notifications toggleHistory"
+      "$mod, N, exec, ${noctaliaShell} ipc call notifications toggleHistory"
       ", Print, exec, ${pkgs.grimblast}/bin/grimblast --notify copysave area /home/${username}/Pictures/Screenshots/$(${pkgs.coreutils}/bin/coreutils --coreutils-prog=date --iso-8601=seconds).png"
       "SHIFT, Print, exec, ${pkgs.grimblast}/bin/grimblast --notify copysave output /home/${username}/Pictures/Screenshots/$(${pkgs.coreutils}/bin/coreutils --coreutils-prog=date --iso-8601=seconds).png"
       "$mod, A, exec, ${toggleAnimations}"
@@ -85,17 +89,17 @@ let
     ++ binds.workspaces;
 
     bindl = [
-      ", XF86AudioRaiseVolume, exec, noctalia-shell ipc call volume increase"
-      ", XF86AudioLowerVolume, exec, noctalia-shell ipc call volume decrease"
-      ", XF86AudioMute, exec, noctalia-shell ipc call volume muteOutput"
-      ", XF86AudioMicMute, exec, noctalia-shell ipc call volume muteInput"
-      ", XF86AudioPlay, exec, noctalia-shell ipc call media playPause"
-      ", XF86AudioNext, exec, noctalia-shell ipc call media next"
-      ", XF86AudioPrev, exec, noctalia-shell ipc call media previous"
+      ", XF86AudioRaiseVolume, exec, ${noctaliaShell} ipc call volume increase"
+      ", XF86AudioLowerVolume, exec, ${noctaliaShell} ipc call volume decrease"
+      ", XF86AudioMute, exec, ${noctaliaShell} ipc call volume muteOutput"
+      ", XF86AudioMicMute, exec, ${noctaliaShell} ipc call volume muteInput"
+      ", XF86AudioPlay, exec, ${noctaliaShell} ipc call media playPause"
+      ", XF86AudioNext, exec, ${noctaliaShell} ipc call media next"
+      ", XF86AudioPrev, exec, ${noctaliaShell} ipc call media previous"
       ", switch:off:Lid Switch, exec, ${pkgs.kanshi}/bin/kanshictl switch docked-lid-open"
       ", switch:on:Lid Switch, exec, ${pkgs.kanshi}/bin/kanshictl switch docked-lid-closed"
-      ", XF86MonBrightnessDown, exec, noctalia-shell ipc call brightness decrease"
-      ", XF86MonBrightnessUp, exec, noctalia-shell ipc call brightness increase"
+      ", XF86MonBrightnessDown, exec, ${noctaliaShell} ipc call brightness decrease"
+      ", XF86MonBrightnessUp, exec, ${noctaliaShell} ipc call brightness increase"
     ];
 
     workspaces = (
@@ -121,7 +125,7 @@ let
   ];
 
   exec-once = [
-    "uwsm app -- noctalia-shell"
+    "uwsm app -- ${noctaliaShell}"
     "uwsm app -- ${pkgs.emacs-pgtk}/bin/emacsclient -c"
     "uwsm app -- ${pkgs.alacritty}/bin/alacritty -e zsh -c 'tmux new-session -A -s 0'"
     "uwsm app -- ${pkgs.alacritty}/bin/alacritty -e zsh -c 'tmux new-session -A -s 1'"
