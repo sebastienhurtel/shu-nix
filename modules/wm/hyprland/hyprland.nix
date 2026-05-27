@@ -48,10 +48,13 @@ let
     "float,class:(yazi)"
     "centerwindow,class:(yazi)"
     "workspace special:yazi,class:^(yazi)$"
-    # workaround for chrome 
+    # workaround for chrome
     # "float, class:^$, title:^$"
     # "move 100%-w-20 55, class:^$, title:^$"
+    "float, class:^(org.gnome.Nautilus)$"
+    "size 50% 40%,, class:^(org.gnome.Nautilus)$"
     "float, class:^(xdg-desktop-portal-gtk)$"
+    "size 50% 40%, class:^(xdg-desktop-portal-gtk)$"
   ];
 
   binds = {
