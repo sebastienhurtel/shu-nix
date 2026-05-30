@@ -2,13 +2,13 @@
   description = "Shu's configurations";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -23,11 +23,9 @@
     };
 
     stylix = {
-      url = "github:danth/stylix/release-25.11";
+      url = "github:danth/stylix/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
 
     disko = {
       url = "github:nix-community/disko";

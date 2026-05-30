@@ -15,7 +15,6 @@ let
     ];
     app = {
       package = pkgs.unstable.claude-code;
-      runScript = "claude";
       env = {
         CLAUDE_CONFIG_DIR = "$HOME/.config/claude-code";
         SHELL = "${pkgs.bash}/bin/bash";
@@ -40,6 +39,12 @@ let
     dbus.enable = false;
     flatpak.enable = false;
   };
+  # Clear inherited/ambient caps before the bwrap call
+  claudeCodeNoCaps = pkgs.writeShellScriptBin "claude-code" ''
+    exec ${pkgs.util-linux}/bin/setpriv \
+      --ambient-caps=-all --inh-caps=-all \
+      -- ${wrappedClaudeCode}/bin/claude-code "$@"
+  '';
 in
 {
   options.shu.home.claude-code.enable = lib.mkEnableOption "Enable shu home claude-code";
@@ -47,7 +52,7 @@ in
     home-manager.users.${username} = {
       programs.claude-code = {
         enable = true;
-        package = wrappedClaudeCode;
+        package = claudeCodeNoCaps;
       };
     };
   };

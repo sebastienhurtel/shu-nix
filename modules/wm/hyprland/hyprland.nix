@@ -31,30 +31,73 @@ let
   toggleAnimations = lib.getExe toggleAnimationsScript;
 
   windowrule = [
-    "float, title:(rofi)"
-    "float, class:(nm-connection-editor)"
-    "float, class:((.*)Overskride(.*))"
-    "size 50% 40%, class:((.*)Overskride(.*))"
-    "float, class:(pwvucontrol)"
-    "size 45% 35%, class:(pwvucontrol)"
-    "float, class:(^.*copyq$)"
-    "size 45% 35%, class:(^.*copyq$)"
-    "workspace 1, class:^(emacs)$"
-    "move 10 54, class:^(emacs)$"
-    "workspace 1, initialTitle:^(Alacritty)$"
-    "workspace 2, class:^(google-chrome)$"
-    "workspace 3, class:^(firefox)$"
-    "workspace 4, class:^(steam)$"
-    "float,class:(yazi)"
-    "centerwindow,class:(yazi)"
-    "workspace special:yazi,class:^(yazi)$"
-    # workaround for chrome
-    # "float, class:^$, title:^$"
-    # "move 100%-w-20 55, class:^$, title:^$"
-    "float, class:^(org.gnome.Nautilus)$"
-    "size 50% 40%,, class:^(org.gnome.Nautilus)$"
-    "float, class:^(xdg-desktop-portal-gtk)$"
-    "size 50% 40%, class:^(xdg-desktop-portal-gtk)$"
+    {
+      name = "yazi";
+      match = {
+        class = "^(yazi)$";
+      };
+      animation = "popin";
+      float = true;
+    }
+    {
+      name = "nm-connection-editor";
+      match = {
+        class = "^(nm-connection-editor)$";
+      };
+      float = true;
+    }
+    {
+      name = "pwvucontrol";
+      match = {
+        class = "^(pwvucontrol)$";
+      };
+      float = true;
+    }
+    {
+      name = "overskride";
+      match = {
+        class = "^((.*)Overskride(.*))$";
+      };
+      float = true;
+    }
+    {
+      name = "nautilus";
+      match = {
+        class = "^(org.gnome.Nautilus)$";
+      };
+      float = true;
+    }
+    {
+      name = "xdg-desktop-portal-gtk";
+      match = {
+        class = "^(xdg-desktop-portal-gtk)$";
+      };
+      float = true;
+    }
+    {
+      name = "xdg-desktop-portal-gtk";
+      match = {
+        class = "^(xdg-desktop-portal-gtk)$";
+      };
+      float = true;
+    }
+  ];
+
+  workspacerule = [
+    {
+      name = "emacs";
+      match = {
+        class = "^(emacs)$";
+      };
+      workspace = "r[1]";
+    }
+    # "workspace 1, class:^(emacs)$"
+    # "move 10 54, class:^(emacs)$"
+    # "workspace 1, initialTitle:^(Alacritty)$"
+    # "workspace 2, class:^(google-chrome)$"
+    # "workspace 3, class:^(firefox)$"
+    # "workspace 4, class:^(steam)$"
+    # "workspace special:yazi,class:^(yazi)$"
   ];
 
   binds = {
@@ -204,8 +247,10 @@ in
       };
       wayland.windowManager.hyprland = {
         enable = true;
+        # conflict with UWSM
         systemd.enable = false;
         settings = {
+          inherit windowrule;
           "$mod" = "SUPER";
           exec-once = exec-once;
           bind = binds.bind;
@@ -234,8 +279,6 @@ in
             layout = "master";
           };
 
-          windowrule = windowrule;
-
           gesture = gestures;
 
           misc = {
@@ -246,7 +289,7 @@ in
             focus_on_activate = true;
             layers_hog_keyboard_focus = true;
             middle_click_paste = false;
-            new_window_takes_over_fullscreen = 2;
+#            new_window_takes_over_fullscreen = 2;
           };
 
           master = {
