@@ -12,7 +12,9 @@ in
   options.shu.hosts.deftones.system.enable = lib.mkEnableOption "Enable sebastien user";
   config = lib.mkIf cfg.enable {
     networking = {
-      wireless.enable = false;
+      # Since nixos-26.05 nm module set wireless.enable = true;
+      # mkForce to false
+      wireless.enable = lib. mkForce false;
       networkmanager.enable = true;
       firewall.trustedInterfaces = [ "virbr0" ];
     };
