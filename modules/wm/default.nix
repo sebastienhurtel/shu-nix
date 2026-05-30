@@ -25,8 +25,8 @@ in
       enable = true;
       dm = if cfg.manager == "gnome" then "gdm" else "greetd";
     };
-    shu.gnome.enable = if cfg.manager == "gnome" then true else false;
-    shu.hyprland.enable = if cfg.manager == "hyprland" then true else false;
-    shu.stylix.enable = if cfg.manager != "headless" then true else false;
+    shu.gnome.enable = cfg.manager == "gnome";
+    shu.hyprland.enable = cfg.manager == "hyprland";
+    shu.stylix.enable = cfg.manager != "headless";
   };
 }
