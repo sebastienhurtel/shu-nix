@@ -14,7 +14,7 @@ in
     networking = {
       # Since nixos-26.05 nm module set wireless.enable = true;
       # mkForce to false
-      wireless.enable = lib. mkForce false;
+      wireless.enable = lib.mkForce false;
       networkmanager.enable = true;
       firewall.trustedInterfaces = [ "virbr0" ];
     };
@@ -68,7 +68,6 @@ in
       };
     };
 
-    networking.firewall.allowedTCPPorts = [ 8384 ];
     systemd.services.syncthing.environment.STNODEFAULTFOLDER = "true";
 
     users.users.${username} = {

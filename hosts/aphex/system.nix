@@ -14,7 +14,7 @@ in
   options.shu.hosts.aphex.system.enable = lib.mkEnableOption "Enable sebastien user";
   config = lib.mkIf cfg.enable {
     networking = {
-      wireless.enable = false;
+      wireless.enable = lib.mkForce false;
       networkmanager.enable = true;
       usePredictableInterfaceNames = false;
       useDHCP = false;
