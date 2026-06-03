@@ -10,6 +10,6 @@ let
 in
 {
   "emailPro.age".publicKeys = users;
-  "plexClaim.age".publicKeys = users ++ systems;
+  "plexClaim.age".publicKeys = [ deftones ];
   "shScripts.age".publicKeys = users;
 }
