@@ -98,8 +98,8 @@ in
       services.emacs = {
         enable = true;
         package = emacs;
-        startWithUserSession = "graphical";
         client.enable = true;
+        socketActivation.enable = true;
       };
     };
   };
