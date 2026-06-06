@@ -2,12 +2,13 @@
 
 {
   imports = [
-    ./plex.nix
-    ./nfs.nix
-    ./nfs-client.nix
-    ./unbound.nix
     ./headscale.nix
-    ./syncthing.nix
     ./immich.nix
+    ./media.nix
+    ./nfs-client.nix
+    ./nfs.nix
+    ./plex.nix
+    ./syncthing.nix
+    ./unbound.nix
   ];
 }

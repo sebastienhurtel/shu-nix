@@ -35,6 +35,7 @@ in
       plex.enable = true;
       nfs.enable = true;
       unbound.enable = true;
+      media.enable = true;
     };
 
     services = {
