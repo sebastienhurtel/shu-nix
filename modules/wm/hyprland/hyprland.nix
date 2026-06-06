@@ -130,7 +130,7 @@ let
       ", Print, exec, ${pkgs.grimblast}/bin/grimblast --notify copysave area /home/${username}/Pictures/Screenshots/$(${pkgs.coreutils}/bin/coreutils --coreutils-prog=date --iso-8601=seconds).png"
       "SHIFT, Print, exec, ${pkgs.grimblast}/bin/grimblast --notify copysave output /home/${username}/Pictures/Screenshots/$(${pkgs.coreutils}/bin/coreutils --coreutils-prog=date --iso-8601=seconds).png"
       "$mod, A, exec, ${toggleAnimations}"
-      "$mod, F, exec, hyprctl dispatch togglespecialworkspace ${pkgs.alacritty}/bin/alacritty --class yazi -e ${pkgs.yazi}/bin/yazi || ${pkgs.alacritty}/bin/alacritty --class yazi -e ${pkgs.yazi}/bin/yazi"
+      "$mod, F, exec, hyprctl dispatch togglespecialworkspace ${pkgs.kitty}/bin/kitty --class yazi ${pkgs.yazi}/bin/yazi || ${pkgs.kitty}/bin/kitty --class yazi ${pkgs.yazi}/bin/yazi"
     ]
     ++ binds.workspaces;
 

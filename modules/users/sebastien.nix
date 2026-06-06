@@ -61,7 +61,9 @@ let
     libreoffice
     mpv
     plex-desktop
+    poppler
     pwvucontrol
+    resvg
     vlc
     wget
     wl-clipboard

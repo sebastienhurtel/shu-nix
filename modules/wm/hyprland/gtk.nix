@@ -20,7 +20,6 @@ in
           gtk-key-theme-name = "Emacs";
         };
         gtk4.extraConfig.gtk-key-theme-name = "Emacs";
-        gtk4.theme = null;
       };
     };
   };
