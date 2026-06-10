@@ -2,7 +2,6 @@
   config,
   lib,
   noctalia,
-  pkgs,
   self,
   username,
   ...
@@ -21,11 +20,7 @@ in
       programs.noctalia-shell = {
         inherit settings;
         enable = true;
-        package = (
-          noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default.override {
-            calendarSupport = true;
-          }
-        );
+        systemd.enable = true;
       };
     };
   };
