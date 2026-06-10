@@ -171,7 +171,7 @@ let
   ];
 
   exec-once = [
-    "uwsm app -- ${noctaliaShell}"
+#    "uwsm app -- ${noctaliaShell}"
     "uwsm app -- ${pkgs.emacs-pgtk}/bin/emacsclient -c"
     "uwsm app -- ${pkgs.alacritty}/bin/alacritty -e zsh -c 'tmux new-session -A -s 0'"
     "uwsm app -- ${pkgs.alacritty}/bin/alacritty -e zsh -c 'tmux new-session -A -s 1'"
