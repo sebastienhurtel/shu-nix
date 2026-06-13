@@ -1,14 +1,16 @@
 {
+  agenix,
   config,
   lib,
   pkgs,
+  self,
   ...
 }:
 let
   cfg = config.shu.services.media;
   containerInterface = "ve-media";
-  containerAddress = "192.168.254.251";
-  hostAddress = "192.168.254.250";
+  containerAddress = "192.168.254.250";
+  hostAddress = "192.168.254.249";
 in
 {
   options.shu.services.media = {
@@ -24,7 +26,12 @@ in
       enable = true;
       internalInterfaces = [ containerInterface ];
     };
+    age.secrets.media.file = "${self}/secrets/media.age";
     containers.media = {
+      bindMounts."/home/sebastien/.ssh/id_ecdsa_service_media" = {
+        hostPath = "/etc/ssh";
+        isReadOnly = true;
+      };
       autoStart = true;
       ephemeral = true;
       privateNetwork = true;
@@ -32,6 +39,9 @@ in
       hostAddress = "${hostAddress}";
       localAddress = "${containerAddress}";
       config ={
+        imports = [ agenix.nixosModules.default ];
+        age.identityPaths = [ "/etc/ssh/id_ecdsa_service_media" ];
+        age.secrets.media.file = "${self}/secrets/media.age";
         networking.useHostResolvConf = true;
         services = {
           tailscale.enable = true;

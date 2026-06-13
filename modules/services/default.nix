@@ -10,5 +10,6 @@
     ./plex.nix
     ./syncthing.nix
     ./unbound.nix
+    ./exit.nix
   ];
 }

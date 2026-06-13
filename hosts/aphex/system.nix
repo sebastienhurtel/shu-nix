@@ -29,8 +29,9 @@ in
     security.pam.services.su.forwardXAuth = lib.mkForce false;
     fonts.fontconfig.enable = false;
 
-    shu.services.headscale = {
-      enable = true;
+    shu.services ={
+      headscale.enable = true;
+      exitNode.enable = true;
     };
 
     services = {
@@ -39,7 +40,8 @@ in
         settings.PasswordAuthentication = false;
         openFirewall = true;
       };
-      avahi.enable = lib.mkForce false;
+      avahi.enable = false;
+      tailscale.enable = false;
     };
     users.users = {
       root = {

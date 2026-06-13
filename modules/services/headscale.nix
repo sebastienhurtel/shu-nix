@@ -53,6 +53,7 @@ in
             containerPort
           ];
         };
+
         services = {
           resolved.enable = true;
           headscale = {
@@ -69,7 +70,6 @@ in
                 ];
                 #                base_domain = "${baseDomain}";
               };
-              derp.server.enabled = false;
               acme_url = "https://acme-v02.api.letsencrypt.org/directory";
               acme_email = "sebastienhurtel+acme@gmail.com";
               tls_letsencrypt_hostname = "aphex.shurtel.fr";
