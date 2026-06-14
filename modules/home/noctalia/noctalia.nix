@@ -8,7 +8,7 @@
 }:
 let
   cfg = config.shu.home.noctalia;
-  settings = lib.importJSON "${self}/modules/home/noctalia/noctalia.json";
+  settings = lib.importTOML "${self}/modules/home/noctalia/noctalia-config.toml";
 in
 {
   options.shu.home.noctalia.enable = lib.mkEnableOption "Enable Shu Noctalia";
@@ -17,7 +17,7 @@ in
       imports = [
         noctalia.homeModules.default
       ];
-      programs.noctalia-shell = {
+      programs.noctalia = {
         inherit settings;
         enable = true;
         systemd.enable = true;

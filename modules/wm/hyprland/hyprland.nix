@@ -8,11 +8,11 @@
 let
   cfg = config.shu.hyprland;
   noctaliaShell = "${
-    config.home-manager.users.${username}.programs.noctalia-shell.package
-  }/bin/noctalia-shell";
+    config.home-manager.users.${username}.programs.noctalia.package
+  }/bin/noctalia";
 
   toggleAnimationsScript = pkgs.writeShellScriptBin "toggleAnimations" ''
-    ${noctaliaShell} ipc call powerProfile toggleNoctaliaPerformance;
+    ${noctaliaShell} msg call powerProfile toggleNoctaliaPerformance;
     HYPRGAMEMODE=$(${pkgs.hyprland}/bin/hyprctl getoption animations:enabled | awk 'NR==1{print $2}')
     if [ "$HYPRGAMEMODE" = 1 ] ; then
         ${pkgs.hyprland}/bin/hyprctl --batch "\
@@ -102,8 +102,8 @@ let
 
   binds = {
     bind = [
-      "$mod, E, exec, ${noctaliaShell} ipc call launcher toggle"
-      "$mod, ESCAPE, exec, ${noctaliaShell} ipc call lockScreen lock"
+      "$mod, E, exec, ${noctaliaShell} msg panel-toggle launcher"
+      "$mod, ESCAPE, exec, ${noctaliaShell} msg session lock"
       "$mod, Q, killactive,"
       "$mod SHIFT, F, togglefloating,"
       "$mod, up, fullscreen, 1"
@@ -126,7 +126,7 @@ let
       "Control_L&SHIFT, j, movewindoworgroup, d"
       "$mod, page_up, workspace, -1"
       "$mod, page_down, workspace, +1"
-      "$mod, N, exec, ${noctaliaShell} ipc call notifications toggleHistory"
+      "$mod, N, exec, ${noctaliaShell} msg call notifications toggleHistory"
       ", Print, exec, ${pkgs.grimblast}/bin/grimblast --notify copysave area /home/${username}/Pictures/Screenshots/$(${pkgs.coreutils}/bin/coreutils --coreutils-prog=date --iso-8601=seconds).png"
       "SHIFT, Print, exec, ${pkgs.grimblast}/bin/grimblast --notify copysave output /home/${username}/Pictures/Screenshots/$(${pkgs.coreutils}/bin/coreutils --coreutils-prog=date --iso-8601=seconds).png"
       "$mod, A, exec, ${toggleAnimations}"
@@ -135,17 +135,17 @@ let
     ++ binds.workspaces;
 
     bindl = [
-      ", XF86AudioRaiseVolume, exec, ${noctaliaShell} ipc call volume increase"
-      ", XF86AudioLowerVolume, exec, ${noctaliaShell} ipc call volume decrease"
-      ", XF86AudioMute, exec, ${noctaliaShell} ipc call volume muteOutput"
-      ", XF86AudioMicMute, exec, ${noctaliaShell} ipc call volume muteInput"
-      ", XF86AudioPlay, exec, ${noctaliaShell} ipc call media playPause"
-      ", XF86AudioNext, exec, ${noctaliaShell} ipc call media next"
-      ", XF86AudioPrev, exec, ${noctaliaShell} ipc call media previous"
+      ", XF86AudioRaiseVolume, exec, ${noctaliaShell} msg volume-up"
+      ", XF86AudioLowerVolume, exec, ${noctaliaShell} msg volume-down"
+      ", XF86AudioMute, exec, ${noctaliaShell} msg volume-mute"
+      ", XF86AudioMicMute, exec, ${noctaliaShell} msg mic-mute"
+      ", XF86AudioPlay, exec, ${noctaliaShell} msg media toggle"
+      ", XF86AudioNext, exec, ${noctaliaShell} msg media next"
+      ", XF86AudioPrev, exec, ${noctaliaShell} msg media previous"
       ", switch:off:Lid Switch, exec, ${pkgs.kanshi}/bin/kanshictl switch docked-lid-open"
       ", switch:on:Lid Switch, exec, ${pkgs.kanshi}/bin/kanshictl switch docked-lid-closed"
-      ", XF86MonBrightnessDown, exec, ${noctaliaShell} ipc call brightness decrease"
-      ", XF86MonBrightnessUp, exec, ${noctaliaShell} ipc call brightness increase"
+      ", XF86MonBrightnessUp, exec, ${noctaliaShell} msg brightness-up"
+      ", XF86MonBrightnessDown, exec, ${noctaliaShell} msg brightness-down"
     ];
 
     workspaces = (

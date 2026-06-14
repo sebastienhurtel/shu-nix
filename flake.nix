@@ -23,7 +23,7 @@
     };
 
     stylix = {
-      url = "github:danth/stylix/release-26.05";
+      url = "github:nix-community/stylix/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -33,7 +33,7 @@
     };
 
     noctalia = {
-      url = "github:noctalia-dev/noctalia-shell/v4.7.7";
+      url = "github:noctalia-dev/noctalia";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
