@@ -90,6 +90,7 @@ in
         openFirewall = true;
         drivers = with pkgs; [
           dcp9020cdw-cupswrapper
+          cups-filters
         ];
       };
       pipewire = {

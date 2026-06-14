@@ -38,10 +38,7 @@
     sane = {
       enable = true;
       openFirewall = true;
-      extraBackends = [
-        pkgs.sane-airscan
-        pkgs.sane-backends
-      ];
+      brscan4.enable = true;
     };
     cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
     graphics = {
