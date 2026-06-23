@@ -24,7 +24,7 @@
 
        :ui
        doom
-       doom-dashboard
+       dashboard
        doom-quit
        (emoji +unicode)
        hl-todo
