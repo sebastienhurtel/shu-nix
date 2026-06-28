@@ -57,6 +57,7 @@ in
         services = {
           resolved.enable = true;
           headscale = {
+            package = pkgs.unstable.headscale;
             enable = true;
             port = containerPort;
             address = "0.0.0.0";
