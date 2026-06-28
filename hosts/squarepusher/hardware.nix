@@ -34,11 +34,21 @@
     extraModulePackages = [ ];
     kernelPackages = pkgs.linuxPackages_latest;
   };
+  services.udev.packages = [ pkgs.sane-airscan ];
   hardware = {
     sane = {
       enable = true;
       openFirewall = true;
-      brscan4.enable = true;
+      extraBackends = [ pkgs.sane-airscan ];
+      brscan4 = {
+        enable = true;
+        netDevices = {
+          home = {
+            model = "DCP-9020CDW";
+            ip = "192.168.1.7";
+          };
+        };
+      };
     };
     cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
     graphics = {
