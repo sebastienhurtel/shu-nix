@@ -21,6 +21,7 @@ in
     };
   };
 
+  imports = [ agenix.nixosModules.default ];
   config = lib.mkIf cfg.enable {
     networking.nat = {
       enable = true;
@@ -28,23 +29,25 @@ in
     };
     age.secrets.media.file = "${self}/secrets/media.age";
     containers.media = {
-      bindMounts."/home/sebastien/.ssh/id_ecdsa_service_media" = {
-        hostPath = "/etc/ssh";
-        isReadOnly = true;
-      };
       autoStart = true;
       ephemeral = true;
       privateNetwork = true;
       enableTun = true;
       hostAddress = "${hostAddress}";
       localAddress = "${containerAddress}";
-      config ={
-        imports = [ agenix.nixosModules.default ];
-        age.identityPaths = [ "/etc/ssh/id_ecdsa_service_media" ];
-        age.secrets.media.file = "${self}/secrets/media.age";
-        networking.useHostResolvConf = true;
+      bindMounts."${config.age.secrets.media.path}".isReadOnly = true;
+      config = {
+        networking.useHostResolvConf = false;
         services = {
-          tailscale.enable = true;
+          resolved.enable = true;
+          tailscale = {
+            enable = true;
+#            authKeyFile = config.age.secrets.media.path;
+#            extraUpFlags = [
+#              "--login-server=https://aphex.shurtel.fr"
+#              "--accept-dns=false"
+#            ];
+          };
           transmission.enable = true;
           transmission.package = pkgs.transmission_4;
         };
