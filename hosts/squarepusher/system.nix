@@ -18,7 +18,7 @@ in
         openssl
         passh
         powertop
-        python313
+        python3
         simple-scan
         virt-manager
       ];
