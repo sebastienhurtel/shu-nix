@@ -54,7 +54,6 @@ let
 
   ui-packages = with pkgs; [
     audacity
-    darktable
     firefox
     google-chrome
     imagemagick
