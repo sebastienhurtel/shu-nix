@@ -61,7 +61,7 @@ in
           postgresql.enable = true;
           immich = {
             enable = true;
-            package = pkgs.unstable.immich;
+            package = pkgs.immich;
             openFirewall = true;
             port = hostPort;
             mediaLocation = "/photos";

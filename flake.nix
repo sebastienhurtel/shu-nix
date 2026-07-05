@@ -48,6 +48,7 @@
         config.allowUnfree = true;
         overlays = [
           (import ./overlays inputs)
+          (import ./overlays/immich.nix)
           nix-bwrapper.overlays.default
         ];
       };
