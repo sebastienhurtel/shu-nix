@@ -53,7 +53,7 @@ in
       plugins = [ pkgs.networkmanager_strongswan ];
     };
 
-    # needed by Flatpak
+    # required for Flatpak
     xdg.portal.enable = true;
 
     shu.services.nfsClient.enable = true;

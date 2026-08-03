@@ -33,7 +33,7 @@
        nav-flash
        ophints
        (popup +all +defaults)
-       (treemacs +lsp)
+       treemacs
        unicode
        vc-gutter
        vi-tilde-fringe
@@ -71,7 +71,7 @@
        (eval +overlay)
        llm
        (lookup +docsets)
-       (lsp +peek)
+       (lsp +peek +eglot)
        magit
        pass
        pdf
