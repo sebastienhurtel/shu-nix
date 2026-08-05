@@ -7,9 +7,7 @@
 }:
 let
   cfg = config.shu.hyprland;
-  noctaliaShell = "${
-    config.home-manager.users.${username}.programs.noctalia.package
-  }/bin/noctalia";
+  noctaliaShell = "${config.home-manager.users.${username}.programs.noctalia.package}/bin/noctalia";
 
   toggleAnimationsScript = pkgs.writeShellScriptBin "toggleAnimations" ''
     ${noctaliaShell} msg call powerProfile toggleNoctaliaPerformance;
@@ -171,7 +169,7 @@ let
   ];
 
   exec-once = [
-#    "uwsm app -- ${noctaliaShell}"
+    #    "uwsm app -- ${noctaliaShell}"
     "uwsm app -- ${pkgs.emacs-pgtk}/bin/emacsclient -c"
     "uwsm app -- ${pkgs.alacritty}/bin/alacritty -e zsh -c 'tmux new-session -A -s 0'"
     "uwsm app -- ${pkgs.alacritty}/bin/alacritty -e zsh -c 'tmux new-session -A -s 1'"
@@ -182,10 +180,6 @@ in
 {
   options.shu.hyprland.enable = lib.mkEnableOption "Enable shuHyprland";
   config = lib.mkIf cfg.enable {
-    services.gnome = {
-      gcr-ssh-agent.enable = true;
-      evolution-data-server.enable = true;
-    };
     programs = {
       uwsm.package = pkgs.uwsm;
       hyprland = {
@@ -206,6 +200,10 @@ in
     services = {
       logind.settings.Login.HandlePowerKey = "suspend";
       upower.enable = true;
+      gnome = {
+        gcr-ssh-agent.enable = true;
+        evolution-data-server.enable = true;
+      };
     };
     shu = {
       gtk.enable = true;
@@ -215,7 +213,6 @@ in
       waybar.enable = false;
       swaync.enable = false;
       home = {
-        khal.enable = true;
         kanshi.enable = true;
         noctalia.enable = true;
       };
@@ -290,7 +287,7 @@ in
             focus_on_activate = true;
             layers_hog_keyboard_focus = true;
             middle_click_paste = false;
-#            new_window_takes_over_fullscreen = 2;
+            #            new_window_takes_over_fullscreen = 2;
           };
 
           master = {
