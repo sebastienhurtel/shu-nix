@@ -458,7 +458,6 @@ widget_order = [
         show_caps_lock = true
         show_keyboard_layout = true
         show_login_button = true
-        show_password_hint = true
 
     [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
     box_height = 96.0
@@ -474,7 +473,6 @@ widget_order = [
         show_caps_lock = true
         show_keyboard_layout = true
         show_login_button = true
-        show_password_hint = true
 
     [lockscreen_widgets.widget.lockscreen-widget-0000000000000001]
     box_height = 160.0
@@ -800,7 +798,6 @@ show_label = false
 
 [widget.workspaces]
 anchor = false
-display = "name"
 focused_output_only = true
 hide_when_empty = false
 labels_only_when_occupied = false
