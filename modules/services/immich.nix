@@ -26,22 +26,34 @@ in
       privateNetwork = true;
       hostAddress = "${hostAddress}";
       localAddress = "${containerAddress}";
-      bindMounts."/etc/localtime" = {
-        hostPath = "/etc/localtime";
-        isReadOnly = true;
+      bindMounts = {
+        "/etc/localtime" = {
+          hostPath = "/etc/localtime";
+          isReadOnly = true;
+        };
+        "/photos" = {
+          hostPath = "/data/photos/immich";
+          isReadOnly = false;
+        };
+        "/usr/src/app/upload" = {
+          hostPath = "/data/photos/immich/upload";
+          isReadOnly = false;
+        };
+        "/var/lib/postgresql" = {
+          hostPath = "/var/lib/postgresql";
+          isReadOnly = false;
+        };
+        "/dev/dri" = {
+          hostPath = "/dev/dri";
+          isReadOnly = false;
+        };
       };
-      bindMounts."/photos" = {
-        hostPath = "/data/photos/immich";
-        isReadOnly = false;
-      };
-      bindMounts."/usr/src/app/upload" = {
-        hostPath = "/data/photos/immich/upload";
-        isReadOnly = false;
-      };
-      bindMounts."/var/lib/postgresql" = {
-        hostPath = "/var/lib/postgresql";
-        isReadOnly = false;
-      };
+      allowedDevices = [
+        {
+          node = "/dev/dri/renderD128";
+          modifier = "rw";
+        }
+      ];
       forwardPorts = [
         {
           protocol = "tcp";
@@ -69,6 +81,7 @@ in
             environment = {
               IMMICH_INSTANCE_URL = "http://192.168.1.250:2283/api";
             };
+            accelerationDevices = [ "/dev/dri/renderD128" ];
           };
         };
         users.users.immich = {
