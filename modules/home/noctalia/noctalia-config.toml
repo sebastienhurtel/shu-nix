@@ -430,6 +430,8 @@ wallpaper = "/home/sebastien/.dotfiles/wallpaper.png"
 enabled = true
 schema_version = 2
 widget_order = [
+    "lockscreen-login-box@DP-12",
+    "lockscreen-login-box@DP-11",
     "lockscreen-widget-0000000000000005",
     "lockscreen-login-box@eDP-1",
     "lockscreen-login-box@DP-10",
@@ -445,34 +447,102 @@ widget_order = [
     visible = true
 
     [lockscreen_widgets.widget."lockscreen-login-box@DP-10"]
-    box_height = 70.0
-    box_width = 400.0
+    box_height = 196.0
+    box_width = 720.0
     cx = 1280.0
     cy = 1317.0
     output = "DP-10"
+    placement_height = 1440.0
+    placement_width = 2560.0
     rotation = 0.0
     type = "login_box"
 
         [lockscreen_widgets.widget."lockscreen-login-box@DP-10".settings]
         center_password_text = false
+        layout = "regular"
         show_caps_lock = true
         show_keyboard_layout = true
         show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-11"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 1280.0
+    cy = 1258.0
+    output = "DP-11"
+    placement_height = 1440.0
+    placement_width = 2560.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-11".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-12"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 1280.0
+    cy = 1258.0
+    output = "DP-12"
+    placement_height = 0.0
+    placement_width = 0.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-12".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
 
     [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
-    box_height = 96.0
-    box_width = 480.0
+    box_height = 196.0
+    box_width = 720.0
     cx = 960.0
     cy = 1016.0
     output = "eDP-1"
+    placement_height = 1200.0
+    placement_width = 1920.0
     rotation = 0.0
     type = "login_box"
 
         [lockscreen_widgets.widget."lockscreen-login-box@eDP-1".settings]
         center_password_text = true
+        layout = "regular"
         show_caps_lock = true
         show_keyboard_layout = true
         show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
 
     [lockscreen_widgets.widget.lockscreen-widget-0000000000000001]
     box_height = 160.0
@@ -480,6 +550,8 @@ widget_order = [
     cx = 936.0
     cy = 280.0
     output = "eDP-1"
+    placement_height = 1200.0
+    placement_width = 1920.0
     rotation = 0.0
     type = "clock"
 
@@ -494,6 +566,8 @@ widget_order = [
     cx = 1744.0
     cy = 144.0
     output = "eDP-1"
+    placement_height = 1200.0
+    placement_width = 1920.0
     rotation = 0.0
     type = "media_player"
 
@@ -507,6 +581,8 @@ widget_order = [
     cx = 1746.0
     cy = 532.0
     output = "eDP-1"
+    placement_height = 1200.0
+    placement_width = 1920.0
     rotation = 0.0
     type = "weather"
 
@@ -520,6 +596,8 @@ widget_order = [
     cx = 1744.0
     cy = 284.0
     output = "eDP-1"
+    placement_height = 1200.0
+    placement_width = 1920.0
     rotation = -0.0
     type = "audio_visualizer"
 
@@ -533,6 +611,8 @@ widget_order = [
     cx = 1744.0
     cy = 408.0
     output = "eDP-1"
+    placement_height = 1200.0
+    placement_width = 1920.0
     rotation = 0.0
     type = "sysmon"
 
@@ -722,8 +802,10 @@ enableUserTheming = false
 
 [theme]
 builtin = "Tokyo-Night"
-mode = "auto"
-source = "community"
+community_palette = "Oxocarbon"
+mode = "dark"
+source = "builtin"
+wallpaper_scheme = "m3-content"
 
     [theme.templates]
     builtin_ids = [ "kitty" ]
@@ -799,6 +881,8 @@ show_label = false
 [widget.workspaces]
 anchor = false
 focused_output_only = true
-hide_when_empty = false
+hide_when_empty = true
 labels_only_when_occupied = false
+max_label_chars = 12
+show_labels = false
 style = "focus_hint"
