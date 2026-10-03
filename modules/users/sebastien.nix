@@ -125,14 +125,16 @@ in
 
       programs = {
         home-manager.enable = true;
-        nix-index.enable = true;
-        nix-index.enableZshIntegration = true;
-        nix-index-database.comma.enable = true;
         yazi = {
           enable = true;
           enableZshIntegration = true;
           shellWrapperName = "y";
         };
+        nix-index = {
+          enable = true;
+          enableZshIntegration = true;
+        };
+        nix-index-database.comma.enable = true;
       };
 
       services = {
