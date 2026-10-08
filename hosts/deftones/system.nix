@@ -48,12 +48,12 @@ in
       syncthing = {
         enable = true;
         openDefaultPorts = true;
-        guiAddress = "100.64.0.4:8384";
+        guiAddress = "100.64.0.3:8384";
         settings = {
           devices.squarepusher = {
             autoAcceptFolders = true;
             addresses = [
-              "tcp://100.64.0.3:22000"
+              "tcp://100.64.0.2:22000"
             ];
             id = "34TQTWK-YQZSJRF-4DCRH65-ULWYVRD-PWJRBV2-OAGBPO5-6H3WZY7-IGNSNQX";
           };

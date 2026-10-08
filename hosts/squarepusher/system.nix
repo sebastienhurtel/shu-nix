@@ -115,7 +115,7 @@ in
         settings = {
           devices.deftones = {
             addresses = [
-              "tcp://100.64.0.4:22000"
+              "tcp://100.64.0.3:22000"
             ];
             id = "VHHCLVW-W3VTEAY-X4OXNAF-EEZJ6C2-O57ZPEC-2NU73WV-2WSERQV-BZBRJAY";
           };
