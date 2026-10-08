@@ -51,7 +51,7 @@ in
           };
           transmission = {
             enable = true;
-            transmission.package = pkgs.transmission_4;
+            package = pkgs.transmission_4;
           };
         };
         system.stateVersion = config.system.stateVersion;
