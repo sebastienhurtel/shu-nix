@@ -64,17 +64,46 @@ in
             settings = {
               server_url = "https://${fqdn}:${toString containerPort}";
               dns = {
-                magic_dns = false;
+                magic_dns = true;
                 nameservers.global = [
                   "45.90.28.29"
                   "45.90.30.29"
                 ];
-                #                base_domain = "${baseDomain}";
+                base_domain = "ts.${baseDomain}";
               };
               acme_url = "https://acme-v02.api.letsencrypt.org/directory";
               acme_email = "sebastienhurtel+acme@gmail.com";
               tls_letsencrypt_hostname = "aphex.shurtel.fr";
               tls_letsencrypt_challenge_type = "TLS-ALPN-01";
+              policy = {
+                mode = "file";
+                path = pkgs.writeText "policy.hujson" (
+                  builtins.toJSON {
+                    tagOwners = {
+                      "tag:media" = [ "shu@" ];
+                      "tag:exit" = [ "shu@" ];
+                    };
+                    autoApprovers.exitNode = [ "tag:exit" ];
+                    grants = [
+                      {
+                        src = [ "tag:media" ];
+                        dst = [
+                          "autogroup:internet"
+                        ];
+                        ip = [ "*" ];
+                      }
+                      {
+                        src = [ "shu@" ];
+                        dst = [
+                          "autogroup:internet"
+                          "autogroup:self"
+                        ];
+                        ip = [ "*" ];
+                      }
+                    ];
+                  }
+                );
+              };
             };
           };
         };

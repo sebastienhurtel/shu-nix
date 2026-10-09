@@ -28,6 +28,7 @@ in
       internalInterfaces = [ containerInterface ];
     };
     age.secrets.media.file = "${self}/secrets/media.age";
+    systemd.tmpfiles.rules = [ "d /var/lib/tailscale-media 0700 root root -" ];
     containers.media = {
       autoStart = true;
       ephemeral = true;
@@ -35,9 +36,16 @@ in
       enableTun = true;
       hostAddress = "${hostAddress}";
       localAddress = "${containerAddress}";
-      bindMounts."${config.age.secrets.media.path}".isReadOnly = true;
+      bindMounts = {
+        "${config.age.secrets.media.path}".isReadOnly = true;
+        "/var/lib/tailscale" = {
+          hostPath = "/var/lib/tailscale-media";
+          isReadOnly = false;
+        };
+      };
       config = {
         networking.useHostResolvConf = false;
+        systemd.services.tailscaled-autoconnect.serviceConfig.Type = lib.mkForce "exec";
         services = {
           resolved.enable = true;
           tailscale = {
@@ -45,8 +53,8 @@ in
             authKeyFile = config.age.secrets.media.path;
             extraUpFlags = [
               "--login-server=https://aphex.shurtel.fr"
-              "--accept-dns=false"
-              "--advertise-tags=tag:media"
+              "--exit-node=100.64.0.7"
+              "--exit-node-allow-lan-access"
             ];
           };
           transmission = {

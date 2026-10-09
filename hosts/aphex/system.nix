@@ -23,13 +23,15 @@ in
     security.acme.defaults.dnsResolver = "1.1.1.1:53";
     boot.kernel.sysctl = {
       "net.ipv6.conf.eth0.accept_ra" = 0;
+      "net.ipv4.ip_forward" = 1;
+      "net.ipv6.conf.all.forwarding" = 1;
     };
     # disable X
     programs.ssh.setXAuthLocation = false;
     security.pam.services.su.forwardXAuth = lib.mkForce false;
     fonts.fontconfig.enable = false;
 
-    shu.services ={
+    shu.services = {
       headscale.enable = true;
       exitNode.enable = true;
     };
