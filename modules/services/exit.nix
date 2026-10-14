@@ -69,6 +69,7 @@ in
             enable = true;
             useRoutingFeatures = "server";
             authKeyFile = config.age.secrets.exit.path;
+            extraDaemonFlags = [ "--no-logs-no-support" ];
             extraUpFlags = [
               "--login-server=https://aphex.shurtel.fr"
               "--advertise-exit-node"

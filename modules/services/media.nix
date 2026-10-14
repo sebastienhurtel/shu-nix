@@ -51,6 +51,7 @@ in
           tailscale = {
             enable = true;
             authKeyFile = config.age.secrets.media.path;
+            extraDaemonFlags = [ "--no-logs-no-support" ];
             extraUpFlags = [
               "--login-server=https://aphex.shurtel.fr"
               "--exit-node=100.64.0.7"

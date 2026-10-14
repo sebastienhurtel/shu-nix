@@ -77,7 +77,10 @@ in
       };
       fwupd.enable = lib.mkDefault true;
       resolved.enable = lib.mkDefault true;
-      tailscale.enable = lib.mkDefault true;
+      tailscale = {
+        enable = lib.mkDefault true;
+        extraDaemonFlags = [ "--no-logs-no-support" ];
+      };
     };
   };
 }
