@@ -304,7 +304,6 @@ launcherIcon = ""
 launcherIconColor = "none"
 launcherPosition = "end"
 launcherUseDistroLogo = false
-monitors = []
 onlySameOutput = true
 pinnedApps = []
 pinnedStatic = false
@@ -881,7 +880,7 @@ show_label = false
 [widget.workspaces]
 anchor = false
 focused_output_only = true
-hide_when_empty = true
+hide_when_empty = false
 labels_only_when_occupied = false
 max_label_chars = 12
 show_labels = false
