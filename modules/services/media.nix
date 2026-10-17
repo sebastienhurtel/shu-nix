@@ -65,9 +65,16 @@ in
         containerPort = port;
       }) ports;
       config = {
-        networking.useHostResolvConf = false;
+        networking = {
+          useHostResolvConf = false;
+          hosts."45.90.162.252" = [ "aphex.shurtel.fr" ];
+          firewall.allowedTCPPorts = lib.mapAttrsToList (_: port: [ port ]) ports;
+        };
         systemd.services = {
-          tailscaled-autoconnect.serviceConfig.Type = lib.mkForce "exec";
+          tailscaled-autoconnect.serviceConfig = {
+            Type = lib.mkForce "exec";
+            NotifyAccess = "main";
+          };
           lan-route = {
             description = "Route LAN outside of tailscale exit node";
             wantedBy = [ "multi-user.target" ];
