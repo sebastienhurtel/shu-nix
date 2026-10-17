@@ -7,7 +7,9 @@
 }:
 let
   cfg = config.shu.services.plex;
-  volumePath = "${config.home-manager.users.sebastien.home.homeDirectory}/git/pms-docker";
+  stateDir = "/var/lib/plex";
+  uid = toString config.ids.uids.plex;
+  gid = toString config.ids.gids.users;
 in
 {
   imports = [ agenix.nixosModules.default ];
@@ -15,6 +17,17 @@ in
 
   config = lib.mkIf cfg.enable {
     age.secrets.plexClaim.file = "${self}/secrets/plexClaim.age";
+
+    users.users.plex = {
+      isSystemUser = true;
+      uid = config.ids.uids.plex;
+      group = "users";
+    };
+    systemd.tmpfiles.rules = [
+      "d ${stateDir} 0750 ${uid} ${gid} -"
+      "d ${stateDir}/config 0750 ${uid} ${gid} -"
+      "d ${stateDir}/transcode 0750 ${uid} ${gid} -"
+    ];
 
     networking = {
       firewall.allowedTCPPorts = [
@@ -38,18 +51,18 @@ in
         image = "lscr.io/linuxserver/plex:latest";
         environment = {
           TZ = " Europe/Paris ";
-          PUID = "1000";
-          PGID = "100";
+          PUID = uid;
+          PGID = gid;
           VERSION = "docker";
         };
         environmentFiles = [ config.age.secrets.plexClaim.path ];
         volumes = [
-          "${volumePath}/config:/config"
-          "${volumePath}/transcode:/transcode"
-          "/data/movies:/movies"
-          "/data/photos:/photos"
-          "/data/series:/series"
-          "/data/music:/music"
+          "${stateDir}/config:/config"
+          "${stateDir}/transcode:/transcode"
+          "/data/movies:/movies:ro"
+          "/data/photos:/photos:ro"
+          "/data/series:/series:ro"
+          "/data/music:/music:ro"
 
         ];
         devices = [
