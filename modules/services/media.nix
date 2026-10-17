@@ -11,6 +11,13 @@ let
   containerInterface = "ve-media";
   containerAddress = "192.168.254.250";
   hostAddress = "192.168.254.249";
+  lanSubnet = "192.168.1.0/24";
+  ports = {
+    transmission = 9091;
+    radarr = 7878;
+    sonarr = 8989;
+    prowlarr = 9696;
+  };
 in
 {
   options.shu.services.media = {
@@ -28,24 +35,51 @@ in
       internalInterfaces = [ containerInterface ];
     };
     age.secrets.media.file = "${self}/secrets/media.age";
-    systemd.tmpfiles.rules = [ "d /var/lib/tailscale-media 0700 root root -" ];
+    systemd.tmpfiles.rules = [
+      "d /data/downloads 2775 ${toString config.ids.uids.transmission} ${toString config.ids.gids.users} -"
+    ];
     containers.media = {
       autoStart = true;
-      ephemeral = true;
       privateNetwork = true;
       enableTun = true;
       hostAddress = "${hostAddress}";
       localAddress = "${containerAddress}";
       bindMounts = {
         "${config.age.secrets.media.path}".isReadOnly = true;
-        "/var/lib/tailscale" = {
-          hostPath = "/var/lib/tailscale-media";
+        "/data/downloads" = {
+          hostPath = "/data/downloads";
+          isReadOnly = false;
+        };
+        "/data/movies" = {
+          hostPath = "/data/movies";
+          isReadOnly = false;
+        };
+        "/data/series" = {
+          hostPath = "/data/series";
           isReadOnly = false;
         };
       };
+      forwardPorts = lib.mapAttrsToList (_: port: {
+        protocol = "tcp";
+        hostPort = port;
+        containerPort = port;
+      }) ports;
       config = {
         networking.useHostResolvConf = false;
-        systemd.services.tailscaled-autoconnect.serviceConfig.Type = lib.mkForce "exec";
+        systemd.services = {
+          tailscaled-autoconnect.serviceConfig.Type = lib.mkForce "exec";
+          lan-route = {
+            description = "Route LAN outside of tailscale exit node";
+            wantedBy = [ "multi-user.target" ];
+            before = [ "tailscaled.service" ];
+            serviceConfig = {
+              Type = "oneshot";
+              RemainAfterExit = true;
+              ExecStart = "${pkgs.iproute2}/bin/ip rule add to ${lanSubnet} lookup main priority 5200";
+              ExecStop = "${pkgs.iproute2}/bin/ip rule del to ${lanSubnet} lookup main priority 5200";
+            };
+          };
+        };
         services = {
           resolved.enable = true;
           tailscale = {
@@ -61,6 +95,35 @@ in
           transmission = {
             enable = true;
             package = pkgs.transmission_4;
+            group = "users";
+            openRPCPort = true;
+            settings = {
+              rpc-port = ports.transmission;
+              download-dir = "/data/downloads/complete";
+              incomplete-dir = "/data/downloads/incomplete";
+              incomplete-dir-enabled = true;
+              umask = "002";
+              rpc-bind-address = "0.0.0.0";
+              rpc-whitelist = "127.0.0.1,192.168.1.*";
+              rpc-host-whitelist = config.networking.hostName;
+            };
+          };
+          radarr = {
+            enable = true;
+            openFirewall = true;
+            group = "users";
+            settings.server.port = ports.radarr;
+          };
+          sonarr = {
+            enable = true;
+            openFirewall = true;
+            group = "users";
+            settings.server.port = ports.sonarr;
+          };
+          prowlarr = {
+            enable = true;
+            openFirewall = true;
+            settings.server.port = ports.prowlarr;
           };
         };
         system.stateVersion = config.system.stateVersion;
