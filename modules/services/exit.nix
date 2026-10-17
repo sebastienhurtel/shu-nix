@@ -12,13 +12,7 @@ let
   hostAddress = "192.168.254.252";
 in
 {
-  options.shu.services.exitNode = {
-    enable = lib.mkEnableOption "Enable exitNode as systemd container";
-    interface = lib.mkOption {
-      type = lib.types.str;
-      default = "eth0";
-    };
-  };
+  options.shu.services.exitNode.enable = lib.mkEnableOption "Enable exitNode as systemd container";
 
   config = lib.mkIf cfg.enable {
     networking.nat = {

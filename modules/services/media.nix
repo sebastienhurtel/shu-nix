@@ -12,6 +12,7 @@ let
   containerAddress = "192.168.254.250";
   hostAddress = "192.168.254.249";
   lanSubnet = "192.168.1.0/24";
+  allowedHosts = "deftones,192.168.1.250";
   ports = {
     transmission = 9091;
     radarr = 7878;
@@ -20,13 +21,7 @@ let
   };
 in
 {
-  options.shu.services.media = {
-    enable = lib.mkEnableOption "Enable media as systemd container";
-    interface = lib.mkOption {
-      type = lib.types.str;
-      default = "eth0";
-    };
-  };
+  options.shu.services.media.enable = lib.mkEnableOption "Enable media as systemd container";
 
   imports = [ agenix.nixosModules.default ];
   config = lib.mkIf cfg.enable {
@@ -36,6 +31,7 @@ in
     };
     age.secrets.media.file = "${self}/secrets/media.age";
     systemd.tmpfiles.rules = [
+      "d /var/lib/tailscale-media 0700 root root -"
       "d /data/downloads 2775 ${toString config.ids.uids.transmission} ${toString config.ids.gids.users} -"
     ];
     containers.media = {
@@ -46,6 +42,10 @@ in
       localAddress = "${containerAddress}";
       bindMounts = {
         "${config.age.secrets.media.path}".isReadOnly = true;
+        "/var/lib/tailscale" = {
+          hostPath = "/var/lib/tailscale-media";
+          isReadOnly = false;
+        };
         "/data/downloads" = {
           hostPath = "/data/downloads";
           isReadOnly = false;
@@ -65,9 +65,31 @@ in
         containerPort = port;
       }) ports;
       config = {
-        networking.useHostResolvConf = false;
+        networking = {
+          useHostResolvConf = false;
+          hosts."45.90.162.252" = [ "aphex.shurtel.fr" ];
+          nftables = {
+            enable = true;
+            tables.isolation = {
+              family = "inet";
+              content = ''
+                chain output {
+                  type filter hook output priority filter; policy drop;
+                  oifname { "lo", "tailscale0" } accept
+                  meta mark & 0x00ff0000 == 0x00080000 accept
+                  oifname "eth0" ct direction reply accept
+                }
+              '';
+            };
+          };
+        };
         systemd.services = {
-          tailscaled-autoconnect.serviceConfig.Type = lib.mkForce "exec";
+          # To be removed?
+          tailscaled-autoconnect.serviceConfig = {
+            Type = lib.mkForce "exec";
+            NotifyAccess = "main";
+          };
+          transmission.serviceConfig.RootDirectory = lib.mkForce "";
           lan-route = {
             description = "Route LAN outside of tailscale exit node";
             wantedBy = [ "multi-user.target" ];
@@ -91,6 +113,7 @@ in
               "--exit-node=100.64.0.7"
               "--exit-node-allow-lan-access"
             ];
+            useRoutingFeatures = "client";
           };
           transmission = {
             enable = true;
@@ -101,7 +124,6 @@ in
               rpc-port = ports.transmission;
               download-dir = "/data/downloads/complete";
               incomplete-dir = "/data/downloads/incomplete";
-              incomplete-dir-enabled = true;
               umask = "002";
               rpc-bind-address = "0.0.0.0";
               rpc-whitelist = "127.0.0.1,192.168.1.*";
@@ -112,18 +134,27 @@ in
             enable = true;
             openFirewall = true;
             group = "users";
-            settings.server.port = ports.radarr;
+            settings.server = {
+              port = ports.radarr;
+              allowedhosts = allowedHosts;
+            };
           };
           sonarr = {
             enable = true;
             openFirewall = true;
             group = "users";
-            settings.server.port = ports.sonarr;
+            settings.server = {
+              port = ports.sonarr;
+              allowedhosts = allowedHosts;
+            };
           };
           prowlarr = {
             enable = true;
             openFirewall = true;
-            settings.server.port = ports.prowlarr;
+            settings.server = {
+              port = ports.prowlarr;
+              allowedhosts = allowedHosts;
+            };
           };
         };
         system.stateVersion = config.system.stateVersion;
