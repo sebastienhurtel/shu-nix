@@ -21,6 +21,7 @@ in
     };
 
     security.acme.defaults.dnsResolver = "1.1.1.1:53";
+    security.sudo.wheelNeedsPassword = lib.mkForce true;
     boot.kernel.sysctl = {
       "net.ipv6.conf.eth0.accept_ra" = 0;
       "net.ipv4.ip_forward" = 1;
@@ -39,7 +40,10 @@ in
     services = {
       openssh = {
         enable = true;
-        settings.PasswordAuthentication = false;
+        settings = {
+          PasswordAuthentication = false;
+          KbdInteractiveAuthentication = false;
+        };
         openFirewall = true;
       };
       avahi.enable = false;
