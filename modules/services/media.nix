@@ -34,6 +34,8 @@ in
       "d /var/lib/tailscale-media 0700 root root -"
       "d /data/downloads 2775 ${toString config.ids.uids.transmission} ${toString config.ids.gids.users} -"
     ];
+    # Pin on the same cores as plex (see plex.nix --cpuset-cpus)
+    systemd.services."container@media".serviceConfig.AllowedCPUs = "12-15";
     containers.media = {
       autoStart = true;
       privateNetwork = true;
