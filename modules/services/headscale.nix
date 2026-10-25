@@ -99,11 +99,18 @@ in
                 mode = "file";
                 path = pkgs.writeText "policy.hujson" (
                   builtins.toJSON {
+                    autoApprovers.exitNode = [ "tag:exit" ];
+                    groups = {
+                      "group:nas_admin" = [
+                        "shu@"
+                        "thomas@"
+                      ];
+                    };
                     tagOwners = {
                       "tag:media" = [ "shu@" ];
                       "tag:exit" = [ "shu@" ];
+                      "tag:nas" = [ "group:nas_admin" ];
                     };
-                    autoApprovers.exitNode = [ "tag:exit" ];
                     grants = [
                       {
                         src = [ "tag:media" ];
@@ -117,6 +124,16 @@ in
                         dst = [
                           "autogroup:internet"
                           "autogroup:self"
+                          "tag:media"
+                        ];
+                        ip = [ "*" ];
+                      }
+                      {
+                        src = [
+                          "group:nas_admin"
+                        ];
+                        dst = [
+                          "tag:nas"
                         ];
                         ip = [ "*" ];
                       }
