@@ -7,17 +7,26 @@
 }:
 let
   cfg = config.shu.services.headscale;
-  hostPort = 443;
-  derpPort = 3478;
-  containerPort = hostPort;
   containerInterface = "ve-headscale";
   localAddress = "192.168.254.254";
   hostAddress = "192.168.254.253";
   baseDomain = "shurtel.fr";
   fqdn = "${hostname}.${baseDomain}";
+  ports = {
+    headscale = 443;
+    derp = 3478;
+  };
 in
 {
-  options.shu.services.headscale.enable = lib.mkEnableOption "Enable headscale as systemd container";
+  options.shu.services.headscale = {
+    enable = lib.mkEnableOption "Enable headscale as systemd container";
+    ports = lib.mkOption {
+      type = lib.types.attrsOf lib.types.port;
+      default = ports;
+      readOnly = true;
+      description = "Ports used by headscale container";
+    };
+  };
 
   config = lib.mkIf cfg.enable {
     networking.nat = {
@@ -35,38 +44,20 @@ in
         isReadOnly = false;
       };
 
-      forwardPorts = [
-        {
-          protocol = "tcp";
-          hostPort = hostPort;
-          containerPort = containerPort;
-        }
-        {
-          protocol = "udp";
-          hostPort = derpPort;
-          containerPort = derpPort;
-        }
-      ];
+      forwardPorts = lib.mapAttrsToList (_: port: {
+        protocol = "tcp";
+        hostPort = port;
+        containerPort = port;
+      }) ports;
 
       config = {
-        networking = {
-          useHostResolvConf = false;
-          firewall = {
-            allowedTCPPorts = [
-              containerPort
-            ];
-            allowedUDPPorts = [
-              derpPort
-            ];
-          };
-        };
-
+        networking.useHostResolvConf = false;
         services = {
           resolved.enable = true;
           headscale = {
             package = pkgs.unstable.headscale;
             enable = true;
-            port = containerPort;
+            port = ports.headscale;
             address = "0.0.0.0";
             settings = {
               derp = {
@@ -78,11 +69,11 @@ in
                   region_id = 999;
                   region_code = "shu";
                   region_name = "shurtel";
-                  stun_listen_addr = "0.0.0.0:${toString derpPort}";
+                  stun_listen_addr = "0.0.0.0:${toString ports.derp}";
                   automatically_add_embedded_derp_region = true;
                 };
               };
-              server_url = "https://${fqdn}:${toString containerPort}";
+              server_url = "https://${fqdn}:${toString ports.headscale}";
               dns = {
                 magic_dns = true;
                 nameservers.global = [

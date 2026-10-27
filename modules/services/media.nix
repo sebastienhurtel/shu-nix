@@ -21,7 +21,15 @@ let
   };
 in
 {
-  options.shu.services.media.enable = lib.mkEnableOption "Enable media as systemd container";
+  options.shu.services.media = {
+    enable = lib.mkEnableOption "Enable media as systemd container";
+    ports = lib.mkOption {
+      type = lib.types.attrsOf lib.types.port;
+      default = ports;
+      readOnly = true;
+      description = "Ports used by media container";
+    };
+  };
 
   imports = [ agenix.nixosModules.default ];
   config = lib.mkIf cfg.enable {

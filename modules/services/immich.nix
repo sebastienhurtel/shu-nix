@@ -9,11 +9,20 @@ let
   containerAddress = "192.168.254.254";
   hostAddress = "192.168.254.253";
   containerInterface = "ve-immich";
-  containerPort = hostPort;
-  hostPort = 2283;
+  ports = {
+    immich = 2283;
+  };
 in
 {
-  options.shu.services.immich.enable = lib.mkEnableOption "Enable immich as systemd container";
+  options.shu.services.immich = {
+    enable = lib.mkEnableOption "Enable immich as systemd container";
+    ports = lib.mkOption {
+      type = lib.types.attrsOf lib.types.port;
+      default = ports;
+      readOnly = true;
+      description = "Ports used by immich container";
+    };
+  };
 
   config = lib.mkIf cfg.enable {
     networking.nat = {
@@ -54,20 +63,13 @@ in
           modifier = "rw";
         }
       ];
-      forwardPorts = [
-        {
-          protocol = "tcp";
-          hostPort = hostPort;
-          containerPort = containerPort;
-        }
-      ];
+      forwardPorts = lib.mapAttrsToList (_: port: {
+        protocol = "tcp";
+        hostPort = port;
+        containerPort = port;
+      }) ports;
       config = {
-        networking = {
-          useHostResolvConf = false;
-          firewall.allowedTCPPorts = [
-            containerPort
-          ];
-        };
+        networking.useHostResolvConf = false;
         services = {
           resolved.enable = true;
           postgresql.enable = true;
@@ -75,7 +77,7 @@ in
             enable = true;
             package = pkgs.unstable.immich;
             openFirewall = true;
-            port = hostPort;
+            port = ports.immich;
             mediaLocation = "/photos";
             host = "0.0.0.0";
             environment = {
