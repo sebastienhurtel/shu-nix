@@ -12,38 +12,53 @@ let
   containerAddress = "192.168.254.250";
   hostAddress = "192.168.254.249";
   lanSubnet = "192.168.1.0/24";
-  allowedHosts = "deftones,192.168.1.250";
+  bypassExitNode = [
+    lanSubnet
+    hostAddress
+  ];
   ports = {
     transmission = 9091;
     radarr = 7878;
     sonarr = 8989;
     prowlarr = 9696;
   };
+  fqdn = name: "${name}.${config.shu.services.caddy.domain}";
+  allowedHosts = lib.concatStringsSep "," (
+    [
+      "deftones"
+      "192.168.1.250"
+    ]
+    ++ map fqdn (lib.attrNames ports)
+  );
 in
 {
-  options.shu.services.media = {
-    enable = lib.mkEnableOption "Enable media as systemd container";
-    ports = lib.mkOption {
-      type = lib.types.attrsOf lib.types.port;
-      default = ports;
-      readOnly = true;
-      description = "Ports used by media container";
-    };
-  };
+  options.shu.services.media.enable = lib.mkEnableOption "Enable media as systemd container";
 
   imports = [ agenix.nixosModules.default ];
   config = lib.mkIf cfg.enable {
+    shu.services.caddy = {
+      enable = true;
+      backends = lib.mapAttrs (_: port: {
+        inherit port;
+        host = containerAddress;
+      }) ports;
+    };
+
     networking.nat = {
       enable = true;
       internalInterfaces = [ containerInterface ];
     };
+
     age.secrets.media.file = "${self}/secrets/media.age";
-    systemd.tmpfiles.rules = [
-      "d /var/lib/tailscale-media 0700 root root -"
-      "d /data/downloads 2775 ${toString config.ids.uids.transmission} ${toString config.ids.gids.users} -"
-    ];
-    # Pin on the same cores as plex (see plex.nix --cpuset-cpus)
-    systemd.services."container@media".serviceConfig.AllowedCPUs = "12-15";
+
+    systemd = {
+      tmpfiles.rules = [
+        "d /var/lib/tailscale-media 0700 root root -"
+        "d /data/downloads 2775 ${toString config.ids.uids.transmission} ${toString config.ids.gids.users} -"
+      ];
+      services."container@media".serviceConfig.AllowedCPUs = "12-15";
+    };
+
     containers.media = {
       autoStart = true;
       privateNetwork = true;
@@ -69,11 +84,13 @@ in
           isReadOnly = false;
         };
       };
+
       forwardPorts = lib.mapAttrsToList (_: port: {
         protocol = "tcp";
         hostPort = port;
         containerPort = port;
       }) ports;
+
       config = {
         networking = {
           useHostResolvConf = false;
@@ -107,8 +124,12 @@ in
             serviceConfig = {
               Type = "oneshot";
               RemainAfterExit = true;
-              ExecStart = "${pkgs.iproute2}/bin/ip rule add to ${lanSubnet} lookup main priority 5200";
-              ExecStop = "${pkgs.iproute2}/bin/ip rule del to ${lanSubnet} lookup main priority 5200";
+              ExecStart = map (
+                to: "${pkgs.iproute2}/bin/ip rule add to ${to} lookup main priority 5200"
+              ) bypassExitNode;
+              ExecStop = map (
+                to: "${pkgs.iproute2}/bin/ip rule del to ${to} lookup main priority 5200"
+              ) bypassExitNode;
             };
           };
         };
@@ -136,8 +157,8 @@ in
               incomplete-dir = "/data/downloads/incomplete";
               umask = "002";
               rpc-bind-address = "0.0.0.0";
-              rpc-whitelist = "127.0.0.1,192.168.1.*";
-              rpc-host-whitelist = config.networking.hostName;
+              rpc-whitelist = "127.0.0.1,192.168.1.*,${hostAddress}";
+              rpc-host-whitelist = "${config.networking.hostName},${fqdn "transmission"}";
             };
           };
           radarr = {

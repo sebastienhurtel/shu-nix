@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./caddy.nix
     ./headscale.nix
     ./immich.nix
     ./media.nix

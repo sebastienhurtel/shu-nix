@@ -31,6 +31,10 @@ in
     ];
 
     shu.services = {
+      caddy.tailnetAddresses = {
+        A = "100.64.0.3";
+        AAAA = "fd7a:115c:a1e0::3";
+      };
       immich.enable = true;
       plex.enable = true;
       nfs.enable = true;

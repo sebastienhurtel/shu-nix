@@ -14,17 +14,16 @@ let
   };
 in
 {
-  options.shu.services.immich = {
-    enable = lib.mkEnableOption "Enable immich as systemd container";
-    ports = lib.mkOption {
-      type = lib.types.attrsOf lib.types.port;
-      default = ports;
-      readOnly = true;
-      description = "Ports used by immich container";
-    };
-  };
+  options.shu.services.immich.enable = lib.mkEnableOption "Enable immich as systemd container";
 
   config = lib.mkIf cfg.enable {
+    shu.services.caddy = {
+      enable = true;
+      backends.immich = {
+        host = containerAddress;
+        port = ports.immich;
+      };
+    };
     networking.nat = {
       enable = true;
       internalInterfaces = [ containerInterface ];

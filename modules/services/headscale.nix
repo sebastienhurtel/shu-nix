@@ -3,6 +3,7 @@
   lib,
   pkgs,
   hostname,
+  self,
   ...
 }:
 let
@@ -12,6 +13,27 @@ let
   hostAddress = "192.168.254.253";
   baseDomain = "shurtel.fr";
   fqdn = "${hostname}.${baseDomain}";
+  nextDns = [
+    "45.90.28.29"
+    "45.90.30.29"
+  ];
+  caddyRecords = lib.concatMap (
+    host:
+    let
+      caddy = host.config.shu.services.caddy;
+    in
+    lib.optionals caddy.enable (
+      lib.concatLists (
+        lib.mapAttrsToList (
+          name: _:
+          lib.mapAttrsToList (type: value: {
+            name = "${name}.${caddy.domain}";
+            inherit type value;
+          }) caddy.tailnetAddresses
+        ) caddy.backends
+      )
+    )
+  ) (lib.attrValues self.nixosConfigurations);
   ports = {
     headscale = 443;
     derp = 3478;
@@ -20,6 +42,8 @@ in
 {
   options.shu.services.headscale = {
     enable = lib.mkEnableOption "Enable headscale as systemd container";
+    # Not read anywhere: headscale terminates its own TLS and is not behind caddy.
+    # Kept for consistency with the other service modules.
     ports = lib.mkOption {
       type = lib.types.attrsOf lib.types.port;
       default = ports;
@@ -44,14 +68,27 @@ in
         isReadOnly = false;
       };
 
-      forwardPorts = lib.mapAttrsToList (_: port: {
-        protocol = "tcp";
-        hostPort = port;
-        containerPort = port;
-      }) ports;
+      forwardPorts = [
+        {
+          protocol = "tcp";
+          hostPort = ports.headscale;
+          containerPort = ports.headscale;
+        }
+        {
+          protocol = "udp";
+          hostPort = ports.derp;
+          containerPort = ports.derp;
+        }
+      ];
 
       config = {
-        networking.useHostResolvConf = false;
+        networking = {
+          useHostResolvConf = false;
+          firewall = {
+            allowedTCPPorts = [ ports.headscale ];
+            allowedUDPPorts = [ ports.derp ];
+          };
+        };
         services = {
           resolved.enable = true;
           headscale = {
@@ -76,11 +113,12 @@ in
               server_url = "https://${fqdn}:${toString ports.headscale}";
               dns = {
                 magic_dns = true;
-                nameservers.global = [
-                  "45.90.28.29"
-                  "45.90.30.29"
-                ];
+                nameservers = {
+                  global = nextDns;
+                  split.${baseDomain} = nextDns;
+                };
                 base_domain = "ts.${baseDomain}";
+                extra_records = caddyRecords;
               };
               acme_url = "https://acme-v02.api.letsencrypt.org/directory";
               acme_email = "sebastienhurtel+acme@gmail.com";

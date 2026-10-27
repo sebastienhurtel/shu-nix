@@ -10,4 +10,5 @@ in
   "shScripts.age".publicKeys = [ sebastien ];
   "media.age".publicKeys = [ deftones ];
   "exit.age".publicKeys = [ aphex ];
+  "caddyDns.age".publicKeys = [ deftones ];
 }
