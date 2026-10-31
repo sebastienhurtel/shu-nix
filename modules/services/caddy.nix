@@ -19,7 +19,7 @@ let
     b: if lib.hasInfix ":" b.host then "[${b.host}]:${toString b.port}" else "${b.host}:${toString b.port}";
   caddyPackage = pkgs.caddy.withPlugins {
     plugins = [ "github.com/caddy-dns/gandi@v1.2.1" ];
-    hash = "sha256-M9LUWmuujoJsx56V/mfj+LnLy7sSrtNJA1AnS8nK1R4=";
+    hash = "sha256-DIxYAxf9aUtAhVZsRMT0G3PpucEWi4HTE+x6iMCeuR0=";
   };
 in
 {
