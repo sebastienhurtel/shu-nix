@@ -11,6 +11,8 @@ in
 {
   options.shu.hosts.deftones.system.enable = lib.mkEnableOption "Enable sebastien user";
   config = lib.mkIf cfg.enable {
+    systemd.tmpfiles.rules = [ "D /var/lib/nix-build 0755 root root -" ];
+    nix.settings.build-dir = "/var/lib/nix-build";
     networking = {
       # Since nixos-26.05 nm module set wireless.enable = true;
       # mkForce to false
