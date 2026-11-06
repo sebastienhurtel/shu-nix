@@ -52,23 +52,9 @@ let
       float = true;
     }
     {
-      name = "overskride";
-      match = {
-        class = "^((.*)Overskride(.*))$";
-      };
-      float = true;
-    }
-    {
       name = "nautilus";
       match = {
         class = "^(org.gnome.Nautilus)$";
-      };
-      float = true;
-    }
-    {
-      name = "xdg-desktop-portal-gtk";
-      match = {
-        class = "^(xdg-desktop-portal-gtk)$";
       };
       float = true;
     }
@@ -105,6 +91,7 @@ let
       "$mod, Q, killactive,"
       "$mod SHIFT, F, togglefloating,"
       "$mod, up, fullscreen, 1"
+      "$mod SHIFT, up, fullscreen, 0"
       "$mod, O, layoutmsg, rollprev"
       "$mod SHIFT, O, layoutmsg, rollnext"
       "$mod, h, movefocus, l"
@@ -124,7 +111,7 @@ let
       "Control_L&SHIFT, j, movewindoworgroup, d"
       "$mod, page_up, workspace, -1"
       "$mod, page_down, workspace, +1"
-      "$mod, N, exec, ${noctaliaShell} msg call notifications toggleHistory"
+      "$mod, N, exec, ${noctaliaShell} msg panel-toggle control-center notifications"
       ", Print, exec, ${pkgs.grimblast}/bin/grimblast --notify copysave area /home/${username}/Pictures/Screenshots/$(${pkgs.coreutils}/bin/coreutils --coreutils-prog=date --iso-8601=seconds).png"
       "SHIFT, Print, exec, ${pkgs.grimblast}/bin/grimblast --notify copysave output /home/${username}/Pictures/Screenshots/$(${pkgs.coreutils}/bin/coreutils --coreutils-prog=date --iso-8601=seconds).png"
       "$mod, A, exec, ${toggleAnimations}"
@@ -208,10 +195,6 @@ in
     shu = {
       gtk.enable = true;
       hypridle.enable = true;
-      hyprlock.enable = false;
-      rofi.enable = false;
-      waybar.enable = false;
-      swaync.enable = false;
       home = {
         kanshi.enable = true;
         noctalia.enable = true;
@@ -236,7 +219,6 @@ in
           jetbrains-mono
           nautilus
           nerd-fonts.jetbrains-mono
-          overskride
           papirus-icon-theme
           playerctl
         ];
@@ -287,7 +269,6 @@ in
             focus_on_activate = true;
             layers_hog_keyboard_focus = true;
             middle_click_paste = false;
-            #            new_window_takes_over_fullscreen = 2;
           };
 
           master = {
