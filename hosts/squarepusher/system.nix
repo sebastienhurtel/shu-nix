@@ -63,7 +63,10 @@ in
       tlp = {
         enable = true;
         package = pkgs.unstable.tlp;
-        pd.enable = true;
+        pd = {
+          enable = true;
+          package = pkgs.unstable.tlp-pd;
+        };
         settings = {
           CPU_ENERGY_PERF_POLICY_ON_AC = "balance_performance";
           CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
