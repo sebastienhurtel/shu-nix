@@ -286,3 +286,4 @@ unbind C-a
 
 # move status line to top
 #set -g status-position top
+

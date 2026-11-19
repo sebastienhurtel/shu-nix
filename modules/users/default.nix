@@ -11,5 +11,6 @@
     home.stateVersion = "23.11";
     # required to autoload fonts from packages installed via Home Manager
     fonts.fontconfig.enable = true;
+
   };
 }
