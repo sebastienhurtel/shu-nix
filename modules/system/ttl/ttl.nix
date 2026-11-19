@@ -13,7 +13,7 @@ in
       enable = lib.mkEnableOption {
         default = false;
       };
-      package = lib.mkPackageOption pkgs.unstable "ttl" { };
+      package = lib.mkPackageOption pkgs "ttl" { };
     };
   };
   config = lib.mkIf cfg.enable {
