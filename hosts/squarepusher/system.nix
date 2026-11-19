@@ -90,9 +90,11 @@ in
       flatpak.enable = true;
       printing = {
         enable = true;
+        browsed.enable = false;
         openFirewall = true;
         drivers = with pkgs; [
           dcp9020cdw-cupswrapper
+          dcp9020cdwlpr
           cups-filters
         ];
       };
