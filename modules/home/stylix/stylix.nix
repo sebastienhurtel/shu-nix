@@ -16,7 +16,7 @@ in
     home-manager.users.${username} = {
       stylix = {
         enable = true;
-        base16Scheme = "${pkgs.base16-schemes}/share/themes/google-dark.yaml";
+        base16Scheme = "${self}/modules/home/stylix/doom-one.yaml";
         image = "${self}/wallpaper.png";
         polarity = "dark";
         opacity = {
@@ -38,7 +38,7 @@ in
           };
           sizes = {
             applications = 12;
-            terminal = 10;
+            terminal = 10.5;
             desktop = 10;
             popups = 10;
           };
@@ -54,12 +54,7 @@ in
           dark = "Papirus-Dark";
           light = "Papirus";
         };
-        targets = {
-          alacritty.enable = false;
-          tmux.enable = false;
-          emacs.enable = false;
-          rofi.enable = false;
-        };
+        targets.emacs.enable = false;
       };
     };
   };

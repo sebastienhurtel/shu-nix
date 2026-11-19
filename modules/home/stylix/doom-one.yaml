@@ -1,0 +1,21 @@
+system: "base16"
+name: "Doom One"
+author: "adapted from doom-themes' doom-one (henrik lissner)"
+variant: "dark"
+palette:
+  base00: "#282c34" # bg                       - default background
+  base01: "#23272e" # base3                    - panels, status bars
+  base02: "#3f444a" # base4                    - selection, current line
+  base03: "#5b6268" # base5                    - comments, invisibles
+  base04: "#73797e" # base6                    - dark foreground (status bars)
+  base05: "#bbc2cf" # fg                       - default foreground
+  base06: "#dfdfdf" # base8                    - light foreground
+  base07: "#ffffff" #                          - lightest foreground
+  base08: "#ff6c6b" # red                      - variables, tags, diff deleted
+  base09: "#da8548" # orange                   - numbers, constants
+  base0A: "#ecbe7b" # yellow                   - types, classes
+  base0B: "#98be65" # green                    - strings, diff inserted
+  base0C: "#46d9ff" # cyan                     - escapes, regex, support
+  base0D: "#51afef" # blue                     - functions, headings
+  base0E: "#c678dd" # magenta                  - keywords, storage
+  base0F: "#a9a1e1" # violet                   - deprecated, embedded

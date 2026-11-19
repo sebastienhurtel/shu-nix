@@ -98,7 +98,7 @@ in
       git.enable = true;
       shell.enable = true;
       stylix.enable = if wm != "headless" then true else false;
-      term.enable = if wm == "headless" then false else true;
+      alacritty.enable = if wm == "headless" then false else true;
       tmux.enable = if wm == "headless" then false else true;
     };
 
