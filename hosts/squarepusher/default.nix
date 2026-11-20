@@ -10,4 +10,5 @@
     hosts.squarepusher.system.enable = true;
     users.${username}.enable = true;
   };
+  fonts.fontconfig.subpixel.rgba = "rgb";
 }
