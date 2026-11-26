@@ -39,8 +39,8 @@ in
           sizes = {
             applications = 12;
             terminal = 10.5;
-            desktop = 10;
-            popups = 10;
+            desktop = 13;
+            popups = 13;
           };
         };
         cursor = {
