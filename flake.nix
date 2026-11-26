@@ -105,6 +105,11 @@
         username = "sebastien";
         wm = "hyprland";
       };
+      nixosConfigurations.marcus = mkNixosConfiguration {
+        hostname = "marcus";
+        username = "sebastien";
+        wm = "hyprland";
+      };
       nixosConfigurations.deftones = mkNixosConfiguration {
         hostname = "deftones";
         username = "sebastien";

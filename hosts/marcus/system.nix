@@ -1,0 +1,143 @@
+{
+  pkgs,
+  username,
+  lib,
+  config,
+  ...
+}:
+let
+  cfg = config.shu.hosts.marcus.system;
+in
+{
+  options.shu.hosts.marcus.system.enable = lib.mkEnableOption "Enable sebastien user";
+  config = lib.mkIf cfg.enable {
+    environment = {
+      systemPackages = with pkgs; [
+        bridge-utils
+        linuxKernel.packages.linux_zen.cpupower
+        openssl
+        powertop
+        python3
+        simple-scan
+        virt-manager
+      ];
+    };
+
+    nix.gc.automatic = lib.mkForce false;
+
+    programs = {
+      gnupg.agent = {
+        enable = true;
+        enableSSHSupport = false;
+        pinentryPackage = pkgs.pinentry-gnome3;
+      };
+      nh = {
+        enable = true;
+        flake = "/home/${username}/.dotfiles";
+        clean = {
+          enable = true;
+          extraArgs = "--keep 1 --keep-since 1d";
+        };
+      };
+      wireshark.enable = true;
+    };
+
+    networking.networkmanager = {
+      plugins = [ pkgs.networkmanager_strongswan ];
+    };
+
+    # required for Flatpak
+    xdg.portal.enable = true;
+
+    services = {
+      upower.enable = true;
+      tlp = {
+        enable = true;
+        package = pkgs.unstable.tlp;
+        pd = {
+          enable = true;
+          package = pkgs.unstable.tlp-pd;
+        };
+        settings = {
+          CPU_ENERGY_PERF_POLICY_ON_AC = "balance_performance";
+          CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+
+          CPU_SCALING_GOVERNOR_ON_AC = "performance";
+          CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+
+          RADEON_DPM_STATE_ON_AC = "performance";
+          RADEON_DPM_STATE_ON_BAT = "battery";
+
+          RADEON_DPM_PERF_LEVEL_ON_AC = "auto";
+          RADEON_DPM_PERF_LEVEL_ON_BAT = "auto";
+
+          RUNTIME_PM_ON_AC = "auto";
+
+          #Optional helps save long term battery health
+          START_CHARGE_THRESH_BAT0 = 50; # bellow it starts to charge
+          STOP_CHARGE_THRESH_BAT0 = 80; # above it stops charging
+        };
+      };
+      flatpak.enable = true;
+      printing = {
+        enable = true;
+        browsed.enable = false;
+        openFirewall = true;
+        drivers = with pkgs; [
+          dcp9020cdw-cupswrapper
+          dcp9020cdwlpr
+          cups-filters
+        ];
+      };
+      pipewire = {
+        enable = true;
+        alsa = {
+          enable = true;
+          support32Bit = true;
+        };
+        jack.enable = true;
+        pulse.enable = true;
+        wireplumber.enable = true;
+      };
+      gnome.gnome-keyring.enable = true;
+      gvfs.enable = true;
+      pulseaudio.enable = false;
+    };
+
+    systemd.services.syncthing.environment.STNODEFAULTFOLDER = "true";
+
+    virtualisation = {
+      docker = {
+        enable = true;
+        enableOnBoot = true;
+        daemon.settings = {
+          features = {
+            buildkit = true;
+          };
+          default-address-pools = [
+            {
+              base = "128.66.0.0/17";
+              size = 24;
+            }
+          ];
+          bip = "192.0.0.1/24";
+        };
+      };
+      libvirtd = {
+        enable = true;
+        qemu = {
+          package = pkgs.qemu_kvm;
+          runAsRoot = true;
+          swtpm.enable = true;
+        };
+      };
+    };
+
+    users.users.${username}.extraGroups = [
+      "docker"
+      "libvirtd"
+    ];
+
+    boot.plymouth.enable = true;
+  };
+}

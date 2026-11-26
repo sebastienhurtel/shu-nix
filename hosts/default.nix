@@ -4,6 +4,7 @@
     ./aphex
     ./deftones
     ./squarepusher
+    ./marcus
   ];
 
   shu = {
