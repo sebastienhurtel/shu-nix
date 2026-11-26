@@ -50,7 +50,7 @@ in
     hardware.steam-hardware.enable = true;
 
     networking.networkmanager = {
-      plugins = [ pkgs.networkmanager_strongswan ];
+      plugins = [ pkgs.networkmanager-strongswan ];
     };
 
     # required for Flatpak
