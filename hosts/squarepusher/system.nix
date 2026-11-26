@@ -82,9 +82,10 @@ in
 
           RUNTIME_PM_ON_AC = "auto";
 
-          #Optional helps save long term battery health
-          START_CHARGE_THRESH_BAT0 = 50; # bellow it starts to charge
-          STOP_CHARGE_THRESH_BAT0 = 80; # above it stops charging
+          START_CHARGE_THRESH_BAT0 = 50;
+          STOP_CHARGE_THRESH_BAT0 = 80;
+
+          AMDGPU_ABM_LEVEL_ON_BAL=0;
         };
       };
       flatpak.enable = true;
