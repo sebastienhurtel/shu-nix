@@ -9,6 +9,59 @@ let
   cfg = config.shu.hyprland;
   noctaliaShell = "${config.home-manager.users.${username}.programs.noctalia.package}/bin/noctalia";
 
+  edpRule = "eDP-1, 1920x1200@60, 0x0, 1";
+
+  # Idempotent: decides the laptop panel state from (lid, external monitors)
+  # and only calls hyprctl when the current state differs.
+  clamshell = pkgs.writeShellApplication {
+    name = "clamshell";
+    runtimeInputs = with pkgs; [
+      hyprland
+      jq
+      gnugrep
+    ];
+    text = ''
+      internal="eDP-1"
+
+      # Lid state: from the bindl argument, or read it (login / reload / hotplug)
+      lid="''${1:-}"
+      if [ -z "$lid" ]; then
+        if grep -q closed /proc/acpi/button/lid/*/state; then lid=closed; else lid=open; fi
+      fi
+
+      monitors=$(hyprctl monitors all -j)
+      externals=$(jq --arg i "$internal" '
+        [ .[] | select(.name != $i and (.name | test("^(FALLBACK|HEADLESS)") | not) and (.disabled | not)) ]
+        | length' <<<"$monitors")
+      internal_on=$(jq --arg i "$internal" 'any(.[]; .name == $i and (.disabled | not))' <<<"$monitors")
+
+      if [ "$lid" = closed ] && [ "$externals" -gt 0 ]; then
+        if [ "$internal_on" = true ]; then
+          hyprctl keyword monitor "$internal, disable"
+        fi
+      elif [ "$internal_on" = false ]; then
+        hyprctl keyword monitor "${edpRule}"
+      fi
+    '';
+  };
+
+  # Re-run clamshell on monitor hotplug (Hyprland IPC event socket)
+  clamshellListener = pkgs.writeShellApplication {
+    name = "clamshell-listener";
+    runtimeInputs = [
+      pkgs.socat
+      clamshell
+    ];
+    text = ''
+      socat -U - "UNIX-CONNECT:$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock" |
+        while read -r event; do
+          case "$event" in
+            "monitoradded>>"* | "monitorremoved>>"*) clamshell ;;
+          esac
+        done
+    '';
+  };
+
   toggleAnimationsScript = pkgs.writeShellScriptBin "toggleAnimations" ''
     ${noctaliaShell} msg call powerProfile toggleNoctaliaPerformance;
     HYPRGAMEMODE=$(${pkgs.hyprland}/bin/hyprctl getoption animations:enabled | awk 'NR==1{print $2}')
@@ -67,23 +120,6 @@ let
     }
   ];
 
-  workspacerule = [
-    {
-      name = "emacs";
-      match = {
-        class = "^(emacs)$";
-      };
-      workspace = "r[1]";
-    }
-    # "workspace 1, class:^(emacs)$"
-    # "move 10 54, class:^(emacs)$"
-    # "workspace 1, initialTitle:^(Alacritty)$"
-    # "workspace 2, class:^(google-chrome)$"
-    # "workspace 3, class:^(firefox)$"
-    # "workspace 4, class:^(steam)$"
-    # "workspace special:yazi,class:^(yazi)$"
-  ];
-
   binds = {
     bind = [
       "$mod, E, exec, ${noctaliaShell} msg panel-toggle launcher"
@@ -127,8 +163,8 @@ let
       ", XF86AudioPlay, exec, ${noctaliaShell} msg media toggle"
       ", XF86AudioNext, exec, ${noctaliaShell} msg media next"
       ", XF86AudioPrev, exec, ${noctaliaShell} msg media previous"
-      ", switch:off:Lid Switch, exec, ${pkgs.kanshi}/bin/kanshictl switch docked-lid-open"
-      ", switch:on:Lid Switch, exec, ${pkgs.kanshi}/bin/kanshictl switch docked-lid-closed"
+      ", switch:off:Lid Switch, exec, ${lib.getExe clamshell} open"
+      ", switch:on:Lid Switch, exec, ${lib.getExe clamshell} closed"
       ", XF86MonBrightnessUp, exec, ${noctaliaShell} msg brightness-up"
       ", XF86MonBrightnessDown, exec, ${noctaliaShell} msg brightness-down"
     ];
@@ -156,7 +192,7 @@ let
   ];
 
   exec-once = [
-    #    "uwsm app -- ${noctaliaShell}"
+    "uwsm app -- ${lib.getExe clamshellListener}"
     "uwsm app -- ${pkgs.emacs-pgtk}/bin/emacsclient -c"
     "uwsm app -- ${pkgs.alacritty}/bin/alacritty -e zsh -c 'tmux new-session -A -s 0'"
     "uwsm app -- ${pkgs.alacritty}/bin/alacritty -e zsh -c 'tmux new-session -A -s 1'"
@@ -196,7 +232,6 @@ in
       gtk.enable = true;
       hypridle.enable = true;
       home = {
-        kanshi.enable = true;
         noctalia.enable = true;
       };
     };
@@ -233,11 +268,14 @@ in
           inherit windowrule;
           "$mod" = "SUPER";
           exec-once = exec-once;
+          # every (re)load: login, `hyprctl reload`, HM activation
+          exec = [ (lib.getExe clamshell) ];
           bind = binds.bind;
           bindl = binds.bindl;
           monitor = [
-            "eDP-1, 1920x1200@60, 0x0, 1"
-            ", prefered, auto-left, 1"
+            edpRule
+            # any external monitor: highest refresh rate (Samsung → 2560x1440@144)
+            ", highrr, auto-left, 1"
             #prevent hyprlock from crashing
             # https://github.com/hyprwm/hyprlock/issues/434
             "FALLBACK, 1920x1080@60, auto, 1"
