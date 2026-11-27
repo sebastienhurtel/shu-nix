@@ -23,6 +23,20 @@ in
         escapeTime = 10;
         customPaneNavigationAndResize = true;
         resizeAmount = 2;
+        plugins = with pkgs; [
+          tmuxPlugins.logging
+          tmuxPlugins.tmux-sessionx
+          tmuxPlugins.tmux-fzf
+          tmuxPlugins.better-mouse-mode
+          tmuxPlugins.resurrect
+          {
+            plugin = tmuxPlugins.continuum;
+            extraConfig = ''
+              set -g @continuum-restore 'on'
+              set -g @continuum-save-interval '60' # minutes
+            '';
+          }
+        ];
         extraConfig = ''
           # -- general --------------------------------------------------------
           set -g renumber-windows on
@@ -65,9 +79,8 @@ in
           bind -T copy-mode-vi L send -X end-of-line
 
           # -- buffers --------------------------------------------------------
-          bind b list-buffers
+          bind b choose-buffer
           bind p paste-buffer
-          bind P choose-buffer
         '';
       };
     };
