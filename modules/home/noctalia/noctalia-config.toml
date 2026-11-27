@@ -76,15 +76,63 @@ widgetSpacing = 6
     [bar.widgets]
     background_opacity = 0.79999998211860657
     border = "primary"
-    center = [ "control-center", "date", "clock", "notifications" ]
-    end = [ "status", "tray", "network", "bluetooth", "volume", "battery", "session" ]
+    center = [ "group:g1" ]
+    end = [ "group:g4", "group:g3", "group:g2", "session" ]
     margin_edge = 5
     margin_ends = 10
     padding = 10
     radius = 7
     scale = 0.95000000670552254
-    start = [ "launcher", "workspaces" ]
+    start = [ "launcher", "ws_apps" ]
     thickness = 22
+
+        [[bar.widgets.capsule_group]]
+        accordion = false
+        accordion_direction = "end"
+        border = "primary_container"
+        border_width = 1.0
+        enabled = true
+        fill = "surface_container_low"
+        id = "g1"
+        members = [ "control-center", "date", "clock", "notifications" ]
+        opacity = 1.0
+        padding = 6.0
+
+        [[bar.widgets.capsule_group]]
+        accordion = false
+        accordion_direction = "end"
+        border = "primary_container"
+        border_width = 1.0
+        enabled = true
+        fill = "surface_container_low"
+        id = "g2"
+        members = [ "network", "bluetooth", "volume", "battery" ]
+        opacity = 1.0
+        padding = 6.0
+
+        [[bar.widgets.capsule_group]]
+        accordion = false
+        accordion_direction = "end"
+        border = "primary_container"
+        border_width = 1.0
+        enabled = true
+        fill = "surface_container_low"
+        id = "g3"
+        members = [ "tray" ]
+        opacity = 1.0
+        padding = 6.0
+
+        [[bar.widgets.capsule_group]]
+        accordion = false
+        accordion_direction = "end"
+        border = "primary_container"
+        border_width = 1.0
+        enabled = true
+        fill = "surface_container_low"
+        id = "g4"
+        members = [ "bar", "status" ]
+        opacity = 1.0
+        padding = 6.0
 
         [[bar.widgets.left]]
         colorizeDistroLogo = false
@@ -438,7 +486,8 @@ widget_order = [
     "lockscreen-widget-0000000000000001",
     "lockscreen-widget-0000000000000004",
     "lockscreen-widget-0000000000000002",
-    "lockscreen-widget-0000000000000006"
+    "lockscreen-widget-0000000000000006",
+    "lockscreen-login-box@DP-9"
 ]
 
     [lockscreen_widgets.grid]
@@ -464,6 +513,8 @@ widget_order = [
         show_keyboard_layout = true
         show_login_button = true
         show_media = true
+        show_media_controls = true
+        show_password_reveal = true
         show_session_buttons = true
         show_unlock_hint = true
         show_weather = true
@@ -491,6 +542,8 @@ widget_order = [
         show_keyboard_layout = true
         show_login_button = true
         show_media = true
+        show_media_controls = true
+        show_password_reveal = true
         show_session_buttons = true
         show_unlock_hint = true
         show_weather = true
@@ -518,6 +571,37 @@ widget_order = [
         show_keyboard_layout = true
         show_login_button = true
         show_media = true
+        show_media_controls = true
+        show_password_reveal = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-9"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 1280.0
+    cy = 1258.0
+    output = "DP-9"
+    placement_height = 1440.0
+    placement_width = 2560.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-9".settings]
+        background_color = "surface_container"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_media_controls = true
+        show_password_reveal = true
         show_session_buttons = true
         show_unlock_hint = true
         show_weather = true
@@ -526,7 +610,7 @@ widget_order = [
     box_height = 196.0
     box_width = 720.0
     cx = 960.0
-    cy = 1016.0
+    cy = 1016.0000610351562
     output = "eDP-1"
     placement_height = 1200.0
     placement_width = 1920.0
@@ -540,6 +624,8 @@ widget_order = [
         show_keyboard_layout = true
         show_login_button = true
         show_media = true
+        show_media_controls = true
+        show_password_reveal = true
         show_session_buttons = true
         show_unlock_hint = true
         show_weather = true
@@ -563,7 +649,7 @@ widget_order = [
     [lockscreen_widgets.widget.lockscreen-widget-0000000000000002]
     box_height = 144.0
     box_width = 272.0
-    cx = 1744.0
+    cx = 1744.0001220703125
     cy = 144.0
     output = "eDP-1"
     placement_height = 1200.0
@@ -593,7 +679,7 @@ widget_order = [
     [lockscreen_widgets.widget.lockscreen-widget-0000000000000005]
     box_height = 112.0
     box_width = 272.0
-    cx = 1744.0
+    cx = 1744.0001220703125
     cy = 284.0
     output = "eDP-1"
     placement_height = 1200.0
@@ -608,7 +694,7 @@ widget_order = [
     [lockscreen_widgets.widget.lockscreen-widget-0000000000000006]
     box_height = 112.0
     box_width = 272.0
-    cx = 1744.0
+    cx = 1744.0001220703125
     cy = 408.0
     output = "eDP-1"
     placement_height = 1200.0
@@ -696,7 +782,7 @@ refresh_interval = 30
 
 [plugins]
 autoUpdate = true
-enabled = [ "davemhammer/tailscale" ]
+enabled = [ "davemhammer/tailscale", "jamesfeeder/special-workspaces", "rylos/syncthing" ]
 notifyUpdates = true
 
 [sessionMenu]
@@ -835,7 +921,7 @@ translucentWidgets = false
 
 [wallpaper]
 automationEnabled = false
-directory = "/home/sebastien/Pictures/Wallpapers"
+directory = "/home/sebastien/Pictures/backgrounds"
 enableMultiMonitorDirectories = false
 enabled = true
 favorites = []
@@ -873,6 +959,18 @@ wallhavenResolutionWidth = ""
 wallhavenSorting = "relevance"
 wallpaperChangeMode = "random"
 
+    [wallpaper.default]
+    path = "/home/sebastien/Pictures/backgrounds/potw1850a.jpg"
+
+    [wallpaper.last]
+    path = "/home/sebastien/Pictures/backgrounds/potw1850a.jpg"
+
+    [wallpaper.monitors.DP-9]
+    path = "/home/sebastien/Pictures/backgrounds/potw1850a.jpg"
+
+[widget.bar]
+type = "rylos/syncthing:bar"
+
 [widget.brightness]
 show_label = false
 
@@ -890,10 +988,20 @@ mute_color = "secondary"
 show_label = false
 
 [widget.workspaces]
-anchor = false
-focused_output_only = true
-hide_when_empty = false
-labels_only_when_occupied = false
-max_label_chars = 12
-show_labels = false
-style = "focus_hint"
+capsule_radius = "auto"
+label_source = "name"
+labels_only_when_occupied = true
+show_labels = true
+style = "regular"
+
+[widget.ws_apps]
+group_by_workspace = true
+group_single_icon_per_app = true
+hide_empty_workspaces = false
+icon_scale = 1.3
+show_window_title = false
+show_workspace_label = false
+type = "taskbar"
+workspace_group_capsule = true
+workspace_group_content = "icons"
+workspace_label_placement = "inside"
