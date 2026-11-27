@@ -71,7 +71,7 @@
        (eval +overlay)
        llm
        (lookup +docsets)
-       (lsp +peek +eglot)
+       (lsp +eglot)
        magit
        pass
        pdf
