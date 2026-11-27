@@ -9,7 +9,7 @@ let
   cfg = config.shu.hosts.squarepusher.system;
 in
 {
-  options.shu.hosts.squarepusher.system.enable = lib.mkEnableOption "Enable sebastien user";
+  options.shu.hosts.squarepusher.system.enable = lib.mkEnableOption "squarepusher system configuration";
   config = lib.mkIf cfg.enable {
     environment = {
       systemPackages = with pkgs; [
@@ -74,18 +74,12 @@ in
           CPU_SCALING_GOVERNOR_ON_AC = "performance";
           CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
 
-          RADEON_DPM_STATE_ON_AC = "performance";
-          RADEON_DPM_STATE_ON_BAT = "battery";
-
-          RADEON_DPM_PERF_LEVEL_ON_AC = "auto";
-          RADEON_DPM_PERF_LEVEL_ON_BAT = "auto";
-
           RUNTIME_PM_ON_AC = "auto";
 
           START_CHARGE_THRESH_BAT0 = 50;
           STOP_CHARGE_THRESH_BAT0 = 80;
 
-          AMDGPU_ABM_LEVEL_ON_BAL=0;
+          AMDGPU_ABM_LEVEL_ON_BAT = 0;
         };
       };
       flatpak.enable = true;
