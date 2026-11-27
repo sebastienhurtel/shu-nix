@@ -14,7 +14,7 @@ in
     environment = {
       systemPackages = with pkgs; [
         bridge-utils
-        linuxKernel.packages.linux_zen.cpupower
+        config.boot.kernelPackages.cpupower
         openssl
         powertop
         python3
@@ -50,6 +50,9 @@ in
     xdg.portal.enable = true;
 
     services = {
+      # YubiKey: smart card daemon (PIV/OpenPGP via CCID) + udev rules
+      pcscd.enable = true;
+      udev.packages = [ pkgs.yubikey-personalization ];
       upower.enable = true;
       tlp = {
         enable = true;
